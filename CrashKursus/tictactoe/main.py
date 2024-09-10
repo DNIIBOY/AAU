@@ -8,11 +8,10 @@ def main():
     while not board.winner():
         print(f"Player {board.player_to_move}'s turn")
         print(board)
-        row = int(input("Enter row: "))
-        col = int(input("Enter col: "))
+        cell = int(input("Enter cell (1-9): ")) - 1  # Convert to 0-indexed
         try:
-            board.play(row, col)
-        except ValueError as e:
+            board.play_index(cell)
+        except (IndexError, ValueError) as e:
             print(e)
 
     print(board)

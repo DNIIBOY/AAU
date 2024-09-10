@@ -76,6 +76,18 @@ class Board:
         self._board[row][col] = self.player_to_move
         self.player_to_move = Piece.X if self.player_to_move == Piece.O else Piece.O
 
+    def play_index(self, index: int) -> None:
+        """
+        Play a move on the board, taking the index of a square.
+        :param index of the square, must be between 0 and 8
+        :raises IndexError: If the index is out of bounds
+        :return: None
+        """
+        if not 0 <= index <= 8:
+            raise IndexError("Index out of bounds")
+        row, col = divmod(index, 3)
+        self.play(row, col)
+
     def winner(self) -> Piece | None:
         """
         Check if there is a winner on the board.
