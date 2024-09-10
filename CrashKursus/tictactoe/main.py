@@ -5,7 +5,7 @@ from board import Board
 def main():
     board = Board()
 
-    while not board.winner():
+    while not (board.winner() or board.is_full()):
         print(f"Player {board.player_to_move}'s turn")
         print(board)
         cell = int(input("Enter cell (1-9): ")) - 1  # Convert to 0-indexed
@@ -15,8 +15,15 @@ def main():
             print(e)
 
     print(board)
-    print(f"Player {board.winner()} wins!")
+    if board.winner():
+        print(f"Player {board.winner()} wins!")
+    else:
+        print("It's a draw!")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nGoodbye!")
+        exit(0)

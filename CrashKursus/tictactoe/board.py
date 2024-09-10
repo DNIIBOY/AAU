@@ -88,6 +88,13 @@ class Board:
         row, col = divmod(index, 3)
         self.play(row, col)
 
+    def is_full(self) -> bool:
+        """
+        Check if the board is full.
+        :return: True if the board is full, False otherwise
+        """
+        return all(all(cell is not None for cell in row) for row in self._board)
+
     def winner(self) -> Piece | None:
         """
         Check if there is a winner on the board.
