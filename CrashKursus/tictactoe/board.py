@@ -17,7 +17,8 @@ class Row:
     """
     A row on the board.
     Must contain 3 elements, each of which is either a Piece or None.
-    :param pieces: The pieces in the row. Defaults to [None, None, None]
+    :param pieces: The pieces in the row. Defaults to all None
+    :param size: The size of the row. Defaults to 3
     """
 
     def __init__(self, *pieces: Iterable[Piece | None], size: int = 3):
@@ -50,6 +51,7 @@ class Board:
     A tic-tac-toe board.
     The board is a 3x3 grid of Rows.
     :param starting_player: The player who starts the game. Defaults to Piece.X
+    :param size: The size of the board. Defaults to 3
     """
 
     def __init__(self, starting_player: Piece = Piece.X, size: int = 3):
