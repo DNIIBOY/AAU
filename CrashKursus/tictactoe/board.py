@@ -20,11 +20,12 @@ class Row:
     :param pieces: The pieces in the row. Defaults to [None, None, None]
     """
 
-    def __init__(self, *pieces: Iterable[Piece | None]):
+    def __init__(self, *pieces: Iterable[Piece | None], size: int = 3):
+        self._size = size
         if not pieces:
-            pieces = [None, None, None]
-        if len(pieces) != 3:
-            raise ValueError("Row must contain exactly 3 elements")
+            pieces = [None] * self._size
+        if len(pieces) != self._size:
+            raise ValueError(f"Row must contain exactly {size} elements")
         if not all(isinstance(piece, Piece) or piece is None for piece in pieces):
             raise ValueError("Row must contain only Piece instances or None")
         self.pieces = list(pieces)
@@ -37,6 +38,9 @@ class Row:
     def __getitem__(self, key: int) -> Piece | None:
         return self.pieces[key]
 
+    def __len__(self) -> int:
+        return self._size
+
     def __str__(self) -> str:
         return f"{self.pieces[0] or ' '} | {self.pieces[1] or ' '} | {self.pieces[2] or ' '}"
 
@@ -48,9 +52,12 @@ class Board:
     :param starting_player: The player who starts the game. Defaults to Piece.X
     """
 
-    def __init__(self, starting_player: Piece = Piece.X):
-        self._board = [Row() for _ in range(3)]  # Label as private, don't allow direct access
+    def __init__(self, starting_player: Piece = Piece.X, size: int = 3):
+        self._board = [Row(size=size) for _ in range(size)]  # Label as private, don't allow direct access
         self.player_to_move = starting_player
+
+    def __len__(self) -> int:
+        return len(self._board)
 
     def __getitem__(self, key: int) -> Row:
         return self._board[key]
@@ -61,7 +68,17 @@ class Board:
         self._board[key] = value
 
     def __str__(self) -> str:
-        return "\n".join(str(row) for row in self._board)
+        row_divider = "-" * (4*len(self._board[0])+1) + "\n"
+        content = row_divider
+        for row_index, row in enumerate(self._board):
+            content += "| "
+            for col_index, cell in enumerate(row):
+                cell_index = row_index * len(self._board) + col_index + 1  # Add 1 to make it 1-indexed
+                divider = " | " if cell_index < 10 or cell else "| " if cell_index < 99 else "|"
+                content += str(cell or cell_index) + divider
+            content += "\n" + row_divider
+        content = content[:-1]  # Remove trailing newline
+        return content
 
     def play(self, row: int, col: int) -> None:
         """
@@ -83,9 +100,9 @@ class Board:
         :raises IndexError: If the index is out of bounds
         :return: None
         """
-        if not 0 <= index <= 8:
+        if not 0 <= index < len(self._board) * len(self._board[0]):
             raise IndexError("Index out of bounds")
-        row, col = divmod(index, 3)
+        row, col = divmod(index, len(self._board))
         self.play(row, col)
 
     def is_full(self) -> bool:
@@ -100,13 +117,24 @@ class Board:
         Check if there is a winner on the board.
         :return: The winning player, or None if there is no winner
         """
-        for i in range(3):
-            if self._board[i][0] == self._board[i][1] == self._board[i][2] and self._board[i][0] is not None:  # Rows
+        for i in range(len(self._board)):
+            if len(set(self._board[i])) == 1 and self._board[i][0] is not None:  # Rows
                 return self._board[i][0]
-            if self._board[0][i] == self._board[1][i] == self._board[2][i] and self._board[0][i] is not None:  # Columns
+            if len(set(row[i] for row in self._board)) == 1 and self._board[0][i] is not None:  # Columns
                 return self._board[0][i]
-        if self._board[0][0] == self._board[1][1] == self._board[2][2] and self._board[0][0] is not None:  # Left-right diagonal
-            return self._board[0][0]
-        if self._board[0][2] == self._board[1][1] == self._board[2][0] and self._board[0][2] is not None:  # Right-left diagonal
-            return self._board[0][2]
+
+        if self._board[0][0] is not None:  # Top Left->Bottom Right diagonal
+            for i in range(len(self._board)):
+                if self._board[i][i] != self._board[0][0]:
+                    break
+            else:
+                return self._board[0][0]
+
+        if self._board[-1][0] is None:  # Top Right-> Bottom Left diagonal
+            for i in range(len(self._board)):
+                if self._board[i][-1] != self._board[0][-1]:
+                    break
+            else:
+                return self._board[0][-1]
+
         return None

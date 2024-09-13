@@ -3,13 +3,13 @@ from board import Board
 
 
 def main():
-    board = Board()
+    board = Board(size=3)
 
     while not (board.winner() or board.is_full()):
         print(f"Player {board.player_to_move}'s turn")
         print(board)
-        cell = int(input("Enter cell (1-9): ")) - 1  # Convert to 0-indexed
         try:
+            cell = int(input(f"Enter cell (1-{len(board)*len(board[0])}): ")) - 1  # Convert to 0-indexed
             board.play_index(cell)
         except (IndexError, ValueError) as e:
             print(e)
