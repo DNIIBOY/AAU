@@ -27,7 +27,7 @@ class Row:
             pieces = [None] * self._size
         if len(pieces) != self._size:
             raise ValueError(f"Row must contain exactly {size} elements")
-        if not all(isinstance(piece, Piece) or piece is None for piece in pieces):
+        if not all(isinstance(piece, Piece) or piece is None for piece in pieces):  # Only allow Pieces or None
             raise ValueError("Row must contain only Piece instances or None")
         self.pieces = list(pieces)
 
