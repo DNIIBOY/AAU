@@ -1,4 +1,8 @@
 import tkinter as tk
+from matplotlib import pyplot as plt
+from simulator import HopHopSimulator
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
 class App(tk.Tk):
@@ -96,12 +100,28 @@ class App(tk.Tk):
             bg="#EF4444",
             fg="#E5E7EB",
             font=("Arial", 18),
+            command=self.run_simulation
         ).pack()
 
     def _handle_radio_click(self, button):
         for b in self.radio_buttons:
             b.config(bg="#1F2937")
         button.config(bg="#EF4444")
+
+    def run_simulation(self) -> None:
+        simulator = HopHopSimulator(4)
+        results = simulator.generate_win_rates(1000)
+        self.plot_results(results)
+
+    def plot_results(self, results: list[list[float]]) -> None:
+        fig = Figure(figsize=(5, 5), dpi=100)
+        plot1 = fig.add_subplot(111)
+        for i, graph_data in enumerate(results):
+            plot1.plot(graph_data, label=f"Player {i+1}")
+        plot1.legend()
+        canvas = FigureCanvasTkAgg(fig, master=self)
+        canvas.draw()
+        canvas.get_tk_widget().pack()
 
 
 if __name__ == "__main__":
