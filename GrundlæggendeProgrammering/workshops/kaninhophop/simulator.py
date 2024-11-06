@@ -1,9 +1,11 @@
 from game import Game
+from game import GameMode
 
 
 class HopHopSimulator:
-    def __init__(self, player_count: int) -> None:
+    def __init__(self, player_count: int, gamemode: GameMode = GameMode.NORMAL) -> None:
         self.player_count = player_count
+        self.gamemode = gamemode
 
     def run(self, iterations: int) -> list[list[bool]]:
         """
@@ -14,7 +16,7 @@ class HopHopSimulator:
         """
         track_record = [[] for _ in range(self.player_count)]
         for _ in range(iterations):
-            game = Game(self.player_count)
+            game = Game(self.player_count, mode=self.gamemode)
             winners = game.play()
             for starting_position in range(self.player_count):
                 track_record[starting_position].append(starting_position in winners)

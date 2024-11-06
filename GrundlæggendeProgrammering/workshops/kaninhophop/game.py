@@ -1,5 +1,12 @@
 from rabitboard import RabitBoard
 from dice import Dice
+from enum import Enum
+
+
+class GameMode(Enum):
+    QUICK = 0
+    NORMAL = 1
+    SLOW = 2
 
 
 class Player:
@@ -9,10 +16,11 @@ class Player:
 
 
 class Game:
-    def __init__(self, player_count: int, rabbit_count: int = 20):
+    def __init__(self, player_count: int, rabbit_count: int = 20, mode: GameMode = GameMode.NORMAL):
         self.player_count = player_count
         self.players = [Player(i) for i in range(player_count)]
         self.current_player = 0
+        self.mode = mode
         self.board = RabitBoard(rabbit_count)
         self.dice = Dice()
 
@@ -24,10 +32,17 @@ class Game:
         while self.board.rabit_count > 0:
             player = self.players[self.current_player]
             roll = self.dice.roll()
-            took_rabbit = self.board.take_rabbit(roll)
-            if took_rabbit:
-                player.rabbit_count += 1
 
+            if self.mode == GameMode.SLOW and roll is None:  # Player loses a rabbit
+                player.rabbit_count -= 1
+                self.board.rabit_count += 1
+            else:
+                took_rabbit = self.board.take_rabbit(roll)
+                if took_rabbit:
+                    player.rabbit_count += 1
+
+            if self.mode == GameMode.QUICK and roll is None:  # Player gets another turn
+                continue
             self.current_player = (self.current_player + 1) % self.player_count
 
         max_count = max(self.players, key=lambda x: x.rabbit_count).rabbit_count

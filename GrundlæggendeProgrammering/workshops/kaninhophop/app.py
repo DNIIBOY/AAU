@@ -1,13 +1,18 @@
 import tkinter as tk
-from matplotlib import pyplot as plt
 from simulator import HopHopSimulator
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from game import GameMode
 
 
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
+        self.iterations = tk.IntVar(value=1000)
+        self.player_count = tk.IntVar(value=4)
+        self.gamemode = GameMode.NORMAL
+
+        self.plot = None
         self.configure(bg="#111827")
         self.title("Kanin Hop Hop Simulator")
         self.geometry("600x400")
@@ -36,7 +41,8 @@ class App(tk.Tk):
             justify="right",
             width=5,
             bg="#1F2937",
-            fg="#E5E7EB"
+            fg="#E5E7EB",
+            textvariable=self.iterations,
         ).pack(side="left")
 
         player_count = tk.Frame(self, bg="#111827")
@@ -55,7 +61,8 @@ class App(tk.Tk):
             justify="right",
             width=5,
             bg="#1F2937",
-            fg="#E5E7EB"
+            fg="#E5E7EB",
+            textvariable=self.player_count
         ).pack(side="left")
 
         rules_frame = tk.Frame(self, bg="#111827")
@@ -74,14 +81,14 @@ class App(tk.Tk):
         self.radio_buttons = [  # No need to use actual radiobuttons, because tkinter is weird
             tk.Button(
                 radio_frame,
-                text="Standard",
+                text="Hurtig",
                 background="#111827",
                 foreground="#E5E7EB"
             ),
             tk.Button(
                 radio_frame,
-                text="Hurtig",
-                background="#111827",
+                text="Standard",
+                background="#EF4444",
                 foreground="#E5E7EB"
             ),
             tk.Button(
@@ -107,10 +114,15 @@ class App(tk.Tk):
         for b in self.radio_buttons:
             b.config(bg="#1F2937")
         button.config(bg="#EF4444")
+        self.gamemode = {
+            "Hurtig": GameMode.QUICK,
+            "Standard": GameMode.NORMAL,
+            "Langsom": GameMode.SLOW
+        }[button["text"]]
 
     def run_simulation(self) -> None:
-        simulator = HopHopSimulator(4)
-        results = simulator.generate_win_rates(1000)
+        simulator = HopHopSimulator(self.player_count.get(), self.gamemode)
+        results = simulator.generate_win_rates(self.iterations.get())
         self.plot_results(results)
 
     def plot_results(self, results: list[list[float]]) -> None:
@@ -121,7 +133,10 @@ class App(tk.Tk):
         plot1.legend()
         canvas = FigureCanvasTkAgg(fig, master=self)
         canvas.draw()
-        canvas.get_tk_widget().pack()
+        if self.plot:
+            self.plot.destroy()
+        self.plot = canvas.get_tk_widget()
+        self.plot.pack()
 
 
 if __name__ == "__main__":
