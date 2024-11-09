@@ -33,7 +33,8 @@ class App(tk.Tk):
             foreground="#E5E7EB",
             bg="#111827",
             font=("Arial", 18),
-            padx=20
+            padx=20,
+            pady=40,
         ).pack(side="left")
         tk.Entry(
             iterations,
@@ -54,12 +55,13 @@ class App(tk.Tk):
             bg="#111827",
             font=("Arial", 18),
             padx=20,
+            pady=40,
         ).pack(side="left")
         tk.Entry(
             player_count,
             font=("Arial", 24),
             justify="right",
-            width=5,
+            width=3,
             bg="#1F2937",
             fg="#E5E7EB",
             textvariable=self.player_count
@@ -74,6 +76,7 @@ class App(tk.Tk):
             bg="#111827",
             font=("Arial", 18),
             padx=20,
+            pady=30,
         ).pack(side="left")
 
         radio_frame = tk.Frame(rules_frame, bg="#111827")
@@ -108,7 +111,15 @@ class App(tk.Tk):
             fg="#E5E7EB",
             font=("Arial", 18),
             command=self.run_simulation
-        ).pack()
+        ).place(rely=0.9, relx=0.5, anchor="center")
+        self.winner_text = tk.StringVar(value="test")
+        winner_label = tk.Label(
+            background="#111827",
+            foreground="#EF4444",
+            font=("Arial", 18),
+            textvariable=self.winner_text,
+        )
+        winner_label.place(relx=0.6, rely=0.9, anchor="w")
 
     def _handle_radio_click(self, button):
         for b in self.radio_buttons:
@@ -130,13 +141,22 @@ class App(tk.Tk):
         plot1 = fig.add_subplot(111)
         for i, graph_data in enumerate(results):
             plot1.plot(graph_data, label=f"Player {i+1}")
+
+        last_round = [i[-1] for i in results]
+        if all([0.30 <= x <= 0.45 for x in last_round]):
+            ax = fig.gca()
+            ax.set_ylim([0.25, 0.5])
+
         plot1.legend()
         canvas = FigureCanvasTkAgg(fig, master=self)
         canvas.draw()
         if self.plot:
             self.plot.destroy()
         self.plot = canvas.get_tk_widget()
-        self.plot.pack()
+        self.plot.place(relx=0.72, rely=0.4, width=320, height=200, anchor="center")
+        win_rate = max(last_round)
+        winner = last_round.index(win_rate) + 1
+        self.winner_text.set(f"Spiller {winner} ({int(win_rate*100)}%)")
 
 
 if __name__ == "__main__":
