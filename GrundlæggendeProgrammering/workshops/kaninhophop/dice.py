@@ -13,6 +13,10 @@ class Dice:
             None,  # Represents the roll "rabbit"
         ]
 
-    def roll(self):
+    def roll(self) -> RabitExitColor | None:
+        """
+        Roll the dice and return the result.
+        :return: The result of the roll
+        """
         choice = random.choice(self.options)
         return choice

@@ -132,11 +132,19 @@ class App(tk.Tk):
         }[button["text"]]
 
     def run_simulation(self) -> None:
+        """
+        Run the simulation and plot the results.
+        """
         simulator = HopHopSimulator(self.player_count.get(), self.gamemode)
         results = simulator.generate_win_rates(self.iterations.get())
         self.plot_results(results)
 
     def plot_results(self, results: list[list[float]]) -> None:
+        """
+        Plot the results of the simulation.
+        :param results: A list of lists containing the win rates of each player.
+        :return: None
+        """
         fig = Figure(figsize=(5, 5), dpi=100)
         plot1 = fig.add_subplot(111)
         for i, graph_data in enumerate(results):
