@@ -112,7 +112,7 @@ class App(tk.Tk):
             font=("Arial", 18),
             command=self.run_simulation
         ).place(rely=0.9, relx=0.5, anchor="center")
-        self.winner_text = tk.StringVar(value="test")
+        self.winner_text = tk.StringVar(value="")
         winner_label = tk.Label(
             background="#111827",
             foreground="#EF4444",
