@@ -9,7 +9,9 @@ def main():
         print(f"Player {board.player_to_move}'s turn")
         print(board)
         try:
-            cell = int(input(f"Enter cell (1-{len(board)*len(board[0])}): ")) - 1  # Convert to 0-indexed
+            cell = (
+                int(input(f"Enter cell (1-{len(board)*len(board[0])}): ")) - 1
+            )  # Convert to 0-indexed
             board.play_index(cell)
         except (IndexError, ValueError) as e:
             print(e)

@@ -5,7 +5,7 @@ g2 = {
     "a": ["a", "b", "c", "d"],
     "b": ["a", "b", "c", "d"],
     "c": ["a", "b", "c", "d"],
-    "d": ["a", "b", "c", "d"]
+    "d": ["a", "b", "c", "d"],
 }
 
 g3 = {
@@ -64,8 +64,18 @@ class TestGenerateEdges(unittest.TestCase):
     def test_graph_2(self):
         self.assertCountEqual(
             generate_edges(g2),
-            [("b", "c"), ("a", "b"), ("d", "d"), ("a", "c"), ("b", "b"),
-             ("c", "d"), ("c", "c"), ("a", "a"), ("a", "d"), ("b", "d")]
+            [
+                ("b", "c"),
+                ("a", "b"),
+                ("d", "d"),
+                ("a", "c"),
+                ("b", "b"),
+                ("c", "d"),
+                ("c", "c"),
+                ("a", "a"),
+                ("a", "d"),
+                ("b", "d"),
+            ],
         )
 
     def test_graph_3(self):
@@ -88,7 +98,7 @@ class TestGenerateEdges(unittest.TestCase):
                 ("a", "c"),
                 ("e", "j"),
                 ("c", "h"),
-            ]
+            ],
         )
 
 
@@ -113,7 +123,7 @@ class TestGetDegrees(unittest.TestCase):
                 "h": 3,
                 "i": 3,
                 "j": 3,
-            }
+            },
         )
 
 

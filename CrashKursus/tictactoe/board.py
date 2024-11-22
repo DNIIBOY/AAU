@@ -6,6 +6,7 @@ class Piece(Enum):
     """
     An enum representing a piece in a tic-tac-toe game.
     """
+
     X = "X"
     O = "O"
 
@@ -27,7 +28,9 @@ class Row:
             pieces = [None] * self._size
         if len(pieces) != self._size:
             raise ValueError(f"Row must contain exactly {size} elements")
-        if not all(isinstance(piece, Piece) or piece is None for piece in pieces):  # Only allow Pieces or None
+        if not all(
+            isinstance(piece, Piece) or piece is None for piece in pieces
+        ):  # Only allow Pieces or None
             raise ValueError("Row must contain only Piece instances or None")
         self.pieces = list(pieces)
 
@@ -55,7 +58,9 @@ class Board:
     """
 
     def __init__(self, starting_player: Piece = Piece.X, size: int = 3):
-        self._board = [Row(size=size) for _ in range(size)]  # Label as private, don't allow direct access
+        self._board = [
+            Row(size=size) for _ in range(size)
+        ]  # Label as private, don't allow direct access
         self.player_to_move = starting_player
 
     def __len__(self) -> int:
@@ -70,13 +75,19 @@ class Board:
         self._board[key] = value
 
     def __str__(self) -> str:
-        row_divider = "-" * (4*len(self._board[0])+1) + "\n"
+        row_divider = "-" * (4 * len(self._board[0]) + 1) + "\n"
         content = row_divider
         for row_index, row in enumerate(self._board):
             content += "| "
             for col_index, cell in enumerate(row):
-                cell_index = row_index * len(self._board) + col_index + 1  # Add 1 to make it 1-indexed
-                divider = " | " if cell_index < 10 or cell else "| " if cell_index < 99 else "|"
+                cell_index = (
+                    row_index * len(self._board) + col_index + 1
+                )  # Add 1 to make it 1-indexed
+                divider = (
+                    " | "
+                    if cell_index < 10 or cell
+                    else "| " if cell_index < 99 else "|"
+                )
                 content += str(cell or cell_index) + divider
             content += "\n" + row_divider
         content = content[:-1]  # Remove trailing newline
@@ -122,7 +133,10 @@ class Board:
         for i in range(len(self._board)):
             if len(set(self._board[i])) == 1 and self._board[i][0] is not None:  # Rows
                 return self._board[i][0]
-            if len(set(row[i] for row in self._board)) == 1 and self._board[0][i] is not None:  # Columns
+            if (
+                len(set(row[i] for row in self._board)) == 1
+                and self._board[0][i] is not None
+            ):  # Columns
                 return self._board[0][i]
 
         if self._board[0][0] is not None:  # Top Left->Bottom Right diagonal

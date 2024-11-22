@@ -7,7 +7,7 @@ def h(x):
 
 
 def f(x):
-    return 2*x**2 - 10 * x + 12
+    return 2 * x**2 - 10 * x + 12
 
 
 def main():

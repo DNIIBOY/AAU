@@ -5,10 +5,7 @@ from cooling_room import CoolingRoom
 
 class CoolerSimulator:
     def __init__(
-            self,
-            cooling_room: CoolingRoom,
-            delta_t: int = 300,
-            samples: int = 8640
+        self, cooling_room: CoolingRoom, delta_t: int = 300, samples: int = 8640
     ) -> None:
         self.cooling_room = cooling_room
         self.delta_t = delta_t
@@ -23,7 +20,7 @@ class CoolerSimulator:
                 self.cooling_room.temp,
                 self.cooling_room.compressor.cost,
                 self.cooling_room.food.losses,
-                self.cooling_room.total_cost
+                self.cooling_room.total_cost,
             ]
 
         df = pd.DataFrame(data, columns=columns)

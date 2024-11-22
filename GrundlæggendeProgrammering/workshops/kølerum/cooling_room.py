@@ -35,19 +35,16 @@ class Food:
             return
 
         if temp < 3.5:
-            self.losses += (4.39 * exp(-0.49*temp)/300) * delta_t
+            self.losses += (4.39 * exp(-0.49 * temp) / 300) * delta_t
             return
 
         if temp >= 6.5:
-            self.losses += (0.11 * exp(0.31*temp)/300) * delta_t
+            self.losses += (0.11 * exp(0.31 * temp) / 300) * delta_t
 
 
 class Compressor:
     def __init__(
-        self,
-        temp: float = -5,
-        is_on: bool = False,
-        electric_prices: pd.Series = None
+        self, temp: float = -5, is_on: bool = False, electric_prices: pd.Series = None
     ) -> None:
         self.temp = temp
         self.is_on = is_on
@@ -82,7 +79,7 @@ class CoolingRoom:
         thermostat: "Thermostat",
         food: Food,
         door: Door,
-        temp: float = 5
+        temp: float = 5,
     ) -> None:
         self.compressor = compressor
         self.thermostat = thermostat
@@ -113,10 +110,7 @@ class CoolingRoom:
         self.compressor.consume_electricty(i)
         self.food.deteriorate(self.temp)
 
-    def update_temp(
-        self,
-        delta_t: int = 300
-    ) -> None:
+    def update_temp(self, delta_t: int = 300) -> None:
         """
         Update the temperature of the room
         :param i: The current iteration step
@@ -128,7 +122,11 @@ class CoolingRoom:
         if self.door.is_open:
             temp += self._ambient_door_open * (self._ambient_temp - self.temp) * delta_t
         else:
-            temp += self._ambient_door_closed * (self._ambient_temp - self.temp) * delta_t
+            temp += (
+                self._ambient_door_closed * (self._ambient_temp - self.temp) * delta_t
+            )
 
-        temp += self.compressor.temp_factor * (self.compressor.temp - self.temp) * delta_t
+        temp += (
+            self.compressor.temp_factor * (self.compressor.temp - self.temp) * delta_t
+        )
         self.temp = temp

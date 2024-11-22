@@ -13,7 +13,9 @@ class Thermostat(ABC):
         :param room: CoolingRoom to register the thermostat
         :return: None
         """
-        assert isinstance(room, CoolingRoom), "The thermostat can only be registered in a CoolingRoom"
+        assert isinstance(
+            room, CoolingRoom
+        ), "The thermostat can only be registered in a CoolingRoom"
         self.cooling_room = room
 
     @abstractmethod
@@ -48,7 +50,9 @@ class LocalAverageThermostat(Thermostat):
             raise ValueError("Electric prices not set")
 
         current_price = self.electric_prices.iloc[i]
-        local_avg = self.electric_prices.iloc[max(0, i - 5):min(i+5, len(self.electric_prices)-1)].mean()
+        local_avg = self.electric_prices.iloc[
+            max(0, i - 5) : min(i + 5, len(self.electric_prices) - 1)
+        ].mean()
 
         if self.cooling_room.temp >= 6.4:
             return True
@@ -71,7 +75,9 @@ class FutureMinAverageThermostat(Thermostat):
 
         current_price = self.electric_prices.iloc[i]
         near_future_min = self.electric_prices.iloc[
-            min(i+1, len(self.electric_prices)-1):min(i+3, len(self.electric_prices)-1)
+            min(i + 1, len(self.electric_prices) - 1) : min(
+                i + 3, len(self.electric_prices) - 1
+            )
         ].min()
 
         if self.cooling_room.temp >= 6.4:
@@ -94,9 +100,13 @@ class CombinatoricSmartThermostat(Thermostat):
             raise ValueError("Electric prices not set")
 
         current_price = self.electric_prices.iloc[i]
-        local_avg = self.electric_prices.iloc[max(0, i - 5):min(i+5, len(self.electric_prices)-1)].mean()
+        local_avg = self.electric_prices.iloc[
+            max(0, i - 5) : min(i + 5, len(self.electric_prices) - 1)
+        ].mean()
         near_future_min = self.electric_prices.iloc[
-            min(i+1, len(self.electric_prices)-1):min(i+3, len(self.electric_prices)-1)
+            min(i + 1, len(self.electric_prices) - 1) : min(
+                i + 3, len(self.electric_prices) - 1
+            )
         ].min()
 
         if self.cooling_room.temp >= 6.4:

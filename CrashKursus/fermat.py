@@ -16,7 +16,7 @@ def main():
     c = get_float_value("c: ", "c skal være et tal")
     n = get_float_value("n: ", "n skal være et tal")
 
-    if a ** n + b ** n == c ** n:
+    if a**n + b**n == c**n:
         if n == 2:
             print("Yes, that does work!")
         else:

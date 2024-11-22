@@ -32,6 +32,8 @@ class HopHopSimulator:
         win_rates = [[] for _ in range(self.player_count)]
         for starting_position in range(self.player_count):
             for iteration in range(len(track_record[starting_position])):
-                win_rate = sum(track_record[starting_position][:iteration + 1]) / (iteration + 1)
+                win_rate = sum(track_record[starting_position][: iteration + 1]) / (
+                    iteration + 1
+                )
                 win_rates[starting_position].append(win_rate)
         return win_rates

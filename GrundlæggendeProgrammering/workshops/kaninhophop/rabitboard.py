@@ -14,7 +14,7 @@ class RabitBoard:
             RabitExitColor.GREEN: RabitExit(),
             RabitExitColor.PURPLE: RabitExit(),
             RabitExitColor.RED: RabitExit(),
-            RabitExitColor.YELLOW: RabitExit()
+            RabitExitColor.YELLOW: RabitExit(),
         }
 
     def __getitem__(self, item: RabitExitColor) -> RabitExit:

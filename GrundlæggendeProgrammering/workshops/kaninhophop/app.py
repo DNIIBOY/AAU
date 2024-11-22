@@ -22,7 +22,7 @@ class App(tk.Tk):
             text="Kanin Hop Hop Simulator",
             foreground="#EF4444",
             bg="#111827",
-            font=("Arial", 28, "bold")
+            font=("Arial", 28, "bold"),
         ).pack()
 
         iterations = tk.Frame(self, bg="#111827")
@@ -64,7 +64,7 @@ class App(tk.Tk):
             width=3,
             bg="#1F2937",
             fg="#E5E7EB",
-            textvariable=self.player_count
+            textvariable=self.player_count,
         ).pack(side="left")
 
         rules_frame = tk.Frame(self, bg="#111827")
@@ -81,26 +81,28 @@ class App(tk.Tk):
 
         radio_frame = tk.Frame(rules_frame, bg="#111827")
         radio_frame.pack(side="left")
-        self.radio_buttons = [  # No need to use actual radiobuttons, because tkinter is weird
-            tk.Button(
-                radio_frame,
-                text="Hurtig",
-                background="#111827",
-                foreground="#E5E7EB"
-            ),
-            tk.Button(
-                radio_frame,
-                text="Standard",
-                background="#EF4444",
-                foreground="#E5E7EB"
-            ),
-            tk.Button(
-                radio_frame,
-                text="Langsom",
-                background="#111827",
-                foreground="#E5E7EB"
-            )
-        ]
+        self.radio_buttons = (
+            [  # No need to use actual radiobuttons, because tkinter is weird
+                tk.Button(
+                    radio_frame,
+                    text="Hurtig",
+                    background="#111827",
+                    foreground="#E5E7EB",
+                ),
+                tk.Button(
+                    radio_frame,
+                    text="Standard",
+                    background="#EF4444",
+                    foreground="#E5E7EB",
+                ),
+                tk.Button(
+                    radio_frame,
+                    text="Langsom",
+                    background="#111827",
+                    foreground="#E5E7EB",
+                ),
+            ]
+        )
         for button in self.radio_buttons:
             button.config(command=lambda arg=button: self._handle_radio_click(arg))
             button.pack(side="left")
@@ -110,7 +112,7 @@ class App(tk.Tk):
             bg="#EF4444",
             fg="#E5E7EB",
             font=("Arial", 18),
-            command=self.run_simulation
+            command=self.run_simulation,
         ).place(rely=0.9, relx=0.5, anchor="center")
         self.winner_text = tk.StringVar(value="")
         winner_label = tk.Label(
@@ -128,7 +130,7 @@ class App(tk.Tk):
         self.gamemode = {
             "Hurtig": GameMode.QUICK,
             "Standard": GameMode.NORMAL,
-            "Langsom": GameMode.SLOW
+            "Langsom": GameMode.SLOW,
         }[button["text"]]
 
     def run_simulation(self) -> None:

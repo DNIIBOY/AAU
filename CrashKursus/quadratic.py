@@ -6,7 +6,7 @@ def andengrad(a: float, b: float, c: float, include_calculations: bool) -> None:
     topy = 0
     try:
         diskrimi = (b * b) - (4 * a * c)
-        diskrimi_root = diskrimi ** 0.5
+        diskrimi_root = diskrimi**0.5
         r1 = (0 - b - diskrimi_root) / (2 * a)
         r2 = (0 - b + diskrimi_root) / (2 * a)
         topx = (0 - b) / (2 * a)
@@ -29,14 +29,20 @@ def andengrad(a: float, b: float, c: float, include_calculations: bool) -> None:
         a = round(a, 4)
         b = round(b, 4)
         c = round(c, 4)
-        print(f"""Diskriminant:
-{b}² - (4 * {a} * {c}) = {round(diskrimi, 4)}""")
-        print(f"""Rødder:
+        print(
+            f"""Diskriminant:
+{b}² - (4 * {a} * {c}) = {round(diskrimi, 4)}"""
+        )
+        print(
+            f"""Rødder:
 (-{b} + √({round(diskrimi, 4)}) / 2 * {a} = {round(r2, 4)}
-(-{b} - √({round(diskrimi, 4)}) / 2 * {a} = {round(r1, 4)}""")
-        print(f"""Toppunkt:
+(-{b} - √({round(diskrimi, 4)}) / 2 * {a} = {round(r1, 4)}"""
+        )
+        print(
+            f"""Toppunkt:
 x = -{b} / 2 * {a} = {round(topx, 4)}
-y = -{round(diskrimi, 4)} / 4 * {a} = {round(topy, 4)}""")
+y = -{round(diskrimi, 4)} / 4 * {a} = {round(topy, 4)}"""
+        )
         print("""-----------------------------------------""")
 
 
@@ -57,8 +63,10 @@ def take_input(value_name: str) -> float:
 
 def main():
     while True:
-        print("""----------Andengrads Funktioner----------
-             Af: Daniel Nettelfield""")
+        print(
+            """----------Andengrads Funktioner----------
+             Af: Daniel Nettelfield"""
+        )
         a = take_input("a")
         b = take_input("b")
         c = take_input("c")

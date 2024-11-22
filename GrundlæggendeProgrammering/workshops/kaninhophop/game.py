@@ -16,7 +16,12 @@ class Player:
 
 
 class Game:
-    def __init__(self, player_count: int, rabbit_count: int = 20, mode: GameMode = GameMode.NORMAL):
+    def __init__(
+        self,
+        player_count: int,
+        rabbit_count: int = 20,
+        mode: GameMode = GameMode.NORMAL,
+    ):
         self.player_count = player_count
         self.players = [Player(i) for i in range(player_count)]
         self.current_player = 0
@@ -46,4 +51,8 @@ class Game:
             self.current_player = (self.current_player + 1) % self.player_count
 
         max_count = max(self.players, key=lambda x: x.rabbit_count).rabbit_count
-        return {player.starting_position for player in self.players if player.rabbit_count == max_count}
+        return {
+            player.starting_position
+            for player in self.players
+            if player.rabbit_count == max_count
+        }
