@@ -6,23 +6,32 @@ from thermostat import (
     FutureMinAverageThermostat,
 )
 from simulator import CoolerSimulator
-from dataplotter import DataPlotter
 import pandas as pd
 
 
-def main():
-    prices = pd.read_csv("elpris.csv")["Pris"]
+def run_once(prices: pd.Series) -> float:
     room = CoolingRoom(
         compressor=Compressor(electric_prices=prices),
-        thermostat=SimpleThermostat(),
+        thermostat=CombinatoricSmartThermostat(electric_prices=prices),
         food=Food(),
         door=Door(),
         temp=5,
     )
     simulator = CoolerSimulator(room)
     res = simulator.simulate()
-    plotter = DataPlotter(res)
-    plotter.plot_prices()
+    return res["Total Cost"].iloc[-1]
+
+
+def main():
+    prices = pd.read_csv("elpris.csv")["Pris"]
+    runs = 100
+    total_cost = 0
+    for i in range(runs):
+        if i % int((runs/100)) == 0:
+            print(f"Progress: {int(i / runs * 100)+1}%")
+        total_cost += run_once(prices)
+    avg_cost = total_cost / runs
+    print(f"Average cost: {avg_cost}")
 
 
 if __name__ == "__main__":

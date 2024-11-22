@@ -12,7 +12,7 @@ class CoolerSimulator:
         self.samples = samples
 
     def simulate(self) -> pd.DataFrame:
-        columns = ["Temperature", "Compressor Cost", "Food Losses", "Total Cost"]
+        columns = ["Temperature", "Compressor Cost", "Food Losses", "Total Cost", "Door"]
         data = np.zeros((self.samples, len(columns)))
         for i in range(self.samples):
             self.cooling_room.run(i)
@@ -21,6 +21,7 @@ class CoolerSimulator:
                 self.cooling_room.compressor.cost,
                 self.cooling_room.food.losses,
                 self.cooling_room.total_cost,
+                self.cooling_room.door.is_open,
             ]
 
         df = pd.DataFrame(data, columns=columns)
