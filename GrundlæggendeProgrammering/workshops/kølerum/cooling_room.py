@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from pandas import Series
+import pandas as pd
 from random import random
 from math import exp
 
@@ -47,7 +47,7 @@ class Compressor:
         self,
         temp: float = -5,
         is_on: bool = False,
-        electric_prices: Series = None
+        electric_prices: pd.Series = None
     ) -> None:
         self.temp = temp
         self.is_on = is_on
