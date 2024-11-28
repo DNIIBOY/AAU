@@ -154,7 +154,6 @@ class CoolingRoom:
             self.compressor.temp_factor * (self.compressor.temp - self.temp) * delta_t
         )
         self.temp = temp
-        return "hej"
 
 
 if __name__ == "__main__":
