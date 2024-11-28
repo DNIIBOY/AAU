@@ -11,12 +11,38 @@ class Door:
     def __init__(self, is_open: bool = False) -> None:
         self.is_open = is_open
 
+        self._closed_factor = 5e-7
+        self._open_factor = 3e-5
+
     def shuffle(self) -> None:
         """
         10% Chance of the door being open
         :return: None
+
+        >>> import random
+        >>> random.seed(0)
+        >>> door = Door()
+        >>> door.shuffle()
+        >>> door.is_open
+        False
         """
         self.is_open = random() < 0.1
+
+    @property
+    def temp_factor(self) -> float:
+        """
+        Return the temperature factor based on the door state
+        :return: The temperature factor
+
+        >>> door = Door()
+        >>> door.is_open = False
+        >>> door.temp_factor
+        5e-07
+        >>> door.is_open = True
+        >>> door.temp_factor
+        3e-05
+        """
+        return self._open_factor if self.is_open else self._closed_factor
 
 
 class Food:
@@ -29,6 +55,14 @@ class Food:
         :param temp: The current temperature
         :param delta_t: Amount of time passed since last update
         :return: None
+
+        >>> food = Food()
+        >>> food.deteriorate(5)
+        >>> food.losses
+        0
+        >>> food.deteriorate(10)
+        >>> food.losses
+        2.44177464095858
         """
         if 3.5 <= temp < 6.5:
             # No deterioration between 3.5 and 6.5 degrees
@@ -91,9 +125,6 @@ class CoolingRoom:
 
         self._ambient_temp = 20
 
-        self._ambient_door_closed = 5e-7
-        self._ambient_door_open = 3e-5
-
     @property
     def total_cost(self) -> float:
         return self.compressor.cost + self.food.losses
@@ -118,15 +149,14 @@ class CoolingRoom:
         :return: None
         """
         temp = self.temp
-
-        if self.door.is_open:
-            temp += self._ambient_door_open * (self._ambient_temp - self.temp) * delta_t
-        else:
-            temp += (
-                self._ambient_door_closed * (self._ambient_temp - self.temp) * delta_t
-            )
-
+        temp += self.door.temp_factor * (self._ambient_temp - self.temp) * delta_t
         temp += (
             self.compressor.temp_factor * (self.compressor.temp - self.temp) * delta_t
         )
         self.temp = temp
+        return "hej"
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

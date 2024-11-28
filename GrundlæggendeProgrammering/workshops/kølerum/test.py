@@ -103,7 +103,6 @@ class TestCoolingRoom(TestCase):
         self.thermostat.recommended_compressor_state.assert_called_once_with(0)
         self.assertTrue(self.compressor.is_on, "Compressor did not turn on")
         self.room.update_temp.assert_called_once()
-        # self.food.detoriate.assert_called_once_with(self.room.temp)
 
 
 if __name__ == "__main__":

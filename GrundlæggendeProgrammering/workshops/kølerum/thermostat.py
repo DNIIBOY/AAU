@@ -50,9 +50,7 @@ class LocalAverageThermostat(Thermostat):
             raise ValueError("Electric prices not set")
 
         current_price = self.electric_prices.iloc[i]
-        local_avg = self.electric_prices.iloc[
-            max(0, i - 5) : min(i + 5, len(self.electric_prices) - 1)
-        ].mean()
+        local_avg = self.electric_prices.iloc[max(0, i - 3): i + 5].mean()
 
         if self.cooling_room.temp >= 6.4:
             return True
@@ -74,11 +72,7 @@ class FutureMinAverageThermostat(Thermostat):
             raise ValueError("Electric prices not set")
 
         current_price = self.electric_prices.iloc[i]
-        near_future_min = self.electric_prices.iloc[
-            min(i + 1, len(self.electric_prices) - 1) : min(
-                i + 3, len(self.electric_prices) - 1
-            )
-        ].min()
+        near_future_min = self.electric_prices.iloc[i: i + 3].min()
 
         if self.cooling_room.temp >= 6.4:
             return True
@@ -100,14 +94,8 @@ class CombinatoricSmartThermostat(Thermostat):
             raise ValueError("Electric prices not set")
 
         current_price = self.electric_prices.iloc[i]
-        local_avg = self.electric_prices.iloc[
-            max(0, i - 5) : min(i + 5, len(self.electric_prices) - 1)
-        ].mean()
-        near_future_min = self.electric_prices.iloc[
-            min(i + 1, len(self.electric_prices) - 1) : min(
-                i + 3, len(self.electric_prices) - 1
-            )
-        ].min()
+        local_avg = self.electric_prices.iloc[max(0, i - 3): i + 5].mean()
+        near_future_min = self.electric_prices.iloc[i: i + 3].min()
 
         if self.cooling_room.temp >= 6.4:
             return True
