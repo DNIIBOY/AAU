@@ -114,3 +114,86 @@ class CoolingRoom:
 
         self._ambient_temp = 20
 ```
+`CoolingRoom` klassen har en metode `run`, som håndterer hvad der sker hver gang der går 1 cyklus af simuleringen. Metoden kan ses her:
+```python
+def run(self, i: int) -> None:
+    """
+    Run the cooling room for the current iteration step
+    :param i: The current iteration step
+    :return: None
+    """
+    self.door.shuffle()
+    self.compressor.is_on = self.thermostat.recommended_compressor_state(i)
+    self.update_temp()
+    self.compressor.consume_electricty(i)
+    self.food.deteriorate(self.temp)
+```
+Her sker alle de ting, som skal ske ved hvert trin i simuleringen.
+Argumentet `i` er det nummeret på det trin i simuleringen vi er på lige nu, dette er nødvendigt fordi elpriserne skifter mellem hvert trin.
+Først kaldes `shuffle` på døren, som har en P = 10% chance for at døren åbnes, ellers lukkes den.
+Herefter sættes kompressorens nuværende stadie til den anbefalede værdi af den installerede termostat.
+Til sidst udregnes den nye temperatur i lokalet bestemmes, og udgifterne beregnes.
+
+### Temperatur
+Temperaturen bestemmes ved:
+
+$$
+T[n] = T[n-1] + C_1(T_{rum}-T[n-1])+C_2(T_{komp}-T[n-1]))\Delta t
+$$
+
+Denne temperatur kan deles op i 3 faktorer:
+
+$$
+T_{før} = T[n-1]
+$$
+$$
+T_{luft} = C_1(T_{rum}-T[n-1]) \Delta t
+$$
+$$
+T_{køler} = C_2(T_{komp}-T[n-1]) \Delta t
+$$
+$$
+T[n] = T_{før} + T_{luft} + T_{køler}
+$$
+
+I koden ser det sådan ud:
+
+```python
+def update_temp(self, delta_t: int = 300) -> None:
+    """
+    Update the temperature of the room
+    :param i: The current iteration step
+    :param delta_t: Amount of time passed since last update
+    :return: None
+    """
+    previous = self.temp
+    ambient = self.door.temp_factor * (self._ambient_temp - self.temp) * delta_t
+    cooler = self.compressor.temp_factor * (self.compressor.temp - self.temp) * delta_t
+
+    self.temp = previous + ambient + cooler
+```
+Her er `self.door.temp_factor` det samme som $C_1$, og `self.compressor.temp_factor` er $C_2$, som beskrevet tidligere.
+
+## Termostater
+Som vist i systemdiagramet er der blevet udviklet mange forskellige termostater:
+* `SimpleThermostat`: Tænder når temperaturen overstiger en konstant værdi
+* `HysteresisThermostat`: Tænder når temperaturen overstiger en konstant værdi, men med en lille forsinkelse (en hysterese) 
+* `LocalAverageThermostat`: Tænder når elprisen er lavere end gennemsnittet indenfor en kort periode
+* `FutureMinAverageThermostat`: Tænder når elprisen er den laveste inden for den nærmeste fremtid
+* `CombinatoricSmartThermostat`: Kombinere `LocalAverageThermostat` og `FutureMinAverageThermostat`
+
+<p align="center"><img src="plot/all_price.png"/></p>
+
+## Tests
+For at sikre at alting virker som forventet er der skrevet unittests.
+Der er nogle få doctests (fordi de er et krav😥), og nogle rigtige unittests i `test.py` filen.
+Unittests virker ved at man kalder noget kode, og derefter undersøger variable, for at sikre sig at værdierne er som forventet.
+Et eksempel på en simpel unittest kan ses her:
+```python
+def test_consume_no_electricity(self):
+    self.compressor.is_on = False
+    self.compressor.consume_electricty(0)
+    self.compressor.consume_electricty(1)
+    self.assertEqual(self.compressor.cost, 0, "Consumed electricity when off")
+```
+Her kaldes `consume_electricty` på et `Compressor` objekt, mens kompressoren er slukket, og der sikres at den ikke har brugt penge på el.
