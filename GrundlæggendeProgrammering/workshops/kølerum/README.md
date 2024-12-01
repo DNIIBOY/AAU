@@ -1,4 +1,16 @@
-# Energibesparende styring af kølerum
+<p align="center">
+    <img width=400 src="img/fridge_icon.png"/>
+</p>
+
+<h1 align="center">Energibesparende styring af kølerum</h1>
+
+<p align="center">
+    <a href="https://python.org"><img src="https://img.shields.io/badge/python-3.11-blue"/></a>
+    <a href="#"><img src="https://img.shields.io/badge/status-active-brightgreen"/></a>
+    <a href="#"><img src="https://img.shields.io/badge/docs-available-brightgreen"/></a>
+    <a href="https://github.com/DNIIBOY/AAU/blob/main/LICENSE"><img src="https://img.shields.io/github/license/DNIIBOY/AAU"/></a>
+    <a href="https://github.com/DNIIBOY/AAU"><img src="https://img.shields.io/github/stars/DNIIBOY/AAU?style=social"/></a>
+</p>
 
 ## Systemdiagram
 Dette system gør brug af objektorienteret programmering (encapsulation, inheritance, polymorphism & abstraction).
