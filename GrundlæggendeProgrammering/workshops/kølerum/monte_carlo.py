@@ -12,10 +12,9 @@ import pandas as pd
 def run_once(prices: pd.Series) -> float:
     room = CoolingRoom(
         compressor=Compressor(electric_prices=prices),
-        thermostat=CombinatoricSmartThermostat(electric_prices=prices),
+        thermostat=SimpleThermostat(6.2),
         food=Food(),
         door=Door(),
-        temp=5,
     )
     simulator = CoolerSimulator(room)
     res = simulator.simulate()
@@ -24,7 +23,7 @@ def run_once(prices: pd.Series) -> float:
 
 def main():
     prices = pd.read_csv("elpris.csv")["Pris"]
-    runs = 100
+    runs = 1000
     total_cost = 0
     for i in range(runs):
         if i % int((runs/100)) == 0:

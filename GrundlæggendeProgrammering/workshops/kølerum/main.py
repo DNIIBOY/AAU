@@ -21,12 +21,10 @@ def create_room(thermostat: Thermostat, prices: pd.Series | None = None) -> Cool
 def compare_thermostats() -> None:
     prices = pd.read_csv("elpris.csv")["Pris"]
     thermostats = [
-        SimpleThermostat(5),
         SimpleThermostat(6.2),
         CombinatoricSmartThermostat(electric_prices=prices),
     ]
     names = [
-        "SimpleThermostat(5)",
         "SimpleThermostat(6.2)",
         "CombinatoricThermostat",
     ]
@@ -40,7 +38,7 @@ def compare_thermostats() -> None:
         data=results,
         names=names,
     )
-    plotter.plot_price()
+    plotter.plot_temperature(stop=12*24)  # 24 hours
 
 
 def main():
