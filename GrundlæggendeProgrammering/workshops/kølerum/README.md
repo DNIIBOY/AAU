@@ -176,13 +176,37 @@ Her er `self.door.temp_factor` det samme som $C_1$, og `self.compressor.temp_fac
 
 ## Termostater
 Som vist i systemdiagramet er der blevet udviklet mange forskellige termostater:
-* `SimpleThermostat`: Tænder når temperaturen overstiger en konstant værdi
+* `SimpleThermostat`: Tænder når temperaturen overstiger en konstant værdi (5 grader)
 * `HysteresisThermostat`: Tænder når temperaturen overstiger en konstant værdi, men med en lille forsinkelse (en hysterese) 
 * `LocalAverageThermostat`: Tænder når elprisen er lavere end gennemsnittet indenfor en kort periode
 * `FutureMinAverageThermostat`: Tænder når elprisen er den laveste inden for den nærmeste fremtid
 * `CombinatoricSmartThermostat`: Kombinere `LocalAverageThermostat` og `FutureMinAverageThermostat`
 
-<p align="center"><img src="plot/all_price.png"/></p>
+Den totale pris over tid for disse termostater kan ses på denne figur:
+<p align="center"><img src="plots/all_price.png"/></p>
+
+Her kan man se at `FutureMinAverageThermostat` og `CombinatoricSmartThermostat` klarer sig bedst.
+Der er dog en lille ændring man kan lave til `SimpleThermostat`, som gør at den klarer sig meget bedre.
+Ved hjælp af trial-and-error (`optimize.py`) kan man se at ved at ændre `target_temp` fra 5 til ~6.2, klarer den sig meget bedre.
+<p align="center"><img src="plots/multi_price.png"/></p>
+
+Her kan det ses at den nye `SimpleThermostat` klarer sig næsten lige så godt som `CombinatoricSmartThermostat`, og endda nogle gange bedre.
+
+## Monte Carlo Simulering
+For at få et resultat hvor tilfældighed (dørens tilfældige tilstand) ikke har lige så stor effekt, kan Monte Carlo Simulering bruges.
+Her køres koden mange gange i streg, og gennemsnittet bruges.
+Dette er implementeret meget enkelt i `monte_carlo.py`, og 1000 iterationer er kørt på `SimpleThermostat` og `CombinatoricSmartThermostat`.
+
+| Monte Carlo 1000 Iterationer | SimpleThermostat(6.2) | CombinatoricSmartThermostat |
+|------------------------------|-----------------------|-----------------------------|
+| Gennemsnitlig Total Pris     | 11469 DKK             | 11713 DKK                   |
+
+Begge værdier under 12.000 DKK, og kan derfor godt overholde budgetet, dog klarer den simple termostat sig bedre end den kombinatoriske.
+Hvis man kigger på en kurve der sammenligner temperaturen i kølerummet med de forskellige termostater, kan man faktisk få en forklaring på dette. 
+<p align="center"><img src="plots/multi_temperature.png"/></p>
+
+Her kan man se at temperaturen der holdes af `CombinatoricSmartThermostat` er meget lavere end den, der holdes af `SimpleThermostat`,
+og denne forskel kan være med til at forklare forskellen i el-forbruget.
 
 ## Tests
 For at sikre at alting virker som forventet er der skrevet unittests.
