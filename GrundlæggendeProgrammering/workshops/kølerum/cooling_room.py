@@ -78,7 +78,10 @@ class Food:
 
 class Compressor:
     def __init__(
-        self, temp: float = -5, is_on: bool = False, electric_prices: pd.Series = None
+        self,
+        electric_prices: pd.Series,
+        temp: float = -5,
+        is_on: bool = False
     ) -> None:
         self.temp = temp
         self.is_on = is_on
@@ -95,9 +98,6 @@ class Compressor:
         :param i: The current iteration step
         :return: None
         """
-        if self._electric_prices is None:
-            raise ValueError("Electric prices not set")
-
         if self.is_on:
             self.cost += float(self._electric_prices.iloc[i])
 
