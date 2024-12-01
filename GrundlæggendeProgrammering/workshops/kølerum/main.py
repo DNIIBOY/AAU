@@ -21,17 +21,13 @@ def create_room(thermostat: Thermostat, prices: pd.Series | None = None) -> Cool
 def compare_thermostats() -> None:
     prices = pd.read_csv("elpris.csv")["Pris"]
     thermostats = [
-        SimpleThermostat(),
-        HysteresisThermostat(),
-        LocalAverageThermostat(electric_prices=prices),
-        FutureMinAverageThermostat(electric_prices=prices),
+        SimpleThermostat(5),
+        SimpleThermostat(6.2),
         CombinatoricSmartThermostat(electric_prices=prices),
     ]
     names = [
-        "SimpleThermostat",
-        "HysteresisThermostat",
-        "LocalAverageThermostat",
-        "FutureMinAverageThermostat",
+        "SimpleThermostat(5)",
+        "SimpleThermostat(6.2)",
         "CombinatoricThermostat",
     ]
     results = []
@@ -43,7 +39,6 @@ def compare_thermostats() -> None:
     plotter = MultiPlotter(
         data=results,
         names=names,
-        prefix="all"
     )
     plotter.plot_price()
 
