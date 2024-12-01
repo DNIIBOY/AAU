@@ -12,6 +12,16 @@
     <a href="https://github.com/DNIIBOY/AAU"><img src="https://img.shields.io/github/stars/DNIIBOY/AAU?style=social"/></a>
 </p>
 
+## Table of Contents
+1. [Systemdiagram](#systemdiagram)  
+2. [Abstract Base Classes](#abstract-base-classes)  
+3. [Kompressor](#kompressor)  
+4. [CoolingRoom implementering](#coolingroom-implementering)  
+5. [Temperatur](#temperatur)  
+6. [Termostater](#termostater)  
+7. [Monte Carlo Simulering](#monte-carlo-simulering)  
+8. [Tests](#tests)
+
 ## Systemdiagram
 Dette system gør brug af objektorienteret programmering (encapsulation, inheritance, polymorphism & abstraction).
 Her gøres brug af abstract base classes og dependency injection som værktøjer til at skabe et modulært system, der giver mulighed for at eksperimentere med forskellige termostatløsninger, og simplificerer koden.
@@ -146,7 +156,7 @@ Først kaldes `shuffle` på døren, som har en P = 10% chance for at døren åbn
 Herefter sættes kompressorens nuværende stadie til den anbefalede værdi af den installerede termostat.
 Til sidst udregnes den nye temperatur i lokalet bestemmes, og udgifterne beregnes.
 
-### Temperatur
+## Temperatur
 Temperaturen bestemmes ved:
 
 $$
