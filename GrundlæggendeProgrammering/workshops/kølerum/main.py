@@ -1,5 +1,5 @@
 from cooling_room import CoolingRoom, Compressor, Door, Food
-from thermostat import Thermostat, SimpleThermostat, CombinatoricSmartThermostat, HysteresisThermostat
+from thermostat import Thermostat, SimpleThermostat, CombinatoricSmartThermostat, HysteresisThermostat, FutureMinAverageThermostat, LocalAverageThermostat
 from simulator import CoolerSimulator
 from dataplotter import DataPlotter, MultiPlotter
 import pandas as pd
@@ -21,11 +21,19 @@ def create_room(thermostat: Thermostat, prices: pd.Series | None = None) -> Cool
 def compare_thermostats() -> None:
     prices = pd.read_csv("elpris.csv")["Pris"]
     thermostats = [
-        SimpleThermostat(target_temp=5),
-        SimpleThermostat(target_temp=6.2),
+        SimpleThermostat(),
+        HysteresisThermostat(),
+        LocalAverageThermostat(electric_prices=prices),
+        FutureMinAverageThermostat(electric_prices=prices),
         CombinatoricSmartThermostat(electric_prices=prices),
     ]
-    names = ["Simple Thermostat", "Improved Simple Thermostat", "Combinatoric Thermostat"]
+    names = [
+        "SimpleThermostat",
+        "HysteresisThermostat",
+        "LocalAverageThermostat",
+        "FutureMinAverageThermostat",
+        "CombinatoricThermostat",
+    ]
     results = []
     for thermostat in thermostats:
         room = create_room(thermostat, prices)
@@ -35,6 +43,7 @@ def compare_thermostats() -> None:
     plotter = MultiPlotter(
         data=results,
         names=names,
+        prefix="all"
     )
     plotter.plot_price()
 

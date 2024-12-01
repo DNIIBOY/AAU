@@ -148,12 +148,11 @@ class CoolingRoom:
         :param delta_t: Amount of time passed since last update
         :return: None
         """
-        temp = self.temp
-        temp += self.door.temp_factor * (self._ambient_temp - self.temp) * delta_t
-        temp += (
-            self.compressor.temp_factor * (self.compressor.temp - self.temp) * delta_t
-        )
-        self.temp = temp
+        previous = self.temp
+        ambient = self.door.temp_factor * (self._ambient_temp - self.temp) * delta_t
+        cooler = self.compressor.temp_factor * (self.compressor.temp - self.temp) * delta_t
+
+        self.temp = previous + ambient + cooler
 
 
 if __name__ == "__main__":
