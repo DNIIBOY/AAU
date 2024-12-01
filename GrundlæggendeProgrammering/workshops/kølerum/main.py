@@ -1,32 +1,42 @@
 from cooling_room import CoolingRoom, Compressor, Door, Food
-from thermostat import SimpleThermostat, CombinatoricSmartThermostat
+from thermostat import Thermostat, SimpleThermostat, CombinatoricSmartThermostat, HysteresisThermostat
 from simulator import CoolerSimulator
-from dataplotter import DataPlotter
+from dataplotter import DataPlotter, MultiPlotter
 import pandas as pd
 
 
-def optimize_simple_thermostat() -> None:
+def create_room(thermostat: Thermostat, prices: pd.Series | None = None) -> CoolingRoom:
+    if prices is None:
+        prices = pd.read_csv("elpris.csv")["Pris"]
+
+    room = CoolingRoom(
+        compressor=Compressor(electric_prices=prices),
+        thermostat=thermostat,
+        food=Food(),
+        door=Door(),
+    )
+    return room
+
+
+def compare_thermostats() -> None:
     prices = pd.read_csv("elpris.csv")["Pris"]
-
-    cheapest_cost = float("inf")
-    best_temp = 0
-    for target_temp in range(35, 85):
-        thermostat = SimpleThermostat(target_temp=target_temp/10)
-        room = CoolingRoom(
-            compressor=Compressor(electric_prices=prices),
-            thermostat=thermostat,
-            food=Food(),
-            door=Door(),
-            temp=5,
-        )
+    thermostats = [
+        SimpleThermostat(target_temp=5),
+        SimpleThermostat(target_temp=6.2),
+        CombinatoricSmartThermostat(electric_prices=prices),
+    ]
+    names = ["Simple Thermostat", "Improved Simple Thermostat", "Combinatoric Thermostat"]
+    results = []
+    for thermostat in thermostats:
+        room = create_room(thermostat, prices)
         simulator = CoolerSimulator(room)
-        res = simulator.simulate()
-        total_cost = res["Total Cost"].iloc[-1]
-        if total_cost < cheapest_cost:
-            cheapest_cost = total_cost
-            best_temp = target_temp
+        results.append(simulator.simulate())
 
-    print("Best temperature:", best_temp/10)
+    plotter = MultiPlotter(
+        data=results,
+        names=names,
+    )
+    plotter.plot_price()
 
 
 def main():
@@ -36,7 +46,6 @@ def main():
         thermostat=CombinatoricSmartThermostat(electric_prices=prices),
         food=Food(),
         door=Door(),
-        temp=5,
     )
     simulator = CoolerSimulator(room)
     res = simulator.simulate()
@@ -46,4 +55,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    compare_thermostats()

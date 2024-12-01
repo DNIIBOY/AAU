@@ -39,6 +39,21 @@ class SimpleThermostat(Thermostat):
         return self.cooling_room.temp > self.target_temp
 
 
+class HysteresisThermostat(Thermostat):
+    def __init__(self, target_temp: int = 5, hysteresis: int = 0) -> None:
+        super().__init__()
+        self.target_temp = target_temp
+        self.hysteresis = hysteresis
+
+    def recommended_compressor_state(self, i: int) -> bool:
+        super().recommended_compressor_state(i)
+        if self.cooling_room.temp > self.target_temp + self.hysteresis:
+            return True
+        if self.cooling_room.temp < self.target_temp - self.hysteresis:
+            return False
+        return self.cooling_room.compressor.is_on
+
+
 class LocalAverageThermostat(Thermostat):
     def __init__(self, electric_prices: pd.Series = None) -> None:
         super().__init__()
