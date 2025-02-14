@@ -78,11 +78,13 @@ $$
 Enhver matrix _A_ er rækkeækvivalent til én og kun én reduceret
 trappematrix _R_.
 
+
 ### Frie variable
-Værdierne makeret med $*$ i den reducerede trappeform
+Værdierne markeret med $*$ i den reducerede trappeform
+Dem i pivot (altså de ikke-frie) hedder basisvariable
 
 ## Inkonsistent
-Betyder ingen løsninger. Forekommer altid hvis trappeformen har en pivot/ledenede koefficient.
+Betyder ingen løsninger. Forekommer altid hvis trappeformen har en pivot/ledenede koefficient i den sidste kolonne.
 
 ## Entydig løsning
 Når der kun er én løsning. Forekommer hvis der ikke er nogle frie variable
