@@ -1,0 +1,11 @@
+document.write('<div style="z-index: auto">');
+EAS_detect_flash();
+if (EAS_flash >= 3) {
+   var theLink = "?clickTAG=http://eas.statcamp.net/eas/cu=0::camp=60852::no=85478::kw=link1-85478::EASLink=http://23dd4b18-3527-490b-9d87-5f9588cb5b9b.statcamp.net/turl/?id=44b6011c3c124231b1e45344ec9c7ad3&cid=48e81fd2b06a4b2d9671cef063e8fb74&lpid=0298852ae51440b49a33e8ef67f8125f".replace(/&/g, "%26").replace(/##/g, "&");
+	EAS_show_flash(300, 250,'http://eas.statcamp.net//media.4/149/11252/60852/300x250norwegian_138bf207.swf' + theLink,',quality=autohigh');
+} else {
+   var link = '<a target="_blank" href="http://eas.statcamp.net/eas/cu=0::camp=60852::no=85478::kw=link2-85478::EASLink=http://23dd4b18-3527-490b-9d87-5f9588cb5b9b.statcamp.net/turl/?id=44b6011c3c124231b1e45344ec9c7ad3&cid=48e81fd2b06a4b2d9671cef063e8fb74&lpid=0298852ae51440b49a33e8ef67f8125f"><img width="300" height="250" src="http://eas.statcamp.net//media.4/149/11252/60852/300x250norwegian_138bf207.jpg" border="0"></a>'.replace(/%26/g, "&");
+	document.write(link);
+}
+document.write('<img width="1" height="1" src="http://23dd4b18-3527-490b-9d87-5f9588cb5b9b.statcamp.net/logging/Impression.ashx?bannerid=85478&campaignid=60852&rnd=1273135682"></a>');
+document.write('<'+'/div>');

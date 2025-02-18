@@ -1,0 +1,579 @@
+__ADTECH_CODE__ = "";
+__theDocument = document;
+__theWindow = window;
+__bCodeFlushed = false;
+
+function __flushCode() {
+	if (!__bCodeFlushed) {
+		var span = parent.document.createElement("SPAN");
+		span.innerHTML = __ADTECH_CODE__;
+		window.frameElement.parentNode.appendChild(span);
+		__bCodeFlushed = true;
+	}
+}
+
+if (typeof inFIF != "undefined") {
+	document.write = function(str) {
+		__ADTECH_CODE__ += str;
+	};
+	
+	document.writeln = function(str) { document.write(str + "\n"); };
+
+	__theDocument = parent.document;
+	__theWindow = parent;
+}
+document.write("\n");
+// JavaScript Document
+function DynamicOptionList() {
+if (arguments.length < 2) { alert("Not enough arguments in DynamicOptionList()"); }
+// Name of the list containing dynamic values
+this.target = arguments[0];
+// Set the lists that this dynamic list depends on
+this.dependencies = new Array();
+for (var i=1; i<arguments.length; i++) {
+this.dependencies[this.dependencies.length] = arguments[i];
+}
+// The form this list belongs to
+this.form = null;
+// Place-holder for currently-selected values of dependent select lists
+this.dependentValues = new Object();
+// Hold default values to be selected for conditions
+this.defaultValues = new Object();
+// Storage for the dynamic values
+this.options = new Object();
+// Delimiter between dependent values
+this.delimiter = "|";
+// Logest string currently a potential options (for Netscape)
+this.longestString = "";
+// The total number of options that might be displayed, to build dummy options (for Netscape)
+this.numberOfOptions = 0;
+// Method mappings
+this.addOptions = DynamicOptionList_addOptions;
+this.populate = DynamicOptionList_populate;
+this.setDelimiter = DynamicOptionList_setDelimiter;
+this.setDefaultOption = DynamicOptionList_setDefaultOption;
+this.printOptions = DynamicOptionList_printOptions;
+this.init = DynamicOptionList_init;
+}
+// Set the delimiter to something other than | when defining condition values
+function DynamicOptionList_setDelimiter(val) {
+this.delimiter = val;
+}
+// Set the default option to be selected when the list is painted
+function DynamicOptionList_setDefaultOption(condition, val) {
+this.defaultValues[condition] = val;
+}
+// Init call to map the form to the object and populate it
+function DynamicOptionList_init(theform) {
+this.form = theform;
+this.populate();
+}
+// Add options to the list.
+// Pass the condition string, then the list of text/value pairs that populate the list
+function DynamicOptionList_addOptions(dependentValue) {
+if (typeof this.options[dependentValue] != "object") { this.options[dependentValue] = new Array(); }
+for (var i=1; i<arguments.length; i+=2) {
+// Keep track of the longest potential string, to draw the option list
+if (arguments[i].length > this.longestString.length) {
+this.longestString = arguments[i];
+}
+this.numberOfOptions++;
+this.options[dependentValue][this.options[dependentValue].length] = arguments[i];
+this.options[dependentValue][this.options[dependentValue].length] = arguments[i+1];
+}
+}
+// Print dummy options so Netscape behaves nicely
+function DynamicOptionList_printOptions() {
+// Only need to write out "dummy" options for Netscape
+if ((navigator.appName == 'Netscape') && (parseInt(navigator.appVersion) <= 4)){
+var ret = "";
+for (var i=0; i<this.numberOfOptions; i++) {
+ret += "<OPTION>";
+}
+ret += "<OPTION>"
+for (var i=0; i<this.longestString.length; i++) {
+ret += "_";
+}
+document.writeln(ret);
+}
+}
+// Populate the list
+function DynamicOptionList_populate()
+{
+var theform = this.form;
+var i,j,obj,obj2;
+// Get the current value(s) of all select lists this list depends on
+this.dependentValues = new Object;
+var dependentValuesInitialized = false;
+for (i=0; i<this.dependencies.length;i++)
+{
+var sel = theform[this.dependencies[i]];
+var selName = sel.name;
+// If this is the first dependent list, just fill in the dependentValues
+if (!dependentValuesInitialized)
+{
+dependentValuesInitialized = true;
+for (j=0; j<sel.options.length; j++)
+{
+if (sel.options[j].selected)
+{
+this.dependentValues[sel.options[j].value] = true;
+//this.form.Departure.value = sel.options[j].value;
+//alert(sel.options[j].value);
+}
+}
+}
+// Otherwise, add new options for every existing option
+else
+{
+var tmpList = new Object();
+var newList = new Object();
+for (j=0; j<sel.options.length; j++) {
+if (sel.options[j].selected)
+{
+tmpList[sel.options[j].value] = true;
+}
+}
+for (obj in this.dependentValues)
+{
+for (obj2 in tmpList)
+{
+newList[obj + this.delimiter + obj2] = true;
+}
+}
+this.dependentValues = newList;
+}
+}
+var targetSel = theform[this.target];
+// Store the currently-selected values of the target list to maintain them (in case of multiple select lists)
+var targetSelected = new Object();
+for (i=0; i<targetSel.options.length; i++)
+{
+if (targetSel.options[i].selected)
+{
+targetSelected[targetSel.options[i].value] = true;
+}
+}
+targetSel.options.length = 0; // Clear all target options
+for (i in this.dependentValues)
+{
+if (typeof this.options[i] == "object")
+{
+var o = this.options[i];
+for (j=0; j<o.length; j+=2)
+{
+var text = o[j];
+var val = o[j+1];
+targetSel.options[targetSel.options.length] = new Option(text, val, false, false);
+if (this.defaultValues[i] == val)
+{
+targetSelected[val] = true;
+}
+}
+}
+}
+targetSel.selectedIndex=-1;
+// Select the options that were selected before
+for (i=0; i<targetSel.options.length; i++)
+{
+if (targetSelected[targetSel.options[i].value] != null && targetSelected[targetSel.options[i].value]==true)
+{
+targetSel.options[i].selected = true;
+}
+}
+}
+var listDeparture = new DynamicOptionList("A_City", "D_City");
+/**/
+listDeparture.addOptions("FAO","- Vælg destination -","","København (CPH)","CPH","Oslo-Gardermoen (OSL)","OSL","Stockholm-Arlanda (ARN)","ARN");
+listDeparture.addOptions("ALC","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Warszawa (WAW)","WAW","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("ALCALL","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Warszawa (WAW)","WAW","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("ALF","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("AMS","- Vælg destination -","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","København (CPH)","CPH","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Trondheim (TRD)","TRD");
+listDeparture.addOptions("AYT","- Vælg destination -","","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG");
+listDeparture.addOptions("ATH","- Vælg destination -","","Oslo-Rygge (RYG)","RYG","Warszawa (WAW)","WAW");
+listDeparture.addOptions("BCN","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("BDU","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Alta (ALF)","ALF","Amsterdam (AMS)","AMS","Barcelona (BCN)","BCN","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Dubai (DXB)","DXB","Dublin (DUB)","DUB","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Hamburg (HAM)","HAM","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Krakow (KRK)","KRK","Kristiansand (KRS)","KRS","København (CPH)","CPH","London-Gatwick (LGW)","LGW","Malaga (AGP)","AGP","Molde (MOL)","MOL","München (MUC)","MUC","Nice (NCE)","NCE","Oslo-Gardermoen (OSL)","OSL","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Riga (RIX)","RIX","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tallinn (TLL)","TLL","Trondheim (TRD)","TRD","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Ålesund (AES)","AES");
+listDeparture.addOptions("BEG","- Vælg destination -","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("BGO","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Alicante-Alle flyplasser (ALCALL)","ALCALL","Alta (ALF)","ALF","Amsterdam (AMS)","AMS","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Beograd (BEG)","BEG","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Dublin (DUB)","DUB","Dubrovnik (DBV)","DBV","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Genève (GVA)","GVA","Gran Canaria (LPA)","LPA","Hamburg (HAM)","HAM","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kirkenes (KKN)","KKN","Krakow (KRK)","KRK","Kristiansand (KRS)","KRS","København (CPH)","CPH","London-Alle flyplasser (LON)","LON","London-Gatwick (LGW)","LGW","Malaga (AGP)","AGP","Molde (MOL)","MOL","Murcia-Alicante (MJV)","MJV","München (MUC)","MUC","Nice (NCE)","NCE","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG","Paris-Orly (ORY)","ORY","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Riga (RIX)","RIX","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Skt. Petersborg (LED)","LED","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tallinn (TLL)","TLL","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Wroclaw (WRO)","WRO","Ålesund (AES)","AES");
+listDeparture.addOptions("SXF","- Vælg destination -","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","Molde (MOL)","MOL","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("BOO","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Alta (ALF)","ALF","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Dublin (DUB)","DUB","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Genève (GVA)","GVA","Hamburg (HAM)","HAM","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kirkenes (KKN)","KKN","Krakow (KRK)","KRK","Kristiansand (KRS)","KRS","København (CPH)","CPH","London-Gatwick (LGW)","LGW","Malaga (AGP)","AGP","Molde (MOL)","MOL","München (MUC)","MUC","Nice (NCE)","NCE","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Riga (RIX)","RIX","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Skt. Petersborg (LED)","LED","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Wroclaw (WRO)","WRO","Ålesund (AES)","AES");
+listDeparture.addOptions("BOD","- Vælg destination -","","Oslo-Gardermoen (OSL)","OSL");
+listDeparture.addOptions("BUD","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Luleå (LLA)","LLA","Molde (MOL)","MOL","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Umeå (UME)","UME","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("BOJ","- Vælg destination -","","Oslo-Gardermoen (OSL)","OSL");
+listDeparture.addOptions("LCA","- Vælg destination -","","Oslo-Gardermoen (OSL)","OSL");
+listDeparture.addOptions("DXB","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Kiruna (KRN)","KRN","Kristiansand (KRS)","KRS","København (CPH)","CPH","Luleå (LLA)","LLA","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Umeå (UME)","UME","Ålesund (AES)","AES");
+listDeparture.addOptions("DUB","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("DBV","- Vælg destination -","","Bergen (BGO)","BGO","Kristiansand (KRS)","KRS","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Trondheim (TRD)","TRD","Warszawa (WAW)","WAW");
+listDeparture.addOptions("DUS","- Vælg destination -","","Oslo-Gardermoen (OSL)","OSL");
+listDeparture.addOptions("EDI","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("GDN","- Vælg destination -","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("GVA","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","København (CPH)","CPH","Luleå (LLA)","LLA","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Umeå (UME)","UME","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("LPA","- Vælg destination -","","Bergen (BGO)","BGO","København (CPH)","CPH","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Trondheim (TRD)","TRD","Aalborg (AAL)","AAL");
+listDeparture.addOptions("HAM","- Vælg destination -","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("EVE","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Alta (ALF)","ALF","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Dublin (DUB)","DUB","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Genève (GVA)","GVA","Hamburg (HAM)","HAM","Haugesund (HAU)","HAU","Krakow (KRK)","KRK","Kristiansand (KRS)","KRS","København (CPH)","CPH","London-Gatwick (LGW)","LGW","Malaga (AGP)","AGP","Molde (MOL)","MOL","München (MUC)","MUC","Nice (NCE)","NCE","Oslo-Gardermoen (OSL)","OSL","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Skt. Petersborg (LED)","LED","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Trondheim (TRD)","TRD","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Wroclaw (WRO)","WRO","Ålesund (AES)","AES");
+listDeparture.addOptions("HAU","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Alta (ALF)","ALF","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Dublin (DUB)","DUB","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Genève (GVA)","GVA","Hamburg (HAM)","HAM","Harstad/Narvik (EVE)","EVE","Kirkenes (KKN)","KKN","Krakow (KRK)","KRK","Kristiansand (KRS)","KRS","København (CPH)","CPH","Lanzarote (ACE)","ACE","London-Gatwick (LGW)","LGW","Malaga (AGP)","AGP","Molde (MOL)","MOL","München (MUC)","MUC","Nice (NCE)","NCE","Oslo-Gardermoen (OSL)","OSL","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Riga (RIX)","RIX","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Skt. Petersborg (LED)","LED","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tallinn (TLL)","TLL","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Wroclaw (WRO)","WRO","Ålesund (AES)","AES");
+listDeparture.addOptions("SAW","- Vælg destination -","","Stockholm-Arlanda (ARN)","ARN");
+listDeparture.addOptions("KKN","- Vælg destination -","","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("KRN","- Vælg destination -","","Dubai (DXB)","DXB","København (CPH)","CPH","Oslo-Gardermoen (OSL)","OSL","Salzburg (SZG)","SZG","Stockholm-Arlanda (ARN)","ARN","Umeå (UME)","UME");
+listDeparture.addOptions("KRK","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("CHQ","- Vælg destination -","","Oslo-Gardermoen (OSL)","OSL","Stockholm-Arlanda (ARN)","ARN");
+listDeparture.addOptions("HER","- Vælg destination -","","København (CPH)","CPH");
+listDeparture.addOptions("KRS","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alta (ALF)","ALF","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Dubrovnik (DBV)","DBV","Gdansk (GDN)","GDN","Hamburg (HAM)","HAM","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kirkenes (KKN)","KKN","Krakow (KRK)","KRK","København (CPH)","CPH","London-Alle flyplasser (LON)","LON","London-Gatwick (LGW)","LGW","Molde (MOL)","MOL","München (MUC)","MUC","Nice (NCE)","NCE","Oslo-Gardermoen (OSL)","OSL","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Rom-Fiumicino (FCO)","FCO","Skt. Petersborg (LED)","LED","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wroclaw (WRO)","WRO","Ålesund (AES)","AES");
+listDeparture.addOptions("CPH","- Vælg destination -","","Algarve-Faro (FAO)","FAO","Alicante (ALC)","ALC","Alta (ALF)","ALF","Amsterdam (AMS)","AMS","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Dublin (DUB)","DUB","Edinburgh (EDI)","EDI","Genève (GVA)","GVA","Gran Canaria (LPA)","LPA","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kiruna (KRN)","KRN","Krakow (KRK)","KRK","Kreta-Heraklion (HER)","HER","Kristiansand (KRS)","KRS","London-Gatwick (LGW)","LGW","Luleå (LLA)","LLA","Malaga (AGP)","AGP","Mallorca-Palma (PMI)","PMI","Molde (MOL)","MOL","Nice (NCE)","NCE","Oslo-Gardermoen (OSL)","OSL","Paris-Orly (ORY)","ORY","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Umeå (UME)","UME","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("ACE","- Vælg destination -","","Haugesund (HAU)","HAU","Oslo-Gardermoen (OSL)","OSL");
+listDeparture.addOptions("LON","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("LGW","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("STN","- Vælg destination -","","Trondheim (TRD)","TRD");
+listDeparture.addOptions("LLA","- Vælg destination -","","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Genève (GVA)","GVA","København (CPH)","CPH","Nice (NCE)","NCE","Oslo-Gardermoen (OSL)","OSL","Salzburg (SZG)","SZG","Stockholm-Arlanda (ARN)","ARN");
+listDeparture.addOptions("AGP","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Umeå (UME)","UME","Warszawa (WAW)","WAW","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("PMI","- Vælg destination -","","København (CPH)","CPH","Oslo-Gardermoen (OSL)","OSL","Stockholm-Arlanda (ARN)","ARN","Umeå (UME)","UME","Aalborg (AAL)","AAL");
+listDeparture.addOptions("RAK","- Vælg destination -","","Oslo-Gardermoen (OSL)","OSL");
+listDeparture.addOptions("MOL","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Alta (ALF)","ALF","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Dublin (DUB)","DUB","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Genève (GVA)","GVA","Hamburg (HAM)","HAM","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Krakow (KRK)","KRK","Kristiansand (KRS)","KRS","København (CPH)","CPH","London-Gatwick (LGW)","LGW","Malaga (AGP)","AGP","München (MUC)","MUC","Nice (NCE)","NCE","Oslo-Gardermoen (OSL)","OSL","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Salzburg (SZG)","SZG","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tallinn (TLL)","TLL","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Vilnius (VNO)","VNO","Wien (VIE)","VIE");
+listDeparture.addOptions("MJV","- Vælg destination -","","Bergen (BGO)","BGO","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Trondheim (TRD)","TRD");
+listDeparture.addOptions("MUC","- Vælg destination -","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("NCE","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Luleå (LLA)","LLA","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Umeå (UME)","UME","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("OSLALL","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Algarve-Faro (FAO)","FAO","Alicante (ALC)","ALC","Alta (ALF)","ALF","Amsterdam (AMS)","AMS","Antalya (AYT)","AYT","Athen (ATH)","ATH","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Bordeaux (BOD)","BOD","Budapest (BUD)","BUD","Burgas (BOJ)","BOJ","Cypern-Larnaca (LCA)","LCA","Dubai (DXB)","DXB","Dublin (DUB)","DUB","Dubrovnik (DBV)","DBV","Düsseldorf (DUS)","DUS","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Genève (GVA)","GVA","Gran Canaria (LPA)","LPA","Hamburg (HAM)","HAM","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kirkenes (KKN)","KKN","Kiruna (KRN)","KRN","Krakow (KRK)","KRK","Kreta-Chania (CHQ)","CHQ","Kristiansand (KRS)","KRS","København (CPH)","CPH","Lanzarote (ACE)","ACE","London-Gatwick (LGW)","LGW","Luleå (LLA)","LLA","Malaga (AGP)","AGP","Mallorca-Palma (PMI)","PMI","Marrakech (RAK)","RAK","Molde (MOL)","MOL","Murcia-Alicante (MJV)","MJV","München (MUC)","MUC","Nice (NCE)","NCE","Palanga/Klaipeda (PLQ)","PLQ","Paris-Orly (ORY)","ORY","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Pula (PUY)","PUY","Riga (RIX)","RIX","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Skt. Petersborg (LED)","LED","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tallinn (TLL)","TLL","Tenerife (TFS)","TFS","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Umeå (UME)","UME","Varna (VAR)","VAR","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Wroclaw (WRO)","WRO","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("OSL","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Algarve-Faro (FAO)","FAO","Alicante (ALC)","ALC","Alicante-Alle flyplasser (ALCALL)","ALCALL","Alta (ALF)","ALF","Amsterdam (AMS)","AMS","Antalya (AYT)","AYT","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Bordeaux (BOD)","BOD","Budapest (BUD)","BUD","Burgas (BOJ)","BOJ","Cypern-Larnaca (LCA)","LCA","Dubai (DXB)","DXB","Dublin (DUB)","DUB","Dubrovnik (DBV)","DBV","Düsseldorf (DUS)","DUS","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Genève (GVA)","GVA","Gran Canaria (LPA)","LPA","Hamburg (HAM)","HAM","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kirkenes (KKN)","KKN","Kiruna (KRN)","KRN","Krakow (KRK)","KRK","Kreta-Chania (CHQ)","CHQ","Kristiansand (KRS)","KRS","København (CPH)","CPH","Lanzarote (ACE)","ACE","London-Alle flyplasser (LON)","LON","London-Gatwick (LGW)","LGW","Luleå (LLA)","LLA","Malaga (AGP)","AGP","Mallorca-Palma (PMI)","PMI","Marrakech (RAK)","RAK","Molde (MOL)","MOL","Murcia-Alicante (MJV)","MJV","München (MUC)","MUC","Nice (NCE)","NCE","Paris-Orly (ORY)","ORY","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Pula (PUY)","PUY","Riga (RIX)","RIX","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Skt. Petersborg (LED)","LED","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tallinn (TLL)","TLL","Tenerife (TFS)","TFS","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Umeå (UME)","UME","Varna (VAR)","VAR","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Wroclaw (WRO)","WRO","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("RYG","- Vælg destination -","","Alicante (ALC)","ALC","Antalya (AYT)","AYT","Athen (ATH)","ATH","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Malaga (AGP)","AGP","Palanga/Klaipeda (PLQ)","PLQ","Prag (PRG)","PRG","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD");
+listDeparture.addOptions("PLQ","- Vælg destination -","","Oslo-Rygge (RYG)","RYG");
+listDeparture.addOptions("ORY","- Vælg destination -","","Bergen (BGO)","BGO","København (CPH)","CPH","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Trondheim (TRD)","TRD");
+listDeparture.addOptions("PSA","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("PRG","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("PUY","- Vælg destination -","","Oslo-Gardermoen (OSL)","OSL");
+listDeparture.addOptions("RIX","- Vælg destination -","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Haugesund (HAU)","HAU","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("FCO","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Warszawa (WAW)","WAW","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("SZG","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kiruna (KRN)","KRN","København (CPH)","CPH","Luleå (LLA)","LLA","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Umeå (UME)","UME","Ålesund (AES)","AES");
+listDeparture.addOptions("SJJ","- Vælg destination -","","Stockholm-Arlanda (ARN)","ARN");
+listDeparture.addOptions("LED","- Vælg destination -","","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("SPU","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("SVG","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Alicante-Alle flyplasser (ALCALL)","ALCALL","Alta (ALF)","ALF","Amsterdam (AMS)","AMS","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Dublin (DUB)","DUB","Dubrovnik (DBV)","DBV","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Genève (GVA)","GVA","Gran Canaria (LPA)","LPA","Hamburg (HAM)","HAM","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kirkenes (KKN)","KKN","Krakow (KRK)","KRK","Kristiansand (KRS)","KRS","København (CPH)","CPH","London-Alle flyplasser (LON)","LON","London-Gatwick (LGW)","LGW","Malaga (AGP)","AGP","Molde (MOL)","MOL","Murcia-Alicante (MJV)","MJV","München (MUC)","MUC","Nice (NCE)","NCE","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG","Paris-Orly (ORY)","ORY","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Riga (RIX)","RIX","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Skt. Petersborg (LED)","LED","Split (SPU)","SPU","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tallinn (TLL)","TLL","Tenerife (TFS)","TFS","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Wroclaw (WRO)","WRO","Ålesund (AES)","AES");
+listDeparture.addOptions("SZZ","- Vælg destination -","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","Molde (MOL)","MOL","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("ARN","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Algarve-Faro (FAO)","FAO","Alicante (ALC)","ALC","Alta (ALF)","ALF","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Dubrovnik (DBV)","DBV","Genève (GVA)","GVA","Gran Canaria (LPA)","LPA","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Istanbul-Sabiha (SAW)","SAW","Kiruna (KRN)","KRN","Kreta-Chania (CHQ)","CHQ","Kristiansand (KRS)","KRS","København (CPH)","CPH","Luleå (LLA)","LLA","Malaga (AGP)","AGP","Mallorca-Palma (PMI)","PMI","Molde (MOL)","MOL","Nice (NCE)","NCE","Oslo-Gardermoen (OSL)","OSL","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Sarajevo (SJJ)","SJJ","Split (SPU)","SPU","Stavanger (SVG)","SVG","Tenerife (TFS)","TFS","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Umeå (UME)","UME","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("TLL","- Vælg destination -","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Haugesund (HAU)","HAU","Molde (MOL)","MOL","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("TFS","- Vælg destination -","","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Stockholm-Arlanda (ARN)","ARN","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("TOS","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Barcelona (BCN)","BCN","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Dublin (DUB)","DUB","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Genève (GVA)","GVA","Hamburg (HAM)","HAM","Haugesund (HAU)","HAU","Krakow (KRK)","KRK","Kristiansand (KRS)","KRS","København (CPH)","CPH","London-Alle flyplasser (LON)","LON","London-Gatwick (LGW)","LGW","Malaga (AGP)","AGP","Molde (MOL)","MOL","München (MUC)","MUC","Nice (NCE)","NCE","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Riga (RIX)","RIX","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Skt. Petersborg (LED)","LED","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tallinn (TLL)","TLL","Trondheim (TRD)","TRD","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Wroclaw (WRO)","WRO","Ålesund (AES)","AES");
+listDeparture.addOptions("TRD","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Alicante-Alle flyplasser (ALCALL)","ALCALL","Alta (ALF)","ALF","Amsterdam (AMS)","AMS","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Dublin (DUB)","DUB","Dubrovnik (DBV)","DBV","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Genève (GVA)","GVA","Gran Canaria (LPA)","LPA","Hamburg (HAM)","HAM","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kirkenes (KKN)","KKN","Krakow (KRK)","KRK","Kristiansand (KRS)","KRS","København (CPH)","CPH","London-Alle flyplasser (LON)","LON","London-Gatwick (LGW)","LGW","London-Stansted (STN)","STN","Malaga (AGP)","AGP","Molde (MOL)","MOL","Murcia-Alicante (MJV)","MJV","München (MUC)","MUC","Nice (NCE)","NCE","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Oslo-Rygge (RYG)","RYG","Paris-Orly (ORY)","ORY","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Riga (RIX)","RIX","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Skt. Petersborg (LED)","LED","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tallinn (TLL)","TLL","Tenerife (TFS)","TFS","Tromsø (TOS)","TOS","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Wroclaw (WRO)","WRO","Ålesund (AES)","AES");
+listDeparture.addOptions("UME","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Genève (GVA)","GVA","Kiruna (KRN)","KRN","København (CPH)","CPH","Malaga (AGP)","AGP","Mallorca-Palma (PMI)","PMI","Nice (NCE)","NCE","Oslo-Gardermoen (OSL)","OSL","Salzburg (SZG)","SZG","Stockholm-Arlanda (ARN)","ARN");
+listDeparture.addOptions("VAR","- Vælg destination -","","Oslo-Gardermoen (OSL)","OSL");
+listDeparture.addOptions("VNO","- Vælg destination -","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("WAW","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Athen (ATH)","ATH","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Dubrovnik (DBV)","DBV","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","København (CPH)","CPH","Malaga (AGP)","AGP","Oslo-Alle lufthavne (OSLALL)","OSLALL","Oslo-Gardermoen (OSL)","OSL","Rom-Fiumicino (FCO)","FCO","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("VIE","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Bardufoss (BDU)","BDU","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","København (CPH)","CPH","Molde (MOL)","MOL","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Aalborg (AAL)","AAL","Ålesund (AES)","AES");
+listDeparture.addOptions("WRO","- Vælg destination -","","Bergen (BGO)","BGO","Bodø (BOO)","BOO","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kristiansand (KRS)","KRS","Oslo-Gardermoen (OSL)","OSL","Stavanger (SVG)","SVG","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Ålesund (AES)","AES");
+listDeparture.addOptions("AAL","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Barcelona (BCN)","BCN","Budapest (BUD)","BUD","Dublin (DUB)","DUB","Edinburgh (EDI)","EDI","Genève (GVA)","GVA","Gran Canaria (LPA)","LPA","Krakow (KRK)","KRK","København (CPH)","CPH","London-Gatwick (LGW)","LGW","Malaga (AGP)","AGP","Mallorca-Palma (PMI)","PMI","Nice (NCE)","NCE","Oslo-Gardermoen (OSL)","OSL","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Rom-Fiumicino (FCO)","FCO","Stockholm-Arlanda (ARN)","ARN","Wien (VIE)","VIE");
+listDeparture.addOptions("AES","- Vælg destination -","","København (CPH)","CPH","------------------------------","","Alicante (ALC)","ALC","Alta (ALF)","ALF","Barcelona (BCN)","BCN","Bardufoss (BDU)","BDU","Beograd (BEG)","BEG","Bergen (BGO)","BGO","Berlin-Schönefeld (SXF)","SXF","Bodø (BOO)","BOO","Budapest (BUD)","BUD","Dubai (DXB)","DXB","Dublin (DUB)","DUB","Edinburgh (EDI)","EDI","Gdansk (GDN)","GDN","Genève (GVA)","GVA","Hamburg (HAM)","HAM","Harstad/Narvik (EVE)","EVE","Haugesund (HAU)","HAU","Kirkenes (KKN)","KKN","Krakow (KRK)","KRK","Kristiansand (KRS)","KRS","København (CPH)","CPH","London-Gatwick (LGW)","LGW","Malaga (AGP)","AGP","München (MUC)","MUC","Nice (NCE)","NCE","Oslo-Gardermoen (OSL)","OSL","Pisa-Toscana (PSA)","PSA","Prag (PRG)","PRG","Riga (RIX)","RIX","Rom-Fiumicino (FCO)","FCO","Salzburg (SZG)","SZG","Skt. Petersborg (LED)","LED","Split (SPU)","SPU","Stavanger (SVG)","SVG","Stettin (SZZ)","SZZ","Stockholm-Arlanda (ARN)","ARN","Tallinn (TLL)","TLL","Tenerife (TFS)","TFS","Tromsø (TOS)","TOS","Trondheim (TRD)","TRD","Vilnius (VNO)","VNO","Warszawa (WAW)","WAW","Wien (VIE)","VIE","Wroclaw (WRO)","WRO");
+/**
+* Function looks for a value in a select list.
+* If found, it is selected
+**/
+function selectIfFound(selectList, targetValue)
+{
+if (selectList == null)
+return;
+var found = false;
+for (var i = 0; i < selectList.length; i++)
+{
+if(selectList.options[i].value == targetValue)
+{
+selectList.options[i].selected = true;
+found = true;
+break;
+}
+}
+if (!found)
+selectList.options[0].selected = true;
+}
+function setDeparture(origins, value)
+{
+if (value != null && value != "")
+selectIfFound(origins, value);
+else
+origins.selectedIndex = 0;
+}
+function setArrival(destinations, value)
+{
+if (value != null && value != "")
+{
+selectIfFound(destinations, value);
+}
+else if (destinations.selectedIndex > 0)
+{
+selectIfFound(destinations, destinations.options[destinations.selectedIndex].value);
+}
+else
+{
+destinations.selectedIndex = 0;
+}
+}
+function validate(form)
+{
+if (form.A_City.options[form.A_City.selectedIndex].value == "")
+{
+alert('Vælg destination');
+return false;
+}
+else
+return true;
+}
+document.write("<style type=\"text/css\">\n");
+document.write("div#nc_banner_wrapper {\n");
+document.write("margin:0;\n");
+document.write("padding:0;\n");
+document.write("border: 1px #ccc solid;\n");
+document.write("border-bottom: 0;\n");
+document.write("background:#e43232 url(\"norwegian_bg.png\") no-repeat left top;\n");
+document.write("font-family: arial, sans-serif;\n");
+document.write("font-size: 12px;\n");
+document.write("color: #fff;\n");
+document.write("width: 298px;\n");
+document.write("}\n");
+document.write("#nc input {\n");
+document.write("margin:-2px 0 2px 0;\n");
+document.write("padding:0;\n");
+document.write("font-size: 12px;\n");
+document.write("}\n");
+document.write("#nc select {\n");
+document.write("margin:0 0 0 0;\n");
+document.write("padding:0;\n");
+document.write("font-size: 10px;\n");
+document.write("width: 216px;\n");
+document.write("}\n");
+document.write("#nc form {\n");
+document.write("margin:0;\n");
+document.write("padding:0;\n");
+document.write("}\n");
+document.write("#nc {\n");
+document.write("position: relative;\n");
+document.write("margin: 0;\n");
+document.write("padding: 0;\n");
+document.write("width: 298px;\n");
+document.write("height: 79px;\n");
+document.write("overflow: hidden;\n");
+document.write("}\n");
+document.write("#nc div {\n");
+document.write("padding: 8px 0 0 8px;\n");
+document.write("}\n");
+document.write("#nc span {\n");
+document.write("font-family: arial, sans-serif;\n");
+document.write("font-weight: bold;\n");
+document.write("padding-left: 0;\n");
+document.write("}\n");
+document.write("#nc label {\n");
+document.write("font-weight: bold;\n");
+document.write("display: block;\n");
+document.write("width: 28px;\n");
+document.write("float: left;\n");
+document.write("font-family: arial, sans-serif;\n");
+document.write("font-size: 12px;\n");
+document.write("color: #fff;\n");
+document.write("}\n");
+document.write("#nc input.btn {\n");
+document.write("position: absolute;\n");
+document.write("margin-top: 0;\n");
+document.write("}\n");
+document.write("</style>\n");
+document.write("<div id=\"nc_banner_wrapper\">\n");
+document.write("	<div id=\"nc\">\n");
+document.write("		<div>\n");
+document.write("			<form name=\"travelWithNorwegianAftenpostenSmallForm\" action=\"http://adserver.adtech.de/adlink|887|2199515|0|2747|AdId=5028942;BnId=18;itime=135675841;key=ece_frontpage+sektion;nodecode=yes;link=http://ip.norwegian.no/ip/FareCalendarExecAction.aspx?SkipDaysLeft=5\" method=\"get\" target=\"_new\">\n");
+document.write("				<input type=\"hidden\" name=\"TripType\" value=\"2\"/>\n");
+document.write("				<input type=\"hidden\" name=\"AdultCount\" value=\"1\"/>\n");
+document.write("				<input type=\"hidden\" name=\"ChildCount\" value=\"0\"/>\n");
+document.write("				<input type=\"hidden\" name=\"InfantCount\" value=\"0\"/>\n");
+document.write("				<input type=\"hidden\" name=\"app_language\" value=\"da-DK\"/>\n");
+document.write("				<input type=\"hidden\" name=\"currencyCode\" value=\"DKK\"/>\n");
+document.write("				<input type=\"hidden\" name=\"trackingurl\" value=\"71033419c9f34c83966bf2f731381766\" />\n");
+document.write("				<span>LAVPRISKALENDEREN:</span><br />\n");
+document.write("				<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n");
+document.write("					<tr>\n");
+document.write("						<td height=\"3\"></td>\n");
+document.write("					</tr>\n");
+document.write("				</table>\n");
+document.write("				\n");
+document.write("				<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
+document.write("					<tr>\n");
+document.write("						<td>\n");
+document.write("							<label for=\"Select1\">Fra</label>\n");
+document.write("							<select name=\"D_City\" id=\"Select1\" tabindex=\"1\" onchange=\"listDeparture.populate();setArrival(__theDocument.travelWithNorwegianAftenpostenSmallForm.A_City);\">\n");
+document.write("								<option value=\"\">- V&aelig;lg afgang -</option>\n");
+document.write("								<option value=\"CPH\" selected=\"selected\">K&oslash;benhavn (CPH)</option>\n");
+document.write("								<option value=\"AAL\">Aalborg (AAL)</option>\n");
+document.write("								<option value=\"\">------------------------------</option>\n");
+document.write("								<option value=\"FAO\">Algarve-Faro (FAO)</option>\n");
+document.write("								<option value=\"ALC\">Alicante (ALC)</option>\n");
+document.write("								<option value=\"ALCALL\">Alicante-Alle flyplasser (ALCALL)</option>\n");
+document.write("								<option value=\"ALF\">Alta (ALF)</option>\n");
+document.write("								<option value=\"AMS\">Amsterdam (AMS)</option>\n");
+document.write("								<option value=\"AYT\">Antalya (AYT)</option>\n");
+document.write("								<option value=\"ATH\">Athen (ATH)</option>\n");
+document.write("								<option value=\"BCN\">Barcelona (BCN)</option>\n");
+document.write("								<option value=\"BDU\">Bardufoss (BDU)</option>\n");
+document.write("								<option value=\"BEG\">Beograd (BEG)</option>\n");
+document.write("								<option value=\"BGO\">Bergen (BGO)</option>\n");
+document.write("								<option value=\"SXF\">Berlin-Sch&ouml;nefeld (SXF)</option>\n");
+document.write("								<option value=\"BOO\">Bod&oslash; (BOO)</option>\n");
+document.write("								<option value=\"BOD\">Bordeaux (BOD)</option>\n");
+document.write("								<option value=\"BUD\">Budapest (BUD)</option>\n");
+document.write("								<option value=\"BOJ\">Burgas (BOJ)</option>\n");
+document.write("								<option value=\"LCA\">Cypern-Larnaca (LCA)</option>\n");
+document.write("								<option value=\"DXB\">Dubai (DXB)</option>\n");
+document.write("								<option value=\"DUB\">Dublin (DUB)</option>\n");
+document.write("								<option value=\"DBV\">Dubrovnik (DBV)</option>\n");
+document.write("								<option value=\"DUS\">D&uuml;sseldorf (DUS)</option>\n");
+document.write("								<option value=\"EDI\">Edinburgh (EDI)</option>\n");
+document.write("								<option value=\"GDN\">Gdansk (GDN)</option>\n");
+document.write("								<option value=\"GVA\">Gen&egrave;ve (GVA)</option>\n");
+document.write("								<option value=\"LPA\">Gran Canaria (LPA)</option>\n");
+document.write("								<option value=\"HAM\">Hamburg (HAM)</option>\n");
+document.write("								<option value=\"EVE\">Harstad/Narvik (EVE)</option>\n");
+document.write("								<option value=\"HAU\">Haugesund (HAU)</option>\n");
+document.write("								<option value=\"SAW\">Istanbul-Sabiha (SAW)</option>\n");
+document.write("								<option value=\"KKN\">Kirkenes (KKN)</option>\n");
+document.write("								<option value=\"KRN\">Kiruna (KRN)</option>\n");
+document.write("								<option value=\"KRK\">Krakow (KRK)</option>\n");
+document.write("								<option value=\"CHQ\">Kreta-Chania (CHQ)</option>\n");
+document.write("								<option value=\"HER\">Kreta-Heraklion (HER)</option>\n");
+document.write("								<option value=\"KRS\">Kristiansand (KRS)</option>\n");
+document.write("								<option value=\"CPH\">K&oslash;benhavn (CPH)</option>\n");
+document.write("								<option value=\"ACE\">Lanzarote (ACE)</option>\n");
+document.write("								<option value=\"LON\">London-Alle flyplasser (LON)</option>\n");
+document.write("								<option value=\"LGW\">London-Gatwick (LGW)</option>\n");
+document.write("								<option value=\"STN\">London-Stansted (STN)</option>\n");
+document.write("								<option value=\"LLA\">Lule&aring; (LLA)</option>\n");
+document.write("								<option value=\"AGP\">Malaga (AGP)</option>\n");
+document.write("								<option value=\"PMI\">Mallorca-Palma (PMI)</option>\n");
+document.write("								<option value=\"RAK\">Marrakech (RAK)</option>\n");
+document.write("								<option value=\"MOL\">Molde (MOL)</option>\n");
+document.write("								<option value=\"MJV\">Murcia-Alicante (MJV)</option>\n");
+document.write("								<option value=\"MUC\">M&uuml;nchen (MUC)</option>\n");
+document.write("								<option value=\"NCE\">Nice (NCE)</option>\n");
+document.write("								<option value=\"OSLALL\">Oslo-Alle lufthavne (OSLALL)</option>\n");
+document.write("								<option value=\"OSL\">Oslo-Gardermoen (OSL)</option>\n");
+document.write("								<option value=\"RYG\">Oslo-Rygge (RYG)</option>\n");
+document.write("								<option value=\"PLQ\">Palanga/Klaipeda (PLQ)</option>\n");
+document.write("								<option value=\"ORY\">Paris-Orly (ORY)</option>\n");
+document.write("								<option value=\"PSA\">Pisa-Toscana (PSA)</option>\n");
+document.write("								<option value=\"PRG\">Prag (PRG)</option>\n");
+document.write("								<option value=\"PUY\">Pula (PUY)</option>\n");
+document.write("								<option value=\"RIX\">Riga (RIX)</option>\n");
+document.write("								<option value=\"FCO\">Rom-Fiumicino (FCO)</option>\n");
+document.write("								<option value=\"SZG\">Salzburg (SZG)</option>\n");
+document.write("								<option value=\"SJJ\">Sarajevo (SJJ)</option>\n");
+document.write("								<option value=\"LED\">Skt. Petersborg (LED)</option>\n");
+document.write("								<option value=\"SPU\">Split (SPU)</option>\n");
+document.write("								<option value=\"SVG\">Stavanger (SVG)</option>\n");
+document.write("								<option value=\"SZZ\">Stettin (SZZ)</option>\n");
+document.write("								<option value=\"ARN\">Stockholm-Arlanda (ARN)</option>\n");
+document.write("								<option value=\"TLL\">Tallinn (TLL)</option>\n");
+document.write("								<option value=\"TFS\">Tenerife (TFS)</option>\n");
+document.write("								<option value=\"TOS\">Troms&oslash; (TOS)</option>\n");
+document.write("								<option value=\"TRD\">Trondheim (TRD)</option>\n");
+document.write("								<option value=\"UME\">Ume&aring; (UME)</option>\n");
+document.write("								<option value=\"VAR\">Varna (VAR)</option>\n");
+document.write("								<option value=\"VNO\">Vilnius (VNO)</option>\n");
+document.write("								<option value=\"WAW\">Warszawa (WAW)</option>\n");
+document.write("								<option value=\"VIE\">Wien (VIE)</option>\n");
+document.write("								<option value=\"WRO\">Wroclaw (WRO)</option>\n");
+document.write("								<option value=\"AES\">&Aring;lesund (AES)</option>\n");
+document.write("							</select>\n");
+document.write("						</td>\n");
+document.write("					</tr>\n");
+document.write("					<tr>\n");
+document.write("						<td style=\"height: 8px;\"></td>\n");
+document.write("					</tr>\n");
+document.write("					<tr>\n");
+document.write("						<td style=\"white-space: nowrap;\">\n");
+document.write("							<label for=\"Select2\">Til</label>\n");
+document.write("							<select name=\"A_City\" id=\"Select2\" tabindex=\"2\">\n");
+listDeparture.printOptions();
+document.write("</select>\n");
+document.write("							<input type=\"button\" class=\"btn\" name=\"btSearch\" onClick=\"if (__theDocument.travelWithNorwegianAftenpostenSmallForm.A_City.selectedIndex > 0) __theDocument.travelWithNorwegianAftenpostenSmallForm.submit(); else alert('Vælg destination');\" value=\"Søg\" />\n");
+document.write("							&nbsp;&nbsp;\n");
+// default values for origin and destination
+listDeparture.init(__theDocument.travelWithNorwegianAftenpostenSmallForm);
+setDeparture(__theDocument.travelWithNorwegianAftenpostenSmallForm.D_City, "CPH");
+setArrival(__theDocument.travelWithNorwegianAftenpostenSmallForm.A_City, "");
+// default values for departure and return date
+selectIfFound(__theDocument.travelWithNorwegianAftenpostenSmallForm.D_Day, 29);
+selectIfFound(__theDocument.travelWithNorwegianAftenpostenSmallForm.D_Month, 200701);
+document.write("</td>\n");
+document.write("					</tr>\n");
+document.write("				</table>\n");
+document.write("		  </form>\n");
+document.write("		</div>\n");
+document.write("	</div>\n");
+document.write("</div>\n");
+document.write("<object width=\"300\" height=\"30\" classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" id=\"FlashID\" style=\"visibility: visible;\">\n");
+document.write("	<param value=\"http://media.suddenly.dk/customers/norwegian/352_norwegian_ongoing_dk/10_300x30_norwegian_ongoing_dk_kombi.swf\" name=\"movie\"/>\n");
+document.write("	<param value=\"high\" name=\"quality\"/>\n");
+document.write("	<param value=\"opaque\" name=\"wmode\"/>\n");
+document.write("	<param value=\"8.0\" name=\"swfversion\"/>\n");
+document.write("	\n");
+document.write("	\n");
+document.write("	\n");
+document.write("		<object width=\"300\" height=\"30\" data=\"http://media.suddenly.dk/customers/norwegian/352_norwegian_ongoing_dk/10_300x30_norwegian_ongoing_dk_kombi.swf\" type=\"application/x-shockwave-flash\">\n");
+document.write("	\n");
+document.write("	<param value=\"high\" name=\"quality\"/>\n");
+document.write("	<param value=\"opaque\" name=\"wmode\"/>\n");
+document.write("	<param value=\"8.0\" name=\"swfversion\"/>\n");
+document.write("	\n");
+document.write("	\n");
+document.write("		<div>\n");
+document.write("		<img alt=\"\" src=\"http://media.suddenly.dk/customers/norwegian/352_norwegian_ongoing_dk/10_300x30_norwegian_ongoing_dk_kombi.jpg\"/>\n");
+document.write("		\n");
+document.write("		</div>\n");
+document.write("	\n");
+document.write("		</object>\n");
+document.write("	\n");
+document.write("</object>\n");
+function cleanUp() {
+	if (typeof __parent.swappedRefs == "undefined") {
+		__parent.swappedRefs = new Array();
+	}
+		
+	while (__parent.swappedRefs.length > 0) {
+		var ref = __parent.swappedRefs.pop();
+		if (ref != "swappedRefs") {
+			__parent[ref] = null;
+		}
+	}
+}
+
+if (typeof inFIF != "undefined" && inFIF == true) {
+	__parent = window.parent;
+	window.onunload = cleanUp;
+	cleanUp();
+
+	
+	for (var ref in window) {
+		if ((typeof __parent[ref] == "undefined" || __parent[ref] == null) 
+					&& ref != "frameElement" && ref != "event" && ref != "swappedRefs" && ref != "onunload") {
+			try {__parent[ref] = window[ref]; __parent.swappedRefs.push(ref);} catch (e) {}
+		}
+	}	
+}	
+
+
+
+
+if (typeof inFIF != "undefined" && inFIF) {
+	__flushCode();
+}
+
+if (typeof inFIF != "undefined" && inFIF == true) {
+try {parent.write = write;
+} catch (e) {}try {parent.writeln = writeln;
+} catch (e) {}try {parent.__flushCode = __flushCode;
+} catch (e) {}try {parent.DynamicOptionList = DynamicOptionList;
+} catch (e) {}try {parent.DynamicOptionList_setDelimiter = DynamicOptionList_setDelimiter;
+} catch (e) {}try {parent.DynamicOptionList_setDefaultOption = DynamicOptionList_setDefaultOption;
+} catch (e) {}try {parent.DynamicOptionList_init = DynamicOptionList_init;
+} catch (e) {}try {parent.DynamicOptionList_addOptions = DynamicOptionList_addOptions;
+} catch (e) {}try {parent.DynamicOptionList_printOptions = DynamicOptionList_printOptions;
+} catch (e) {}try {parent.DynamicOptionList_populate = DynamicOptionList_populate;
+} catch (e) {}try {parent.selectIfFound = selectIfFound;
+} catch (e) {}try {parent.setDeparture = setDeparture;
+} catch (e) {}try {parent.setArrival = setArrival;
+} catch (e) {}try {parent.validate = validate;
+} catch (e) {}}
+
+

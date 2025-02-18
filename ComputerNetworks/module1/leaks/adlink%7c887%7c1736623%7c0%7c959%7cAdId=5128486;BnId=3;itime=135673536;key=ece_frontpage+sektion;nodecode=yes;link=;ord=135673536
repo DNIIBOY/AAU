@@ -1,0 +1,10 @@
+
+if(!Adform) var Adform = {};
+
+Adform.ADFBannerData = {};
+Adform.ADFBannerData.URL = "http://track.adform.net/adfserve/?bn=376090;click=http://adserver.adtech.de/adlink|887|1736623|0|959|AdId=5128486;BnId=3;itime=135673536;key=ece_frontpage+sektion;nodecode=yes;link=;ord=135673536";
+Adform.ADFBannerData.CREFURL = "http%3A%2F%2Fpolitiken%2Edk%2F";
+Adform.host = "http://track.adform.net";
+if(!Adform.ADFBannerParams)Adform.ADFBannerParams = new Array();
+Adform.ADFBannerParams.push(Adform.ADFBannerData);
+typeof Adform.ADFUtilInstance == "undefined" ? document.write('<scr'+'ipt type="text/javascript" src="http://track.adform.net/adfscript/unload/ADFBanner.js"></scr'+'ipt>'):new Adform.ADFBanner();

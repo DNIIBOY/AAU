@@ -1,0 +1,676 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="da" lang="da">
+<head>
+<script src='http://tgt.dk/template/v1-0/components/js/prototype_size_enhanced.js' type="text/javascript"></script>
+<script src='http://tgt.dk/template/v1-0/components/js/tgt.js' type="text/javascript"></script>
+<title>
+tgt.dk - Turen Går Til - Guides, inspiration, billige billetter... tips og tricks til rejsen
+</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<style type="text/css">
+html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,p,blockquote,fieldset,input,label { margin: 0; padding: 0; }
+h1,h2,h3,h4,h5,h6,pre,code,address,caption,cite,code,em,strong,th { font-size: 1em; font-weight: normal; font-style: normal; }
+ul,ol { list-style:none;
+list-style-type:none;
+list-style-position:outside;
+}
+fieldset,img { border: none; }
+caption,th { text-align: left; }
+table { border-collapse: collapse; border-spacing: 0; }
+/* our friendly helpers */
+.clear { clear:both; }
+body { /*background:url(/grafik/core/polbox4.png) no-repeat top left;*/
+font-size: 13px;
+line-height:18px;
+font-family:Helvetica, Arial, Verdana, sans-serif;
+color:#111;
+}
+a { color: #111; text-decoration:none;}
+p a{color:#666}
+a:hover{color:black;text-decoration:underline}
+strong, b { font-weight:bold; }
+em, i { font-style:italic; }
+h1{font-size:16px;font-weight:bold;}
+h2{font-size:24px;font-weight:bold;padding:15px 0 10px 0;}
+h3{font-size:16px;font-weight:bold;padding:10px 0;}
+h4{font-size:12px;font-weight:bold;}
+div#flight_layer h4{font-size:13px;padding:10px 0;}
+div#flight_teaser_prices h4{font-size:13px;padding-top:5px;}
+div#main{
+width:940px;
+border-bottom:5px solid #2B2E31;
+}
+#top{
+background:#2B2E31;
+height:41px;
+color:white;
+margin-bottom:10px;
+}
+#top h1{
+float:left;
+padding-left:10px;
+padding-top:10px;
+font-weight:normal;
+letter-spacing:.03em;
+}
+#tgtlogo{
+width:322px;
+height:41px;
+background:white;
+float:left;
+}
+#tgtlogobox{
+background:#fff url(http://tgt.dk/grafik/core/tgt_x_logo.png) no-repeat 0 -1px;
+width:248px;
+height:39px;
+margin-right:4px;
+float:left;
+border:1px solid #bbb;
+}
+#tgtlogobox a{
+display:block;
+width:248px;
+height:39px;
+}
+#tgtlogobox a:hover{
+text-decoration:none;
+}
+#color{
+background-color:#28962a;
+background-image:url(http://tgt.dk/grafik/core/tgt_x_logo.png);
+background-position:-252px 0;
+width:65px;
+height:41px;
+float:left;
+}
+a.img_big{
+display:block;
+width:620px;
+height:332px;
+overflow:hidden;
+}
+a.img_big img{
+width:620px;
+}
+a.img_medium{
+display:block;
+width:300px;
+height:160px;
+overflow:hidden;
+}
+a.img_medium img{
+width:300px;
+}
+div#left{
+width:630px;
+float:left;
+overflow:hidden;
+border-right:1px solid #ccc;
+}
+div#left p.manchet{
+min-height:35px;
+}
+div#left_bottom{
+border-top:1px solid #ccc;
+padding-top:10px;
+margin-top:10px;
+width:620px;
+overflow:hidden;
+}
+div#left_bottom_left{
+float:left;
+width:309px;
+overflow:hidden;
+border-right:1px solid #ccc;
+height:275px;
+}
+div#left_bottom_right{
+float:left;
+overflow:hidden;
+width:300px;
+padding-left:10px;
+height:275px;
+}
+div#left_bottom_right h3 span{
+color:#c91417;
+}
+div#right{
+width:300px;
+padding-left:9px;
+float:left;
+overflow:hidden;
+}
+/* autocomplete */
+.autocomplete-w1 { background:url(http://tgt.dk/grafik/core/shadow.png) no-repeat bottom right; position:absolute; top:4px; left:3px; /* IE6 fix: */ _background:none; _top:1px;
+}
+.autocomplete {
+width:200px;
+border:1px solid #999;
+background:#FFF;
+cursor:default;
+text-align:left;
+max-height:350px;
+overflow:auto;
+margin:-3px 6px 6px -3px;
+/* IE specific: */ _height:350px;
+_margin:0px 6px 6px 0;
+overflow-x:hidden;
+}
+.autocomplete .selected { background-color: #2B2E31;
+color:#fff;
+}
+.autosearch b{
+color:black;
+}
+.autosearch .selected{
+background-color:#2B2E31;
+color:white;
+}
+.autocomplete .selected span.url,
+.autocomplete .selected b{
+color:#fff;
+}
+.autocomplete div {
+padding:2px 5px;
+color:#666;
+cursor:pointer;
+}
+.autocomplete div.search_all{
+background-color:#111;
+}
+.autocomplete div.search_all a.tgtlink,
+.autocomplete div.search_all b{
+color:white;
+}
+.autocomplete div span.iata{
+float:right;
+width:32px;
+text-align: right;
+color:#ccc;
+font-size: 90%;
+}
+.autocomplete div span.url{
+display:block;
+color:#999;
+font-size:11px;
+}
+.autocomplete strong {
+font-weight:normal;
+color:#3399FF;
+}
+.autocomplete h3{
+color:#666;
+background:#ccc;
+font-size:12px;
+font-weight:normal;
+padding:2px 5px;
+border-bottom:1px solid #aaa;
+}
+/* flight search */
+form#flightForm{
+height:80px;
+}
+#alternative_search a{
+color:#900;
+font-weight:bold;
+}
+div.twoColBlock{
+padding-bottom:5px;
+float:left;
+width:230px;
+}
+input#submit_flight_btn{
+float:right;
+}
+div.flight_input{
+float:left;
+width:120px;
+}
+div.flight_input input.input_text{
+width:112px;
+}
+div.dates{
+float:left;
+width:110px;
+}
+div.dates input.input_text{
+width:75px
+}
+div.dates img.calendar_icon{
+vertical-align:text-bottom;
+}
+div.top_teaser_prices {
+font-size:13px;
+line-height:23px;
+}
+div.top_teaser_prices ul li.stroke {
+border-top:1px solid #ccc;
+}
+ul#flight_teaser_items{
+border-bottom:1px solid #ccc;
+}
+div#flight ul.topnav{
+height:28px;
+clear:both;
+background:#eee;
+}
+div#flight ul.topnav li{
+float:left;
+}
+div#flight ul.topnav li a{
+display:block;
+float:left;
+border-left:1px solid #999;
+padding:5px 10px;
+font-weight:bold;
+color:#666;
+}
+div#flight ul.topnav li.selected a{
+border:0;
+background:white;
+}
+h2.small_header{
+color:white;
+background:#2B2E31;
+padding:6px 10px 4px 10px;
+font-size:13px;
+text-transform:uppercase;
+letter-spacing:.02em;
+}
+h2.small_header_ticket{
+background:#2B2E31;
+}
+p.annonce{
+font-size:11px;
+color:#999;
+line-height:10px;
+margin-bottom:10px;
+}
+div.banner{
+padding:10px 0;
+}
+div.guides{
+height:134px;
+line-height:21px;
+overflow:auto;
+padding-left:3px;
+}
+div.guides ul li{
+border-bottom:1px solid #ddd;
+padding:2px 0 2px 1px;
+width:270px;
+line-height:21px;
+}
+div.guides ul li a{
+color:#333333;
+display:block;
+}
+</style>
+<link type="text/css" rel="stylesheet" href="/template/v1-0/components/css/datepicker.css" />
+<!--[if IE]>
+<style>
+div.guides ul li{
+margin-bottom:-3px;
+}
+</style>
+<![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+</head>
+<body>
+<div id="main">
+<div id="top">
+<div id="tgtlogo">
+<div id="tgtlogobox"><a href="http://www.tgt.dk" target="_blank">&nbsp;</a></div>
+<div id="color"></div>
+</div>
+<h1>Nyt fra rejsesiden Turen går til</h1>
+</div>
+<!-- cache polbox5_1 5m -->
+<div id="left">
+<a class="img_big" target="_blank" href="http://tgt.dk/inspiration/tema/bedste_vaerste/article65455.ece">
+<img src="http://tgt.dk/archive/00023/HotelHorrorStories_w_23564a.jpg" alt="Hotelgæster: Verdens værste hotelophold"/>
+</a>
+<h2><a href="http://tgt.dk/inspiration/tema/bedste_vaerste/article65455.ece" target="_blank" title='Hotelgæster: Verdens værste hotelophold'>
+Hotelgæster: Verdens værste hotelophold
+</a></h2>
+<b>Af Morten Bo Rasmussen</b>
+<p class="manchet">
+Glem alt om dårlig service og mangelfuld rengøring. Her er hoteloplevelserne, der trodser enhver beskrivelse. </p>
+<div id="left_bottom">
+<div id="left_bottom_left">
+<a class="img_medium" href="http://tgt.dk/inspiration/tema/bedste_vaerste/article58320.ece" target="_blank">
+<img src="http://tgt.dk/archive/00021/StyrtendeFly_iStock__21485h.jpg" alt="10 film, som flyselskaberne ikke viser"/>
+</a>
+<h3><a href="http://tgt.dk/inspiration/tema/bedste_vaerste/article58320.ece" target="_blank" title='10 film, som flyselskaberne ikke viser'>
+10 film, som flyselskaberne ikke viser
+</a></h3>
+<ul>
+<li>&rsaquo; <a href="http://tgt.dk/inspiration/tema/flyoglufthavne/article65428.ece" target="_blank" title='Sådan flyver du med de miljørigtige selskaber'>Sådan flyver du med de miljørigtige selskaber</a></li>
+<li>&rsaquo; <a href="http://tgt.dk/inspiration/tema/storbyogkultur/article65317.ece" target="_blank" title='En weekend i Mumbai'>En weekend i Mumbai</a></li>
+<li>&rsaquo; <a href="http://tgt.dk/inspiration/tema/klima/article65334.ece" target="_blank" title='Se en indisk tiger, før det er for sent'>Se en indisk tiger, før det er for sent</a></li>
+</ul>
+</div>
+<div id="left_bottom_right">
+<a target='_blank' class='img_medium' href='http://tgt.dk/guide/europa/storbritannien/london/stederatshoppe/'><img src='http://tgt.dk/archive/00021/London_Shopping_iSto_21770h.jpg' alt=''/></a>
+<h3><span>Guide: </span><a target='_blank' href='http://tgt.dk/guide/europa/storbritannien/london/stederatshoppe/'>Shopping i London</a></h3>
+<ul>
+<li>&rsaquo; <a target='_blank' href='http://tgt.dk/guide/nordamerika/usa/new_york/stederatshoppe/'>Shopping i New York</a></li>
+<li>&rsaquo; <a target='_blank' href='http://tgt.dk/guide/europa/tyskland/berlin/stederatgaaud/'>Caf&#233;er og barer i Berlin</a></li>
+<li>&rsaquo; <a target='_blank' href='http://tgt.dk/guide/europa/italien/rom/stederatshoppe/'>Shopping i Rom</a></li>
+<li>&rsaquo; <a target='_blank' href='http://tgt.dk/guide/europa/ungarn/budapest/topsights/'>Sev&#230;rdigheder i Budapest</a></li>
+</ul>
+</div>
+<div class="clearer"></div>
+</div>
+</div>
+<!-- cache polbox5_1 end -->
+<!-- cache polbox4_2 120m -->
+<div id="right">
+<div id="flight">
+<h2 class="small_header">Ticket - find de billigste billetter</h2>
+<ul class="topnav">
+<li class="selected"><a href="http://tgt.dk/ticket/fly/">Fly</a></li>
+<li><a href="http://tgt.dk/ticket/ski/">Skiferie</a></li>
+<li><a href="http://tgt.dk/ticket/tema/">Tema</a></li>
+<li><a href="http://tgt.dk/ticket/charter/">Charter+afbud</a></li>
+</ul>
+<script type="text/javascript" src="http://tgt.dk/template/v1-0/components/js/datepicker_minified.js"></script>
+<script type="text/javascript" src="http://tgt.dk/template/v1-0/components/js/onindo/onindo_forms.js"></script>
+<div id="front_search_top">
+<div id="flight_layer" class="main_layer tgt_onindo_search_flight" style="display:">
+<h4>Find billige flybilletter</h4>
+<form action="http://tgt.dk/ticket/fly/" method="get" id="flightForm" target="_blank" class="ticket_form">
+<div class="twoColBlock">
+<input type="hidden" name="fromCountryId" id="from_cc_flight"/>
+<input type="hidden" name="fromAirportCode" id="from_ac_flight" value="CPH"/>
+<input type="hidden" name="toCountryId" id="destination_cc_flight"/>
+<input type="hidden" name="toAirportCode" id="destination_ac_flight" value="LON"/>
+<input type="hidden" name="owr" value="1"/>
+<input type="hidden" name="language" value="dk"/>
+<input type="hidden" name="children" value="0"/>
+<input type="hidden" name="youth" value="0"/>
+<input type="hidden" name="t" value="pol"/>
+<input type="hidden" name="adults" value="1"/>
+<input type="hidden" name="mode" value="flight"/>
+<div class='flight_input'><input type="text" name="fromCity" class="input_text clearField" value="København (Kastrup)" onfocus="clearBoth(this,'from_ac_flight')" id="fromFlight" />
+</div>
+<div class="dates">
+<input maxlength="10" name="departureDate" class="input_text clearField" value="2010-05-20" type="text" id="inDateFFlight"/>
+<img src="http://tgt.dk/grafik/onindo/datepicker.gif" title="Vælg dato" alt="calendar" class="calendar_icon" id="from_dp_icon" />
+</div>
+<div class="clear"></div>
+</div>
+<input type="image" src="http://tgt.dk/grafik/core/big_submit.gif" id="submit_flight_btn" value="S&oslash;g"/>
+<div class="twoColBlock">
+<div class='flight_input'><input type="text" name="toCity" class="input_text clearField" value="London, Alle lufthavne" onfocus="clearBoth(this,'destination_ac_flight')" id="destinationFlight" />
+</div>
+<div class="dates">
+<input maxlength="10" name="returnDate" class="input_text" value="2010-05-27" type="text" id="outDateFFlight"/>
+<img src="http://tgt.dk/grafik/onindo/datepicker.gif" title="Vælg dato" alt="calendar" class="calendar_icon" id="to_dp_icon"/>
+</div>
+<div class="clear"></div>
+</div>
+<div class="clear"></div>
+<div id="alternative_search">
+<a class="tgtlink" href="http://tgt.dk/ticket/flyhotel/">Søg fly+hotel</a> · <a class="tgtlink" href="http://tgt.dk/ticket/flybil/">Søg fly+billeje</a>
+</div>
+</form>
+</div>
+<script type="text/javascript" src="http://tgt.dk/template/v1-0/components/js/autocomplete.js"></script>
+<script type="text/javascript">
+clearBoth = function(el,hidden){
+el.value="";
+$(hidden).value="";
+}
+Event.observe(window, 'load', function() {
+new Autocomplete('fromFlight', { serviceUrl:'/?json=iatacodes',
+minChars:2, maxHeight:400,
+mode:'flight',
+width:260,
+onSelect: function(value, data){
+$("from_ac_flight").value=data;
+}
+});
+new Autocomplete('destinationFlight', { serviceUrl:'/?json=iatacodes',
+minChars:2,
+maxHeight:400,
+mode:'flight',
+width:260,
+onSelect: function(value, data){
+$("destination_ac_flight").value=data;
+}
+});
+});
+</script>
+<div class="top_teaser_prices" id="flight_teaser_prices">
+<h4>Flypriser lige nu</h4>
+<ul id='flight_teaser_items'>
+<li><a target='_blank' title='Prisen er fundet for 47 timer siden. &#13;Ud: 18. maj 2010 &#13;Hjem: 28. maj 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=JFK&amp;toCity=New+York&amp;departureDate=2010-05-18&amp;returnDate=2010-05-28&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>New York fra kr. 2.837 den 18. maj</a></li>
+<li class='stroke'><a target='_blank' title='Prisen er fundet for 22 timer siden. &#13;Ud: 9. okt 2010 &#13;Hjem: 13. okt 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=LHR&amp;toCity=London&amp;departureDate=2010-10-09&amp;returnDate=2010-10-13&amp;fromCity=Billund&amp;fromAirportCode=BLL&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>London fra kr. 202 den 9. oktober</a></li>
+<li class='stroke'><a target='_blank' title='Prisen er fundet for 46 timer siden. &#13;Ud: 13. sep 2010 &#13;Hjem: 29. sep 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=BKK&amp;toCity=Bangkok&amp;departureDate=2010-09-13&amp;returnDate=2010-09-29&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Bangkok fra kr. 3.561 den 13. september</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 39 timer siden. &#13;Ud: 15. jun 2010 &#13;Hjem: 15. jun 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=BER&amp;toCity=Berlin&amp;departureDate=2010-06-15&amp;returnDate=2010-06-15&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Berlin fra kr. 218 den 15. juni</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 41 timer siden. &#13;Ud: 14. maj 2010 &#13;Hjem: 18. maj 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=LIS&amp;toCity=Lissabon&amp;departureDate=2010-05-14&amp;returnDate=2010-05-18&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Lissabon fra kr. 1.571 den 14. maj</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 47 timer siden. &#13;Ud: 23. jul 2010 &#13;Hjem: 29. jul 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=BCN&amp;toCity=Barcelona&amp;departureDate=2010-07-23&amp;returnDate=2010-07-29&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Barcelona fra kr. 857 den 23. juli</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 13 timer siden. &#13;Ud: 7. maj 2010 &#13;Hjem: 9. maj 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=HEL&amp;toCity=Vantaa&amp;departureDate=2010-05-07&amp;returnDate=2010-05-09&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Vantaa fra kr. 1.715 den 7. maj</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 38 timer siden. &#13;Ud: 3. jun 2010 &#13;Hjem: 7. jun 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=LCA&amp;toCity=Larnaca&amp;departureDate=2010-06-03&amp;returnDate=2010-06-07&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Larnaca fra kr. 1.886 den 3. juni</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 45 timer siden. &#13;Ud: 8. maj 2010 &#13;Hjem: 22. maj 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=SFO&amp;toCity=San+Francisco&amp;departureDate=2010-05-08&amp;returnDate=2010-05-22&amp;fromCity=Billund&amp;fromAirportCode=BLL&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>San Francisco fra kr. 3.587 den 8. maj</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 36 timer siden. &#13;Ud: 10. sep 2010 &#13;Hjem: 12. sep 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=ZRH&amp;toCity=Zurich&amp;departureDate=2010-09-10&amp;returnDate=2010-09-12&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Zurich fra kr. 1.321 den 10. september</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 40 timer siden. &#13;Ud: 3. jul 2010 &#13;Hjem: 10. jul 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=NCE&amp;toCity=Nice&amp;departureDate=2010-07-03&amp;returnDate=2010-07-10&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Nice fra kr. 1.633 den 3. juli</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 39 timer siden. &#13;Ud: 29. jun 2010 &#13;Hjem: 16. jul 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=LAX&amp;toCity=Los+Angeles%2C+Ca&amp;departureDate=2010-06-29&amp;returnDate=2010-07-16&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Los Angeles, Ca fra kr. 3.860 den 29. juni</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 10 timer siden. &#13;Ud: 19. jun 2010 &#13;Hjem: 23. jun 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=CDG&amp;toCity=Paris&amp;departureDate=2010-06-19&amp;returnDate=2010-06-23&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Paris fra kr. 1.142 den 19. juni</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 17 timer siden. &#13;Ud: 20. maj 2010 &#13;Hjem: 24. maj 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=LPA&amp;toCity=Las+Palmas&amp;departureDate=2010-05-20&amp;returnDate=2010-05-24&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Las Palmas fra kr. 1.160 den 20. maj</a></li>
+<li style='display:none'><a target='_blank' title='Prisen er fundet for 40 timer siden. &#13;Ud: 18. jul 2010 &#13;Hjem: 30. jul 2010 · søg selv aktuel pris nu!' href='http://tgt.dk/ticket/fly/?toAirportCode=VCE&amp;toCity=Venedig&amp;departureDate=2010-07-18&amp;returnDate=2010-07-30&amp;fromCity=K%F8benhavn+%28Kastrup%29&amp;fromAirportCode=CPH&amp;adults=1&amp;youth=0&amp;children=0&amp;owr=1&amp;mode=flight'>Venedig fra kr. 1.385 den 18. juli</a></li>
+</ul>
+</div>
+</div>
+<script type="text/javascript">
+var dp1 = new DatePicker({
+relative:'inDateFFlight',
+externalControl:'from_dp_icon',
+keepFieldEmpty:false,
+topOffset:21,
+leftOffset:-1,
+afterClose:testfrom,
+dateFilter:DatePickerUtils.noDatesBefore(0)
+});
+var dp2 = new DatePicker({
+relative:'outDateFFlight',
+externalControl:'to_dp_icon',
+keepFieldEmpty:false,
+topOffset:21,
+leftOffset:-1,
+afterClose:testto,
+dateFilter:DatePickerUtils.noDatesBefore(0)
+});
+function testfrom(){
+var from_arr = $('inDateFFlight').value.split("-");
+var to_arr = $('outDateFFlight').value.split("-");
+from = new Date(from_arr[0],from_arr[1]-1,from_arr[2]);
+to = new Date(to_arr[0],to_arr[1]-1,to_arr[2]);
+if(from>to){
+$('outDateFFlight').value=$('inDateFFlight').value;
+}
+}
+function testto(){
+var from_arr = $('inDateFFlight').value.split("-");
+var to_arr = $('outDateFFlight').value.split("-");
+from = new Date(from_arr[0],from_arr[1]-1,from_arr[2]);
+to = new Date(to_arr[0],to_arr[1]-1,to_arr[2]);
+if(from>to){
+alert("Hjemrejsedato kan ikke være før afrejsedato.\nHjemrejsedato er nu sat til afrejsedato.");
+$('outDateFFlight').value=$('inDateFFlight').value;
+}
+}
+</script>
+</div>
+<div class="banner">
+<p class="annonce">Annonce</p>
+<!--iframe Tag // Tag for network 887: POLITIKEN // Website: tgt.dk // Page: Forside-tgt // Placement: Forside-tgt-artikel4-300 x 250 (1736598) // created at: Dec 20, 2006 10:11:07 PM -->
+<iframe width="300" height="250" scrolling="no" frameborder="0" marginheight="0" marginwidth="0" src="http://adserver.adtech.de/adiframe/3.0/887/1736598/0/170/ADTECH;target=_blank;grp=68323"><script type="text/javascript" src="http://adserver.adtech.de/addyn/3.0/887/1736598/0/170/ADTECH;loc=700;target=_blank;grp=68323"></script><noscript><a href="http://adserver.adtech.de/adlink/3.0/887/1736598/0/170/ADTECH;loc=300;grp=68323" target="_blank"><img src="http://adserver.adtech.de/adserv/3.0/887/1736598/0/170/ADTECH;loc=300;grp=68323" alt="banner" border="0" width="300" height="250"/></a></noscript></iframe>
+<!-- End of iframe Tag -->
+</div>
+<div class="all_guides" id="webguides">
+<h2 class="small_header small_header_ticket">Alle vores webguides</h2>
+<div class="guides">
+<ul id="guidelist">
+<li><a title="Kontrasterne er tydelige. Agadir er som et lille stykke halvmondænt Frankrig i et arabisk land, men hvor kvinder i slør, et mylder af fattige børn og mænd i lange kjortler dominerer gadebilledet." href="http://tgt.dk/guide/afrika/marokko/agadir/">Agadir</a></li>
+<li><a title="Det er strandene, der lokker turisterne til Alanya, men naturen, historien og gæstfriheden, der får folk til at komme igen." href="http://tgt.dk/guide/europa/tyrkiet/alanya/">Alanya</a></li>
+<li><a title="Milde strande og vilde klipper. Lune solstråler året rundt. Algarve har det hele. Golf og børnevenlige funparker. Grønne bjerge, der lokker vandreskoene frem." href="http://tgt.dk/guide/europa/portugal/algarve/">Algarve</a></li>
+<li><a title="Har man først smagt den gode hvidvin, shoppet i Strasbourg og vandret i Vogeserne, forstår man hvorfor, Frankrigs mindste region er en af de mest populære." href="http://tgt.dk/guide/europa/frankrig/alsace/">Alsace</a></li>
+<li><a title="Revitaliserede arbejderkvarterer, coffee shops, hippe klubber, prestigefulde museumskvarter og gamle renæssancehuse. Amsterdam er både rå og dukkehusagtig." href="http://tgt.dk/guide/europa/holland/amsterdam/">Amsterdam</a></li>
+<li><a title="Over 300 dage om året skinner solen på kilometerlange strande, på sneen på toppen af bjergene og på snævre gyder og middelalderborge. Slap af eller vær aktiv i Andalusien." href="http://tgt.dk/guide/europa/spanien/andalusien/">Andalusien</a></li>
+<li><a title="Argentina er tangodans i Buenos Aires, lassosvingende cowboys og vandring på Patagoniens snedækkede bjerge og vulkaner." href="http://tgt.dk/guide/sydamerika/argentina/">Argentina</a></li>
+<li><a title="En tudende færge blander sig med lyden af en klimprende bouzuki, og gennem brølet af sporvogne og taxaer, der maser sig gennem den tætpakkede bykerne, fornemmes en forventningsfuld summen. Folk på rejse til stedet, hvor den vestlige verdens civilisation blev grundlagt." href="http://tgt.dk/guide/europa/graekenland/athen_og_det_graeske_fastland/">Athen</a></li>
+<li><a title="Fra verdens bedste strande, til regnskov og endeløse vidder til pulserende storbyer og imødekommende befolkning. Og så har landet verdens største koralrev Great Barrier Reef. Australien byder på oplevelser, der vil tilfredsstille selv den mest kræsne rejsende." href="http://tgt.dk/guide/oceanien/australien/">Australien</a></li>
+<li><a title="Modsat mange andre ferieøer er Azorerne fantastisk frodig - og smuk er øgruppen med sine dramatiske vulkaner, dybe kløfter og langstrakte strande." href="http://tgt.dk/guide/europa/portugal/azorerne/">Azorerne</a></li>
+<li><a title="Afslapning under palmerne, svømmeture til koralrev med prikkede akvariefisk, vandreture i saftiggrønne rismarker, møde med århundredgamle religiøse ceremonier og hektisk natteliv i Kuta. Bali rummer alle ingredienser til en eksotisk drømmeferie." href="http://tgt.dk/guide/asien/indonesien/bali/">Bali</a></li>
+<li><a title="Lækre tapasbarer, eventyrlig arkitektur, sprudlende natteliv og et gudbenådet klima. Barcelona er både afslappende Middelhavsferie og pirrende storbyoplevelser." href="http://tgt.dk/guide/europa/spanien/barcelona/">Barcelona</a></li>
+<li><a title="De Olympiske Lege har accelereret Beijings transformation. Den gamle kejserstad er blevet til en moderne og imødekommende metropol fyldt med nye muligheder for den rejsende." href="http://tgt.dk/guide/asien/kina/beijing/">Beijing</a></li>
+<li><a title="Med en størrelse der godt og vel svarer til Jyllands areal er det lille kongerige Belgien til at overskue. Bruxelles er udadtil Belgiens kulturelle og politiske epicenter, men Belgien byder på på mere ukendte områder, som bestemt er mere end en gennemrejse værd." href="http://tgt.dk/guide/europa/belgien/">Belgien</a></li>
+<li><a title="Anarkistisk, fandenivoldsk og tilbagelænet. Men også svulstig og prangende. Europas nye kulturhovedstad er atter samlet &ndash; men den har mange forskellige centre." href="http://tgt.dk/guide/europa/tyskland/berlin/">Berlin</a></li>
+<li><a title="Med sine dramatiske klipper og rå bevoksning kan Bornholm virke en smule ufremkommelig. Men solskinsøen har rigelig plads til romantik, nostalgi og det skønneste turkisblå vand." href="http://tgt.dk/guide/europa/danmark/bornholm/">Bornholm</a></li>
+<li><a title="Ét ord siger alt om Brasilien og brasilianerne: sanselighed. I karnevallets livsglæde, i regnskovens summende indre eller flirten på Copacabana." href="http://tgt.dk/guide/sydamerika/brasilien/">Brasilien</a></li>
+<li><a title="Den internationale metropol, hvor Europas hjul holdes i gang af embedsmænd og ølturister, chokoladebutikker og søde vafler." href="http://tgt.dk/guide/europa/belgien/bruxelles/">Bruxelles</a></li>
+<li><a title="Smukt udsmykkede termalbade med velgørende varmt vand, gamle kaffehuse med stor konditorkunst og sigøjnerkroer med schnitzler og violinmusik. Ferie i Budapest." href="http://tgt.dk/guide/europa/ungarn/budapest/">Budapest</a></li>
+<li><a title="Bulgarien er rig på kultur og natur. Sofia er en af Europas ældste hovedstader, i Balkan-bjergene ligger gemte klostre, og så må man ikke glemme Sortehavskysten med smukke strande og charmerende kystbyer. Og så må man ikke glemme, at Bulgarien er et af Europas billigste ferielande." href="http://tgt.dk/guide/europa/bulgarien/">Bulgarien</a></li>
+<li><a title="Cairns og omegn byder på tropisk regnskov, verdens største koralrev, Great Barrier Reef, farvestrålende dyreliv og australsk fusionskøkken. Velkommen til Cairns og omegn!" href="http://tgt.dk/guide/oceanien/australien/cairns/">Cairns</a></li>
+<li><a title="Californien er inkarnationen af den amerikanske drøm. Det er her, de smukke, unge og uhyre rige har hjemme." href="http://tgt.dk/guide/nordamerika/usa/californien/">Californien</a></li>
+<li><a title="Canada er enorme vidder uden skyggen af beboelse. Uforlignelig skønhed højt i Rocky Mountains, hvor nationalparker klumper sig sammen." href="http://tgt.dk/guide/nordamerika/canada/">Canada</a></li>
+<li><a title="Fra verdens tørreste ørken i nord til pingviner og majestætiske nationalparker i syd. Chile er 4500 kilometer langt, aldrig mere end 170 kilometer bredt." href="http://tgt.dk/guide/sydamerika/chile/">Chile</a></li>
+<li><a title="Forrevne Ch&iacute;os kaldte Homer sin fødeø. Den klippefyldte, knudrede ø. Lokalt lanceres øen som den velduftende ø." href="http://tgt.dk/guide/europa/graekenland/chios/">Chíos</a></li>
+<li><a title="50 meter brede sandstrande, araberborge på klipper over kystbyer, ørken helt ned til dybe, forrevne fjorde, futuristisk arkitektur og smalle cafégader bag middelalderbymure. Costa Blanca, den spanske østkyst, byder på natur- og storbyferie i verdensklasse." href="http://tgt.dk/guide/europa/spanien/costablanca/">Costa Blanca</a></li>
+<li><a title="Costa Brava er &rdquo;Den vilde kyst&rdquo; fyldt med blide oaser. Ugæstfri med sine pansrede klippeskrænter i lodret fald mod det store hav. Ustyrlig med vinden tramuntanaen, der somme tider kan blæse med over 100 km i timen." href="http://tgt.dk/guide/europa/spanien/costa_brava/">Costa Brava</a></li>
+<li><a title="Salsarytmer, høj cigarføring og smukke, solbrændte huse. Cruising i seje dollargrin og dyp i turkise bølger. I Cubas bjerge knejser regnskoven med orkideer, vandfald og smaragdgrønne kolibrier." href="http://tgt.dk/guide/mellemamerika_caribien/cuba/">Cuba</a></li>
+<li><a title="Solen bager, og vandet lokker. På den blåternede står grillet fisk og kold hvidvin. Om hjørnet venter høje bjerge og uspoleret natur, kirke og moské, Zorba-dans og clubbing. Cypern er uanede muligheder på en lille ø." href="http://tgt.dk/guide/europa/cypern/">Cypern</a></li>
+<li><a title="Evig solskin, palmestrande og festglade mennesker. Kolonihuse, farverige karnevaller og hvaler. Dette er Den Dominikanske Republik." href="http://tgt.dk/guide/mellemamerika_caribien/dom_republik/">Dom. Republik</a></li>
+<li><a title="Spidse pyramider og vuggende kameler. Badeferie ved Rødehavet og sejltur på Nilen. Egypten er varme, sol og en helt anderledes kulturel oplevelse." href="http://tgt.dk/guide/afrika/egypten/">Egypten</a></li>
+<li><a title="Forkæl dig selv med te og scones. Eller med et glas skummende fadøl foran pubbens knitrende pejs." href="http://tgt.dk/guide/europa/storbritannien/england_og_wales/">England og Wales</a></li>
+<li><a title="Finland er de enorme vidders land. I et land på størrelse med Tyskland, og som kun tæller godt fem millioner mennesker, er pladsen en ressource, der aldrig bliver knap." href="http://tgt.dk/guide/europa/finland/">Finland</a></li>
+<li><a title="Firenze, Firenze, Firenze. Hvem kan sige &rdquo;Firenze&rdquo; uden at slå ud med armene? Følg i fodsporene på tusindvis af kunstnere og oplev den by, der blev startskuddet til en ny tidsalder: Renæssancen." href="http://tgt.dk/guide/europa/italien/firenze/">Firenze</a></li>
+<li><a title="Fuld fart på festen i Miami, oplevelsessamfundets epicenter i Orlando eller tilbagelænet med sand mellem tæerne på halvøens kyst. Florida er stedet at være, når vinteren sænker sig over Danmark." href="http://tgt.dk/guide/nordamerika/usa/florida/">Florida</a></li>
+<li><a title="Banker bag blændede ruder. Finanshuse i funklende stål. Bøger og medier en masse. Kunst for millioner og lørdagsloppemarked med alt til lavpris. Frankfurt er et hektisk finanscentrum, men efter fyraften smider byen nålestriber og slips." href="http://tgt.dk/guide/europa/tyskland/frankfurt/">Frankfurt<span class='newguide'></span></a></li>
+<li><a title="H. C. Andersen lægger en eventyrlig stemning over Fyn og Øhavet. Den suger dig med, når den sjældne klokkefrø kvækker i Øhavet, når hvalerne springer i Lillebælt og Hr. Hansen serverer rejer i Middelfart." href="http://tgt.dk/guide/europa/danmark/fynogoehavet/">Fyn og Øhavet</a></li>
+<li><a title="Goa ligger som en solmættet parentes mellem det enorme indiske subkontinent og det blå Arabiske Hav." href="http://tgt.dk/guide/asien/indien/goa/">Goa</a></li>
+<li><a title="Vil du have nærmest evig sommer, skal du tage til Gran Canaria. Her ruller de lysegrønne bølger dovent op på superstrandene, og i de eventyrlige bjerge venter vulkankratere og lokal gastronomi." href="http://tgt.dk/guide/europa/spanien/gran_canaria/">Gran Canaria</a></li>
+<li><a title="Saftig blæksprutte på tallerkenen og tør retsina i glasset. Historiske vidensbyrd om Europas første spæde skridt og afslapning på nogle af Europas bedste strande." href="http://tgt.dk/guide/europa/graekenland/">Grækenland</a></li>
+<li><a title="Lys og mørke. Det grønne, venlige syd og det golde, barske nord. Nyt og gammelt. Grønland er i dén grad kontrasternes land." href="http://tgt.dk/guide/europa/groenland/">Grønland</a></li>
+<li><a title="I Guatemala ligger en af verdens flotteste søer omkranset af vulkaner, farverige markeder og mayaruiner midt i junglen. Landet er stadig præget af indianerkultur." href="http://tgt.dk/guide/mellemamerika_caribien/guatemala/">Guatemala</a></li>
+<li><a title="Hamborg er Europas næststørste havneby. Og havneområdet Hafencity er da også byens pulserende centrum, hvor der ligger store oplevelser i vente for både børn og voksne. Besøg Beatles&rsquo; gamle gennembruds-by og kom tæt på en storby i rivende udvikling." href="http://tgt.dk/guide/europa/tyskland/hamborg/">Hamborg</a></li>
+<li><a title="Rolige, kridhvide sandstrande i forgrunden, langstrakte appelsinlunde i baglandet, og cafeer, restauranter og et varieret aften- og natteliv midt imellem. Hammamet har klasse, stil og charme." href="http://tgt.dk/guide/afrika/tunesien/hammamet/">Hammamet</a></li>
+<li><a title="På alle årstider lader man sig fortrylle af mylderet i de løvklædte gyder og gader, for blandingen af vietnamesisk ynde og fransk charme gør Hanoi til en af Asiens smukkeste storbyer." href="http://tgt.dk/guide/asien/vietnam/hanoi/">Hanoi<span class='newguide'></span></a></li>
+<li><a title="Rislende kildevæld langs stille skovstier. Storslåede udsigter og dybe grønne skove. I tyske Harzen er det naturen og historien, der er vært." href="http://tgt.dk/guide/europa/tyskland/harzen/">Harzen</a></li>
+<li><a title="Landskabet er fladt, men kulturen er fuld af knaster. Oplev for eksempel Amsterdam, de skæve eksistensers by. Eller tag på opdagelse ude på landet og find det autentiske Holland." href="http://tgt.dk/guide/europa/holland/">Holland</a></li>
+<li><a title="Snorkeleventyr og beachparty på bare fødder. Sol, strand og vand om dagen og dans om natten. Og afslapning for hele familien på Hurghadas store, skønne hoteller." href="http://tgt.dk/guide/afrika/egypten/hurghada/">Hurghada</a></li>
+<li><a title="Indien er et land, der på mange måder er præget af modsætninger. Her findes ufattelig skønhed og rigdom, men også stor fattigdom. Her lever buddhister, hinduer og kristne, hjemløse, forretningsfolk, Bollywood-stjerner og hellige køer side om side." href="http://tgt.dk/guide/asien/indien/">Indien</a></li>
+<li><a title="Irland er duften af dampende muslinger. Smagen af fløjlssort Guinness og irish coffee. Lyden af trillende tinfløjter og hvirvlende violiner. Sange om naturen og friheden." href="http://tgt.dk/guide/europa/irland/">Irland</a></li>
+<li><a title="Høje bjerge, dybe laguner, hvide strande og små fiskerlandsbyer skaber et mangfoldigt og smukt naturlandskab på Isla Margarita, der ligger nordøst for Venezuela." href="http://tgt.dk/guide/mellemamerika_caribien/isla_margarita/">Isla Margarita</a></li>
+<li><a title="Varme kilder, aktive vulkaner og myldrende fuglefjelde. Islands natur er storslået og voldsom. Og som rejsende har du rig mulighed for at komme helt tæt på den." href="http://tgt.dk/guide/europa/island/">Island</a></li>
+<li><a title="Boblende vandpibecafeer, labyrintiske basargader og kosmopolitiske natklubber med udsigt til det osmanniske riges moskeer &ndash; Merhaba! Hej Istanbul!" href="http://tgt.dk/guide/europa/tyrkiet/istanbul/">Istanbul</a></li>
+<li><a title="Verdens mindste by, romerske gladiatorarenaer, romantiske havepromenader, naturistbadestrande og et skatkammer af trøfler." href="http://tgt.dk/guide/europa/kroatien/istrien/">Istrien</a></li>
+<li><a title="Japan er zenmunke, gamle træhuse og Fuji-bjerget. Teceremonier og geishaer, der vimser i træsko. Smalle gader med små madboder og høflig bukken." href="http://tgt.dk/guide/asien/japan/">Japan</a></li>
+<li><a title="I Jordans hovedstad vrimler det med fåreflokke på vejen, og i havnebyen Aqaba kan du finde hvide sandstrande, der grænser op til Det Røde Hav." href="http://tgt.dk/guide/mellemoesten/jordan/">Jordan</a></li>
+<li><a title="Kenya byder på safari på jagt efter The Big Five i Masai Mara Nationalpark, søer fyldt med lyserøde flamingoer og Karen Blixens farm." href="http://tgt.dk/guide/afrika/kenya/">Kenya</a></li>
+<li><a title="Fra den gamle kejserstad, Beijing, der er blevet til en moderne metropol, over Den Kinesiske Mur til landet, hvor livet fortsat leves primitivt, fredeligt og forunderligt." href="http://tgt.dk/guide/asien/kina/">Kina</a></li>
+<li><a title="Øhavet er klædt i palmeskørt og billedskønne strande. Udsigten fra flyet er et skønmaleri af de fineste naturmaterialer, tabt som yndige malerklatter over et turkisblåt hav." href="http://tgt.dk/guide/asien/thailand/kosamui/">Ko Samui</a></li>
+<li><a title="Hvor kan man opleve det bedste fra franske kultur tilsat bountystrande, tætte kastanjeskove og høje bjerge &ndash; som et eventyr pakket ind i en duftende kulisse?" href="http://tgt.dk/guide/europa/frankrig/korsika/">Korsika</a></li>
+<li><a title="Krabi, Krabi, jeg overgiver mig. Du er for smuk og dejlig. Krabi er en rejsesælgers drøm, hvor udødelige klipper rejser sig lodret fra turkisblåt vand, og strandene er misundelsesværdige postkort, man modtager, når vinteren bider i frostklare kinder." href="http://tgt.dk/guide/asien/thailand/krabi/">Krabi</a></li>
+<li><a title="Kreta er ikke bare en ø. Det er et helt univers. For Kreta har det hele. Storslået natur, simpel god mad, masser af kultur og badevejr og vand næsten hele året." href="http://tgt.dk/guide/europa/graekenland/kreta/">Kreta</a></li>
+<li><a title="Gyldne sandstrande på Ios og Naxos ud til det glasklare, turkisblå hav i funklende sol. Folklore og templer. Læskende vine på vulkanøen Santorini med betagende udsigt og forjættende farver." href="http://tgt.dk/guide/europa/graekenland/kykladerne/">Kykladerne</a></li>
+<li><a title="Sprødt tøjdesign, beåndede værtshuse, romantiske parker, kreative områder med plads til fusionscafeer og revitaliserede arbejderkvarterer. Oplev det nye København." href="http://tgt.dk/guide/europa/danmark/koebenhavn/">København</a></li>
+<li><a title="Traurig kærlighedsmusik, skramlede sporvogne på stejle bakker og en metro, der hører til verdens smukkeste. Lissabon er hovedstad i den gamle søfarernation Portugal." href="http://tgt.dk/guide/europa/portugal/lissabon/">Lissabon</a></li>
+<li><a title="Pulserende værtshuse, spændende designforretninger og velgørende wellness-oplevelser. Sloveniens hovedstad fortjener flere lange weekends." href="http://tgt.dk/guide/europa/slovenien/ljubljana/">Ljubljana</a></li>
+<li><a title="Streetfashion, gamle pubber, multikultur og fodbold. London taler med mange tunger &ndash; også på topfodboldholdene, hvor spillerne er fra hele verden." href="http://tgt.dk/guide/europa/storbritannien/london/">London</a></li>
+<li><a title="Selv i de sene aftentimer smyger den lune silkeluft sig om huden. De udendørs restauranter har stadig åbent. Glas med gyldne dråber nydes langsomt. Man lever og lader leve på den lille, storslåede øgruppe, som mest stoler på egne kræfter." href="http://tgt.dk/guide/europa/portugal/madeira/">Madeira</a></li>
+<li><a title="Brede boulevarder, små tapasbarer, monumentale museer og et enormt fodboldstadion. Madrid, Europas højest beliggende storby tager kampen op med Barcelona." href="http://tgt.dk/guide/europa/spanien/madrid/">Madrid</a></li>
+<li><a title="På Mallorca kan du få opfyldt drømmen om lange, dovne dage på stranden. Med eller uden børn og badedyr." href="http://tgt.dk/guide/europa/spanien/mallorca/">Mallorca</a></li>
+<li><a title="Så tæt på og alligevel så langt væk. Malmø ligger lige på den anden side af Øresund, men byder på dufte fra alle verdenshjørner. Shop i den Gamle by, oplev modernistiske Västra Hamnen og nyd at være udenlands, mens du føler dig helt hjemme." href="http://tgt.dk/guide/europa/sverige/malmo/">Malmø</a></li>
+<li><a title="Den lille ø Malta mellem Afrika og Europa er helt sin egen. Her bliver fascinerende historie og forunderlig natur forenet med ærlig mad og et klima, der er solsikkert om sommeren og mildt om vinteren." href="http://tgt.dk/guide/europa/malta/">Malta<span class='newguide'></span></a></li>
+<li><a title="Nyd solen på en af Marmaris' mange strande og laguner, tag på forfriskende sejltur eller besøg en af de charmerende landsbyer omkring byen." href="http://tgt.dk/guide/europa/tyrkiet/marmaris/">Marmaris</a></li>
+<li><a title="Side om side med de lune laguner, tilsyneladende uendelige, hvide sandstrande og blågrønne vande finder man på Mauritius en etnisk blandet befolkning." href="http://tgt.dk/guide/afrika/mauritius/">Mauritius</a></li>
+<li><a title="Sansepirrende fiskerestauranter, monumenter, der troner på stejle bjergskråninger, og gamle klostre i baglandet. Montenegro er kilometerlange sandstrande og eventyr i den sydligste fjord i Europa." href="http://tgt.dk/guide/europa/montenegro/">Montenegro</a></li>
+<li><a title="70 mio. år gamle fossiler, nogle af Danmarks bedste strande og massevis af oplevelser for både store og små. Tag med til Møn og Lolland-Falster." href="http://tgt.dk/guide/europa/danmark/moenoglollandfalster/">Møn og Lolland-Falster</a></li>
+<li><a title="New York er smuk, kreativ, dekadent, dyt, båt, bimlende, bamlende, forrykt og kaotisk." href="http://tgt.dk/guide/nordamerika/usa/new_york/">New York</a></li>
+<li><a title="Lysende grønne øer med spruttende vulkaner, sprøjtende gejsere, isnende gletsjere, frugtbare sletter, brusende floder. Beliggende midt i det gigantiske Stillehav." href="http://tgt.dk/guide/oceanien/newzealand/">New Zealand</a></li>
+<li><a title="Designershopping og kultursightseeing den ene dag, whitewater-rafting og badeferie ved søbredden den næste. Man kan det hele i Norditalien." href="http://tgt.dk/guide/europa/italien/norditalien/">Norditalien</a></li>
+<li><a title="Kuperede golfbaner med klitter og vind, vilde bølger til surfere og havkajaker samt førsteklasses hummer og stegte ål. Nordjylland handler om havet, og det våde element pirrer nysgerrigheden hos hele familien." href="http://tgt.dk/guide/europa/danmark/nordjylland/">Nordjylland</a></li>
+<li><a title="Charmen i Nordsjælland er ikke svær at få øje på, uanset om man skåler i dry martini på skibsdækket eller hygger sig med en iskold fadøl på Dyrehavsbakken." href="http://tgt.dk/guide/europa/danmark/nordsjaelland/">Nordsjælland</a></li>
+<li><a title="Visse steder tager man sig en skraber i middagsheden, men udviklingen i Spanien kender ikke til siesta. Nytænkning og innovation synes tværtimod at være en kronisk besættelse." href="http://tgt.dk/guide/europa/spanien/nordspanien/">Nordspanien</a></li>
+<li><a title="Sommer, sol, strandkurve og liggepladser til sejlskibet. Rige købmænd og rødstensbyggerier fra middelalderen. Og historien om DDR i øjenhøjde. Nordtysklands østkyst er så tæt på og alligevel helt anderledes." href="http://tgt.dk/guide/europa/tyskland/nordtyskland/">Nordtyskland</a></li>
+<li><a title="" href="http://tgt.dk/guide/europa/norge/">Norge</a></li>
+<li><a title="Gå til bords mellem Normandiets æblehaver med en velmoden bondeost og et glas calvados. Eller følg vikingerne og kelternes spor i dette stykke frodige Frankrig." href="http://tgt.dk/guide/europa/frankrig/normandiet_og_bretagne/">Normandiet og Bretagne</a></li>
+<li><a title="Odense er storbystemning på den afslappede måde. Eventyrreferencer i lange baner og masser af historie." href="http://tgt.dk/guide/europa/danmark/odense/">Odense</a></li>
+<li><a title="Sus for ørerne og kilden i maven. Oslo folder sig ud som et kulørt patchworktæppe med højstemte barer, god lyd i Nordens flotteste operahus og museer, der hylder en række af Oslos største personligheder." href="http://tgt.dk/guide/europa/norge/oslo/">Oslo</a></li>
+<li><a title="En slentretur over toppede brosten langs Seinens kajer i den blå time. Månen hæver sig over Notre-Dame og glimter i det urolige vand. Kærester i dyb omfavnelse." href="http://tgt.dk/guide/europa/frankrig/paris/">Paris</a></li>
+<li><a title="Phuket er livsnydelse på højt plan. Et strejf af sommer året rundt og en følelse af frihed fra hverdagens gøremål. Vi vrider gerne de sidste, hårdt opsparede mønter ud på 14 dages lysterapi ved Phukets strande." href="http://tgt.dk/guide/asien/thailand/phuket/">Phuket</a></li>
+<li><a title="Polen er kendt for at være billigt. Men skraber man lidt i overfladen, opdager man hurtigt, at der er mange andre grunde til at holde ferie i Danmarks naboland." href="http://tgt.dk/guide/europa/polen/">Polen</a></li>
+<li><a title="Feriedage i slentretempo. Måltider med alt godt fra havet skyllet ned med en portvin af høj karat. Portugal er for livsnydere." href="http://tgt.dk/guide/europa/portugal/">Portugal</a></li>
+<li><a title="Højt skummende øl på værtshuse, der minder om gamle landevejskroer. Dukkehusboliger i jugendstil flankeret af tårnhøje kommunistiske betonkarreer. Du er i Prag." href="http://tgt.dk/guide/europa/tjekkiet/prag/">Prag</a></li>
+<li><a title="Lad dig ikke narre af hovedstaden Reykjav&iacute;ks begrænsede skala. De få indbyggere, spredt over et stort område, skaber en inspirerende og smittende intensitet." href="http://tgt.dk/guide/europa/island/reykjavik/">Reykjavík<span class='newguide'></span></a></li>
+<li><a title="Snup en ouzo eller et glas retsina, og nyd de fremragende strande. Det turkisblå hav omkranser de stemningsfulde byer, Rhodos og Kos, som byder på attraktioner i verdensklasse." href="http://tgt.dk/guide/europa/graekenland/rhodosogkos/">Rhodos og Kos</a></li>
+<li><a title="Lækre espressobarer, cocktails på toppen af Termini og kirkerum udsmykket af de største renæssancekunstnere. Det er Rom." href="http://tgt.dk/guide/europa/italien/rom/">Rom</a></li>
+<li><a title="Rusland er vodka og kaviar, Den Røde Plads og Babushka-dukker, zaren og kosakkerne - og vild og ukontrolleret natur." href="http://tgt.dk/guide/europa/rusland/">Rusland</a></li>
+<li><a title="Samos er overvældende frodig. Om foråret lyser gyvelbuskenes gule puder på makiskråningerne langs kysterne, og valmuer og lupiner spreder sig ud over landskabet." href="http://tgt.dk/guide/europa/graekenland/samos/">Samos</a></li>
+<li><a title="Liberal, kreativ og smuk. San Franciscos bølgede gader udgør et hav af mangfoldighed. Fra bøssernes Castro til kinesernes Chinatown." href="http://tgt.dk/guide/nordamerika/usa/sanfrancisco/">San Francisco<span class='newguide'></span></a></li>
+<li><a title="Europa i Rusland. Fortid og nutid i Nordens Venedig. En gåtur på Nevskij Prospekt er paladser, kanaler, kirker, teatre og barer. En sejltur på Neva er storhed, skønhed, fattigdom og ufattelig rigdom." href="http://tgt.dk/guide/europa/rusland/sanktpetersborg/">Sankt Petersborg<span class='newguide'></span></a></li>
+<li><a title="Vist er Schweiz neutral, men kedeligt bliver det aldrig. Landet er en smeltedigel af Heidi-landskab, eksklusiv mode og kulturel mangfoldighed." href="http://tgt.dk/guide/europa/schweiz/">Schweiz</a></li>
+<li><a title="Eksklusivt. Eksotisk. Eventyrligt. Som små miniatureverdener ligger Seychellernes paradisiske øer spredt ud over et enormt område i det Indiske Ocean." href="http://tgt.dk/guide/afrika/seychellerne/">Seychellerne</a></li>
+<li><a title="Sol og varme året rundt, krystalklart vand og store oplevelser på de helt kystnære koralrev. Den velorganiserede ferieby Sharm el-Sheikh ligger kun fem timers flyvning fra Danmark." href="http://tgt.dk/guide/afrika/egypten/sharmelsheikh/">Sharm el-Sheikh</a></li>
+<li><a title="Ravgul whisky spejler lyset fra pubbens ildsted. Udenfor strejfer får hyllet i Nordsøens havgus. Højlandets romantiske borgruiner troner i den voldsomme natur." href="http://tgt.dk/guide/europa/storbritannien/skotland/">Skotland</a></li>
+<li><a title="Bølgende gule rapsmarker, idylliske fiskerbyer, kunstneratelierer, hvide, langstrakte badestrande, et livligt sommerliv og store golfbaner. Alt det og meget mere byder det sydlige Sverige på." href="http://tgt.dk/guide/europa/sverige/skaane/">Skåne<span class='newguide'></span></a></li>
+<li><a title="Hvide sandstrande og et sprudlende natteliv. Hyggelige fiskerbyer, hvor kirker fra middelalderen og lokkende fiskerestauranter ligger side om side i snævre, brolagte gader. En storby i nord og tætte, fugtige løvskove i syd. Sortehavet opfylder alle krav til en god badeferie &ndash; og så er det tilmed billigt." href="http://tgt.dk/guide/europa/bulgarien/sortehavet/">Sortehavet</a></li>
+<li><a title="En hel lang kystfuld kridhvide, børnevenlige strande, et væld af cafeer og snackbarer, imponerende arabiske og romerske historiske bygningsværker i baglandet. Disko, mavedans og engelsk bar, men også lystbådehavn og golf." href="http://tgt.dk/guide/afrika/tunesien/sousseogmonastir/">Sousse og Monastir</a></li>
+<li><a title="Fra næsten sovende til toptændt på et splitsekund. Spanien er passionens land. Sevillas varme farver, Pyrenæernes stilhed og Barcelonas eksperimenterende kulturliv." href="http://tgt.dk/guide/europa/spanien/">Spanien</a></li>
+<li><a title="Der er en særlig stemning over Stockholm. På én gang majestætisk og helt nede på jorden. Fra Östermalms monumentale bygninger og havnekajens pompøse kongeboliger til skærgårdens små joller." href="http://tgt.dk/guide/europa/sverige/stockholm/">Stockholm</a></li>
+<li><a title="I Sydafrika svømmer hvalerne nær Cape Town, dyrelivet larmer i nationalparkerne, og storbyer lever sit hektiske liv - konstrasterne lever." href="http://tgt.dk/guide/afrika/sydafrika/">Sydafrika</a></li>
+<li><a title="Sydengland byder på lange kyststrækninger med palmetræer og forrevne klipper, øde hedestrækninger, frodige haver og masser af gode spisesteder. Velkommen til Sydengland!" href="http://tgt.dk/guide/europa/storbritannien/sydengland/">Sydengland</a></li>
+<li><a title="Rivieraen, Guldkysten og Sølvkysten. Strandene i Sydfrankrig har været berømmet gennem tiderne. Og med god grund. Her er havet altid azurblåt, med millionærernes lystyachter på overfladen og solbrune badegæster i bølgerne." href="http://tgt.dk/guide/europa/frankrig/sydfrankrig/">Sydfrankrig</a></li>
+<li><a title="Bøgeskov, bjørne og surf på Messinastrædet. Brandvarme stengærder og tunge oliventræer. Sortviolet rødvin med smag af lakrids, blommer og røget egetræ." href="http://tgt.dk/guide/europa/italien/syditalien/">Syditalien</a></li>
+<li><a title="Slentreture mellem Operahusets hvide kakkelklædte buer til akkompagnement af skrattende kakaduer. Den smaragdgrønne regnskovsmur, der stopper ved strandkanten af det turkisfarvede hav. Sydney giver kultur- og naturoplevelser i verdensklasse." href="http://tgt.dk/guide/oceanien/australien/sydney/">Sydney</a></li>
+<li><a title="Ræk ud med armen fra en langhalebåd, der snurrer over blålige vandpartikler. I det fjerne lyser grønklædte strande op og lover allerede meget." href="http://tgt.dk/guide/asien/thailand/sydthailand/">Sydthailand</a></li>
+<li><a title="Wein, Weib und Gesang &ndash; vin, kvinder og sang &ndash; og i den rækkefølge. Det er den sydtyske selvforståelse. På den ene side." href="http://tgt.dk/guide/europa/tyskland/sydtyskland/">Sydtyskland</a></li>
+<li><a title="Beduiner og byboere. Øde ørkenlandskab og prangende paladser. Romerske ruiner og moderne moskéer. Korsfarerborge og kirker." href="http://tgt.dk/guide/mellemoesten/syrien/">Syrien</a></li>
+<li><a title="Tag på safari i Serengeti eller bestig Kilimanjaro, Afrikas højeste bjerg. Slut strabadserne af med eksotisk afslapning på Tanzanias tropeø, Zanzibar." href="http://tgt.dk/guide/afrika/tanzania/">Tanzania</a></li>
+<li><a title="Bad ved de børnevenlige strande, gå ved vulkanen Teides krater eller sejl med hvaler og delfiner. Det foregår alt sammen på Tenerife." href="http://tgt.dk/guide/europa/spanien/tenerife/">Tenerife</a></li>
+<li><a title="Perfekte strande og en befolkning, der er verdensberømte for deres tilsyneladende grænseløse gæstfrihed. Thailand er for livsnydere." href="http://tgt.dk/guide/asien/thailand/">Thailand</a></li>
+<li><a title="Badestrande og livgivende sol. Landejendomme med pinje- og cypresalléer. Smilende solsikker og krogede vinstokke. Toscana og Umbrien er med god grund blandt de mest eftertragtede feriemål i verden." href="http://tgt.dk/guide/europa/italien/toscana/">Toscana</a></li>
+<li><a title="" href="http://tgt.dk/guide/europa/tyrkiet/">Tyrkiet</a></li>
+<li><a title="USA er måske det mest mangfoldige land på kloden. En smeltedigel af folkeslag, ufattelige naturrigdomme og en populærkultur med stor indflydelse på resten af verden." href="http://tgt.dk/guide/nordamerika/usa/">USA</a></li>
+<li><a title="Ungarn - et land mellem gamle traditioner og vital fornyelse." href="http://tgt.dk/guide/europa/ungarn/">Ungarn</a></li>
+<li><a title="Udenfor skodderne står Venedig op. Gadefejerne trækker trillebørene gennem snævre, fugtige stræder. Duerne letter fra Markuspladsen. Venedig er som en drøm. Som at træde ind i et teaterstykke. Men kulisserne er ægte nok." href="http://tgt.dk/guide/europa/italien/venedig/">Venedig</a></li>
+<li><a title="Luk øjnene og indsnus den liflige duft af tjære, tørfisk, sildeolie og naturgas. Penge lugter godt! Bagefter kan du lugte, hvad pengene bliver brugt til &ndash; grilstegt hummer, hvidløg i olivenolie, flamberet oksebøf og solide rødvine. Og du kan altid tage et smut på fjeldet eller sejle et tur ind i fjordene og få renset sanserne." href="http://tgt.dk/guide/europa/norge/vestnorge/">Vestnorge</a></li>
+<li><a title="Vietnam er storbyer, der aldrig sover. Palmeklædte strande med afslapning på gode hoteller. Ubeboede øer og mystiske kalkstensgrotter." href="http://tgt.dk/guide/asien/vietnam/">Vietnam</a></li>
+<li><a title="Mélange på fine cafeer og store krostueschnitzler &ndash; men også prestigemuseer med moderne kunst. Wien, det gamle Europas storslåede hovedstad investerer også i fremtiden." href="http://tgt.dk/guide/europa/oestrig/wien/">Wien</a></li>
+<li><a title="Café-crusing langs åen. Flotte museer suppleret med udfordrende kunst i sidegaderne. Århus er en talentfabrik for musikere og kunstnere samt legeplads for stribevis af festivaler og store sportsbegivenheder." href="http://tgt.dk/guide/europa/danmark/aarhus/">Århus</a></li>
+<li><a title="Madkurv på Gudenåen og eksperimenterende gastronomi. Toppen af Himmelbjerget og sort undergrund i Århus' smalle gader. Østjylland kribler og krabler." href="http://tgt.dk/guide/europa/danmark/oestjylland/">Østjylland</a></li>
+<li><a title="I Wien kan du altid finde en koncert, mens bjergene er vandring og cykling om sommeren og ski og snowboard om vinteren." href="http://tgt.dk/guide/europa/oestrig/">Østrig</a></li>
+</ul>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<!-- cache polbox4_2 end -->
+<div class="clear" style="height:10px"></div>
+</div>
+<script type="text/javascript">
+$('flight').select('a').each(function(el){
+el.writeAttribute('target','_blank');
+});
+$('webguides').select('a').each(function(el){
+el.writeAttribute('target','_blank');
+});
+addTracking = function(){
+$('main').select('a').each(function(el){
+var url = el.readAttribute('href');
+if (url.lastIndexOf("?") == -1){
+url+="?t=pol";
+}else{
+url+="&t=pol"
+}
+el.writeAttribute('href',url);
+});
+}
+addTracking();
+</script>
+</body>
+</html>

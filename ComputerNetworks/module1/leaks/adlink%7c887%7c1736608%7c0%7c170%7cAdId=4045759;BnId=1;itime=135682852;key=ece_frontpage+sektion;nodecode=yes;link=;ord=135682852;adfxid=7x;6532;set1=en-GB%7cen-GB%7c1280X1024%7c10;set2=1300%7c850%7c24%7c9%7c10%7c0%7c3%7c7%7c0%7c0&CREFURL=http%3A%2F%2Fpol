@@ -1,0 +1,28 @@
+var ADFMediaURLs='';
+var ADF_clickTag='http://adserver.adtech.de/adlink|887|1736608|0|170|AdId=4045759;BnId=1;itime=135682852;key=ece_frontpage+sektion;nodecode=yes;link=http://track.adform.net/C/?bn=357841;bsqno=1;li=1;cset=100|100|16|1300|850|24|9|10|0|3|7|0|0;pdmn=politiken.dk;adfibeg=0';
+var ADF_ClickEvent='http://track.adform.net/C/?bn=357841;bsqno=1;li=1;cset=100|100|16|1300|850|24|9|10|0|3|7|0|0';
+var ADFtagID='7x';
+var ADFafbanID='357841';
+var FlashObjectID='FlashID7x';
+var ADFDomain='http://track.adform.net/Banners/';
+var ADFBanVer='2';
+var ADFBanVerBak='0';
+var ADFbu=false;
+var ADFTemplateVersion='0';
+var ADFClientSiteId='0';
+var ADFTemplateId='0';
+var ADFGroupId='0';
+var ADFbanID='560768';
+var ADFmembID='90602';
+var ADFcmpgnID='27554';
+var ADFassetID='0';
+var ADFGeoData='12234;11704;208';
+
+<!--
+var ADFDomain=(typeof(ADFDomain)!="undefined") ? ADFDomain : '';
+var FlashObjectID=(typeof(FlashObjectID)!="undefined") ? FlashObjectID : 'adftest';
+var ADFBanVer=(typeof(ADFBanVer)!="undefined") ? ADFBanVer : '';
+
+document.write('<A HREF="'+ADF_clickTag+'" TARGET="_blank"><IMG ID="'+FlashObjectID+'" SRC="'+ADFDomain+'560768/560768.jpg?bv='+ADFBanVer+'" WIDTH="300" HEIGHT="250" ALT="" BORDER="0"></a>');
+//-->
+

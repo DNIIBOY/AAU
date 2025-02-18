@@ -1,0 +1,10 @@
+
+if(!Adform) var Adform = {};
+
+Adform.ADFBannerData = {};
+Adform.ADFBannerData.URL = "http://track.adform.net/adfserve/?bn=364809;click=http://adserver.adtech.de/adlink/887/1736598/0/170/AdId=5033349;BnId=1;itime=135680586;nodecode=yes;link=;ord=135680586";
+Adform.ADFBannerData.CREFURL = "http%3A%2F%2Fadserver%2Eadtech%2Ede%2Fadiframe%2F3%2E0%2F887%2F1736598%2F0%2F170%2FADTECH%3Btarget%3D%5Fblank%3Bgrp%3D68323";
+Adform.host = "http://track.adform.net";
+if(!Adform.ADFBannerParams)Adform.ADFBannerParams = new Array();
+Adform.ADFBannerParams.push(Adform.ADFBannerData);
+typeof Adform.ADFUtilInstance == "undefined" ? document.write('<scr'+'ipt type="text/javascript" src="http://track.adform.net/adfscript/unload/ADFBanner.js"></scr'+'ipt>'):new Adform.ADFBanner();
