@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>epn.dk Erhver På Nettet</title>
+<meta http-equiv="Content-Language" content="da">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">	body	{text-align:left; margin:0; background-color:#fff;}
+body, div, p	{color:#000;font-size:13px; font-family:Arial,Verdana,Helvetica,Geneva,sans-serif;}
+#wrapper	{width:940px; height:100%; cursor:default;}
+.cB	{clear:both;}
+*	{margin:0; padding:0;}
+a img	{border:none;}
+img	{margin:0; padding:0; border:none;}
+a	{text-decoration:none;}
+a:hover	{text-decoration:underline;}
+h1 a, h2 a	{color:#000;}
+h1	{font-size:36px; line-height:36px;}
+h2	{font-size:21px; line-height:21px; margin:5px 0;}
+p	{font-size:16px; color:#999; margin-bottom:5px;}
+div.hr	{background:#fff url('/img/ext/epnpol_sep.gif') repeat-x 0 center; height:20px;}
+* html .png	{behavior:url("/img/png.htc"); /* IE6 */}
+.topHead	{height:41px; line-height:41px; background:#007aaa;}
+.topHead .logo	{float:left; padding-left:9px; font-size:16px; font-weight:bold; color:#fff;}
+.topHead .logo img	{vertical-align:middle; margin-bottom:3px;}
+.topHead .seneste	{float:right; width:410px; padding-right:5px; color:#fff; font-size:14px;}
+.topHead .seneste a	{color:#fff;}
+.dspPage	{background:url('/img/ext/epnpol_sep1.gif') repeat-y 310px 0;}
+.BodyCol01	{width:620px; float:left;}
+.BodyCol02	{width:300px; float:right;}
+.artBig	{background:#fff;}
+.artBig .artPic	{width:620px;}
+.artMid .artPic	{width:300px;}
+.relArts a	{background:url('/img/ext/epnpol_lnk.gif') no-repeat 0 5px; padding-left:9px; margin-right:10px; color:#666;}
+.artMid .relArts a	{display:block;}
+.artMid	{width:300px; float:left;}
+.artMid.last	{float:right;}
+.aktierBox .header	{background:#0076a5; height:30px; line-height:30px; color:#fff; font-size:11px; font-weight:bold; text-transform:uppercase; padding-left:9px;}
+.aktierBox div	{margin-bottom:1px; background:#eef; font-size:11px; color:#666; line-height:30px;}
+.aktierBox span	{display:block; float:left; background:#eef;}
+.aktierBox .name	{padding-left:10px; width:85px; font-weight:bold;}
+.aktierBox .time	{width:68px;}
+.aktierBox .rate	{width:72px;}
+.aktierBox .diff	{width:50px;}
+.aktierBox .diff.plus	{color:#5fbb85; background:#eef url('/img/ext/epnpol_plus.gif') no-repeat right center;}
+.aktierBox .diff.min	{color:#da7e85; background:#eef url('/img/ext/epnpol_min.gif') no-repeat right center;}
+.aktierBox .relArts	{font-size:12px; padding-left:10px;}
+.aktierBox .relArts a	{margin-right:8px; padding-left:8px;}
+.aktierBox .graph	{text-align:center; padding:10px 0;}
+.annonce	{color:#999999;font-size:11px;line-height:10px;margin-bottom:9px;}
+.dspBot	{height:10px; line-height:10px; background:#007aaa;}
+</style>
+</head>
+<body>
+<div id="wrapper">
+<div class="topHead">
+<div class="logo">
+<img src="/img/ext/epnpol_logo.gif"/> - Erhverv På Nettet
+</div>
+<div class="seneste"><b>SENESTE:</b>
+<a href="http://epn.dk/brancher/turisme/hotel/article2059815.ece?partner=pol" target="_blank">Lån en iPad på hotelværelset</a>
+</div>
+<div class="cB"><!-- --></div>
+</div>
+<div style="height:10px;"></div>
+<div class="dspPage">
+<div class="BodyCol01">
+<div class="artBig">
+<a href="http://epn.dk/okonomi2/article2059723.ece?partner=pol" target="_blank" ><img class="artPic" src='http://multimedia.jp.dk/archive/00127/Paul_Krugman_127735b.jpg' title="" border="0" /></a>
+<h1><a class="title" href="http://epn.dk/okonomi2/article2059723.ece?partner=pol" target="_blank" >Top&oslash;konom: Gr&aelig;sk euro-exit</a></h1>
+<p>
+Den anerkendte amerikanske &oslash;konom Paul Krugman tror, at Gr&aelig;kenland m&aring; opgive euroen. </p>
+<div class="relArts">
+<a href="http://epn.dk/investor/valuta/article2059824.ece?partner=pol" target="_blank">Kronekursen falder fortsat</a>
+<a href="http://epn.dk/okonomi2/article2059601.ece?partner=pol" target="_blank">Danske Bank frygter for europ&aelig;isk kollaps</a>
+</div>
+</div>
+<div class="hr"><!-- --></div>
+<div class="squareBox">
+<div class="artMid"><a href="http://epn.dk/privat/bolig/article2059800.ece?partner=pol" target="_blank" ><img class="artPic" src='http://multimedia.jp.dk/archive/00068/retssal_68862c.jpg' title="" border="0" /></a>
+<h2><a class="title" href="http://epn.dk/privat/bolig/article2059800.ece?partner=pol" target="_blank" >F&aelig;rre husejere g&aring;r fallit</a></h2>
+</div>
+<div class="artMid last"><a href="http://epn.dk/investor/valuta/article2059824.ece?partner=pol" target="_blank" ><img class="artPic" src='http://multimedia.jp.dk/archive/00228/Euro-kollaps_228914c.jpg' title="" border="0" /></a>
+<h2><a class="title" href="http://epn.dk/investor/valuta/article2059824.ece?partner=pol" target="_blank" >Kronekursen falder fortsat</a></h2>
+</div>
+</div><!--//squareBox-->
+<div class="cB"><!-- --></div>
+</div><!--//BodyCol01-->
+<div class="BodyCol02">
+<div class="aktierBox">
+<div class="header">Aktier</div>
+<div>
+<span class="name">OMXC20</span>
+<span class="time">10:26</span>
+<span class="rate">391.52</span>
+<span class="diff min">-0,88%</span><div class="cB"><!-- --></div>
+</div>
+<div class="graph">
+<img src="http://multimedia.jp.dk/static/cache/epn/kfx_graph.png?vn=300" class="png"/>
+</div>
+<div class="relArts">
+<a href="http://epn.dk/kurs/aktier/?partner=pol" target="_blank">Aktier</a>
+<a href="http://epn.dk/kurs/obligationer/?partner=pol" target="_blank">Obligationer</a>
+<a href="http://epn.dk/kurs/valuta/?partner=pol" target="_blank">Valutakurser</a>
+<a href="http://epn.dk/okonomi2/nogletal/?partner=pol" target="_blank">Nøgletal</a>
+</div>
+<div class="cB"><!-- --></div>
+</div>
+<div class="hr"><!-- --></div>
+<div>
+<div class="annonce">Annonce</div>
+<!-- annonce type 'artikel 5' -->
+<script type="text/javascript">
+document.write('<scr'+'ipt language="javascript1.1" src="http://adserver.adtech.de/addyn/3.0/887/2161970/0/170/ADTECH;loc=100;target=_blank;grp=9;misc='+new Date().getTime()+'"><\/scri'+'pt>');
+</script><noscript><a href="http://adserver.adtech.de/adlink/3.0/887/2161970/0/170/ADTECH;loc=300;grp=9" target="_blank"><img src="http://adserver.adtech.de/adserv/3.0/887/2161970/0/170/ADTECH;loc=300;grp=9" border="0" width="300" height="250"></a></noscript>
+</div>
+</div><!--//BodyCol02-->
+<div class="cB"><!-- --></div>
+</div><!--//dspPage-->	<br class="cB"/>
+<div class="dspBot"></div>
+</div>
+</body>
+</html>

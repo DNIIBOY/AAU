@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<list title="Ingen skjulte gebyrer" tagline="Altid totalpriser på sas.dk" title2="Bestil nu."><unit>
+<dest>Aalborg</dest>
+<date></date>
+<price>295,-</price>
+<seats></seats>
+<custom>Inkl. 1 stk gratis bagage</custom>
+<url>http://www.sas.dk/da/Aalborg</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>Oslo</dest>
+<date></date>
+<price>445,-</price>
+<seats></seats>
+<custom>Gratis sædevalg</custom>
+<url>http://www.sas.dk/da/Oslo</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>Lyon</dest>
+<date></date>
+<price>595,-</price>
+<seats></seats>
+<custom>Intet kortgebyr</custom>
+<url>http://www.sas.dk/da/Lyon</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>Bukarest</dest>
+<date></date>
+<price>795,-</price>
+<seats></seats>
+<custom>Inkl. 1 stk gratis bagage</custom>
+<url>http://www.sas.dk/da/Bukarest</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>New York </dest>
+<date></date>
+<price>3.995,-</price>
+<seats></seats>
+<custom>Rejs fra 15/8 til 11/12</custom>
+<url>http://www.sas.dk/da/New-York</url>
+<type>t/r</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>London</dest>
+<date></date>
+<price>595,-</price>
+<seats></seats>
+<custom>Inkl. 1 stk gratis bagage</custom>
+<url>http://www.sas.dk/da/London</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>Zürich</dest>
+<date></date>
+<price>695,-</price>
+<seats></seats>
+<custom>Intet kortgebyr</custom>
+<url>http://www.sas.dk/da/Zurich</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>Beijing</dest>
+<date></date>
+<price>5.495,-</price>
+<seats></seats>
+<custom>Rejs frem til 29/7 2010</custom>
+<url>http://www.sas.dk/da/Beijing</url>
+<type>t/r</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>Stockholm</dest>
+<date></date>
+<price>445,-</price>
+<seats></seats>
+<custom>Inkl. 1 stk gratis bagage</custom>
+<url>http://www.sas.dk/da/Stockholm</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>Turku</dest>
+<date></date>
+<price>695,-</price>
+<seats></seats>
+<custom>Intet kortgebyr</custom>
+<url>http://www.sas.dk/da/Turku</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>München</dest>
+<date></date>
+<price>695,-</price>
+<seats></seats>
+<custom>Gratis sædevalg</custom>
+<url>http://www.sas.dk/da/Munchen</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>Bergen</dest>
+<date></date>
+<price>395,-</price>
+<seats></seats>
+<custom>Inkl. 1 stk gratis bagage</custom>
+<url>http://www.sas.dk/da/Bergen</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>Manchester</dest>
+<date></date>
+<price>595,-</price>
+<seats></seats>
+<custom>Inkl. 1 stk gratis bagage</custom>
+<url>http://www.sas.dk/da/Manchester</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>Helsinki</dest>
+<date></date>
+<price>695,-</price>
+<seats></seats>
+<custom>Gratis sædevalg</custom>
+<url>http://www.sas.dk/da/Helsinki</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+<unit>
+<dest>Vilnius</dest>
+<date></date>
+<price>395,-</price>
+<seats></seats>
+<custom>Intet kortgebyr</custom>
+<url>http://www.sas.dk/da/Vilnius</url>
+<type>enkel</type>
+<from>København</from>
+</unit>
+</list>

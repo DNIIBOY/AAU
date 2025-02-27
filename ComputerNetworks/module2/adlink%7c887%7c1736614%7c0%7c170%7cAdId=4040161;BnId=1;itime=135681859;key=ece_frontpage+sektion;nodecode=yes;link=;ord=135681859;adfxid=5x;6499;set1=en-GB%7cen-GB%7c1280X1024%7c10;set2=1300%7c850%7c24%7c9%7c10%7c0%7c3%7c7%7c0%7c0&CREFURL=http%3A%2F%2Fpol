@@ -1,0 +1,66 @@
+var ADFMediaURLs='';
+var ADF_clickTag='http://adserver.adtech.de/adlink|887|1736614|0|170|AdId=4040161;BnId=1;itime=135681859;key=ece_frontpage+sektion;nodecode=yes;link=http://track.adform.net/C/?bn=371013;bsqno=1;li=1;cset=100|100|16|1300|850|24|9|10|0|3|7|0|0;pdmn=politiken.dk;adfibeg=0';
+var ADF_ClickEvent='http://track.adform.net/C/?bn=371013;bsqno=1;li=1;cset=100|100|16|1300|850|24|9|10|0|3|7|0|0';
+var ADFtagID='5x';
+var ADFafbanID='371013';
+var FlashObjectID='FlashID5x';
+var ADFDomain='http://track.adform.net/Banners/';
+var ADFBanVer='1';
+var ADFBanVerBak='0';
+var ADFbu=false;
+var ADFTemplateVersion='0';
+var ADFClientSiteId='0';
+var ADFTemplateId='0';
+var ADFGroupId='0';
+var ADFbanID='555561';
+var ADFmembID='86276';
+var ADFcmpgnID='25684';
+var ADFassetID='0';
+var ADFGeoData='12234;11704;208';
+
+
+
+
+<!--
+var ADFtagid1104206651 = (typeof(ADFafbanID)!="undefined") ? ADFafbanID : 0;
+var ADFclickTagString1104206651 = (typeof(ADF_clickTag)!="undefined") ? escape(ADF_clickTag) : escape('http://track.adform.net/C/?bn='+ADFtagid1104206651);
+var ADFclickTagParameters1104206651 = (typeof(ADF_clickTagPars)!="undefined") ? escape(ADF_clickTagPars) : '';
+var FlashObjectID=(typeof(FlashObjectID)!="undefined") ? FlashObjectID : 'adftest';
+var ADFDomain=(typeof(ADFDomain)!="undefined") ? ADFDomain : '';
+var ADFClientSiteId=(typeof(ADFClientSiteId)!="undefined") ? ADFClientSiteId : '';
+var ADFTemplateVersion=(typeof(ADFTemplateVersion)!="undefined") ? ADFTemplateVersion : '0';
+var ADFTemplateId=(typeof(ADFTemplateId)!="undefined") ? ADFTemplateId : '';
+var ADFGroupId=(typeof(ADFGroupId)!="undefined") ? ADFGroupId : '';
+var ADFGeoData=(typeof ADFGeoData != "undefined" || ADFGeoData != null) ? ADFGeoData : '0;0;0';
+var ADFBanVer=(typeof(ADFBanVer)!="undefined") ? ADFBanVer : '';
+var ADFBanVerBak=(typeof(ADFBanVerBak)!="undefined") ? ADFBanVerBak : '';
+var ADFtagID=(typeof(ADFtagID)!="undefined") ? ADFtagID : '123';
+if (typeof(ADFbu)=="undefined") ADFbu=false;
+
+var ADFclickTagVariables1104206651 = 'clickTag='+ADFclickTagString1104206651+';C=1'+ADFclickTagParameters1104206651+'';
+if (ADFMediaURLs) ADFclickTagVariables1104206651 = ADFMediaURLs;
+if(ADFclickTagVariables1104206651.indexOf("OOBClickTrack") > -1){
+    ADFclickTagVariables1104206651 = decodeURIComponent(ADFclickTagVariables1104206651);
+} 
+
+
+var ShockMode = 0;
+var plugin = (navigator.mimeTypes && navigator.mimeTypes["application/x-shockwave-flash"]) ? navigator.mimeTypes["application/x-shockwave-flash"].enabledPlugin : 0;
+if (plugin && parseInt(plugin.description.split(" ")[2]) >= 8)
+{
+ShockMode = 1;
+}
+else if ((navigator.userAgent && navigator.userAgent.indexOf("MSIE")>=0) && (navigator.userAgent.indexOf("Windows 95")>=0 || navigator.userAgent.indexOf("Windows 98")>=0 || navigator.userAgent.indexOf("Windows NT")>=0))
+{
+document.write('<SCR' + 'IPT LANGUAGE=VBScript> \n');
+document.write('on error resume next \n');
+document.write('ShockMode = (IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash.8"))) \n');
+document.write('<\/SCRIPT\> \n');
+}
+if (ShockMode && !ADFbu) {
+document.write('<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" ID="'+FlashObjectID+'" WIDTH="300" HEIGHT="250"><PARAM NAME="movie" VALUE="'+ADFDomain+'555561/555561.swf?bv='+ADFBanVer+'"><PARAM NAME="quality" VALUE="autohigh"><PARAM NAME="bgcolor" VALUE=""> <PARAM NAME="wmode" VALUE="opaque"><PARAM NAME="align" VALUE=""><PARAM NAME="FlashVars" VALUE="cid='+ADFClientSiteId+'&geo='+ADFGeoData+'&gid='+ADFGroupId+'&tv='+ADFTemplateVersion+'&tid='+ADFTemplateId+'&domain='+ ADFDomain +'&ADFid='+ADFtagID+'&'+ADFclickTagVariables1104206651+'"><PARAM NAME="play" VALUE="true"><PARAM NAME="loop" VALUE="true"><PARAM NAME="allowScriptAccess" VALUE="always"><EMBED SRC="'+ADFDomain+'555561/555561.swf?bv='+ADFBanVer+'" FlashVars="gid='+ADFGroupId+'&cid='+ADFClientSiteId+'&geo='+ADFGeoData+'&tv='+ADFTemplateVersion+'&tid='+ADFTemplateId+'&domain='+ ADFDomain +'&ADFid='+ADFtagID+'&'+ADFclickTagVariables1104206651+'" NAME="'+FlashObjectID+'" quality="autohigh"  wmode="opaque" swLiveConnect="true" WIDTH="300" HEIGHT="250"    allowScriptAccess="always" TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"></EMBED></OBJECT>');
+} else if (!(navigator.appName && navigator.appName.indexOf("Netscape")>=0 && navigator.appVersion.indexOf("2.")>=0)){
+document.write('<A HREF="'+ADF_clickTag+';C=0" TARGET="_blank"><IMG ID="'+FlashObjectID+'" SRC="'+ADFDomain+'552064/552064.jpg?bv='+ADFBanVerBak+'" WIDTH="300" HEIGHT="250" ALT="" BORDER="0"></a>');
+}
+//-->
+

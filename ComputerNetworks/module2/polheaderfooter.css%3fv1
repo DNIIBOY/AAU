@@ -1,0 +1,658 @@
+#polHeader {width:960px;}
+#content { width:960px; overflow:hidden; margin: 0 auto;}
+#page{height:1px; position:absolute; left:1px;}
+
+#polHeader .solidline-ccc {border-top:1px solid #ccc;font-size:1px;line-height:0;height:1px;} /*horizontal solid line*/
+
+#polHeader .pol-top-menu {
+background-color:#000;
+border-bottom:1px solid #9E9E9E; 
+height:44px;
+overflow:hidden;
+}
+
+#polHeader .pol-read-news { margin-top:7px; float:left;}
+
+#polHeader .m-top-last-n {float:left}
+
+#polHeader .pol-read-news a.les-avis,
+#polHeader .pol-read-news a.les-avis:visited{ 
+display:block;
+font-size:12px;
+font-weight:bold;
+margin:0 10px 0;
+width:30px;
+line-height:15px;
+text-transform:uppercase;
+color:#fff;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+#polHeader .pol-read-news a.les-avis:hover { color:#c00;text-decoration:none;} 
+
+#polHeader .last-art {
+background:url("/graphics/sprites/pol_sprites_v01.png?v3") no-repeat -472px -455px;
+height:21px;
+padding:3px 0 0 10px;
+font-weight:bold;
+}
+
+#polHeader .last-art-bg {
+background:url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -1743px;
+color:#474842;
+height:21px;
+padding:0;
+text-transform:uppercase;
+width:822px;
+border-right:1px solid #DBDBDB;
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+clear:both;
+}
+
+#polHeader .last-art a,
+#polHeader .last-art a:visited { color:#000}
+#polHeader .last-art a:hover { color:#d01d1d}
+
+#polHeader .last-art span { color:#d01d1d; padding-left:5px;font-weight:bold;}
+
+/*black menu top*/
+#polHeader .pol-top-menu ul {height:14px; padding-top:5px; width:800px; float:left; overflow: hidden; margin:0 0 4px 0; }
+
+#polHeader .pol-top-menu ul li { border-right:1px solid #565656; line-height:10px; float:left; padding:0 10px; text-transform:uppercase;list-style:none;}
+
+#polHeader .pol-top-menu ul li a,
+#polHeader .pol-top-menu ul li a:visited {color:#979797; text-decoration:none; line-height:11px; font-size:10px;font-weight:normal; font-family:Arial, Helvetica, sans-serif;}
+
+#polHeader .pol-top-menu ul li a:hover {color:#c00; text-decoration:none; line-height:11px;}
+
+#polHeader .pol-top-menu ul li a.link-fff,
+#polHeader .pol-top-menu ul li a.link-fff:visited { color:#fff;}
+
+#polHeader .pol-top-menu ul li a.link-fff:hover {color:#c00;}
+
+#polHeader ul li.last, #polHeader ul li.first {background:none !important;border:0px !important;}
+
+#polHeader ul li.first img { padding-top:0px;}
+
+/*Logo last article and search*/
+
+#logo-top-main, #polHeader #breakingNews {width:940px; margin:0 auto;}
+
+.breaking-nw {
+	background: url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -1163px;
+	height:65px;
+	width:940px;
+}
+
+.braking-news-big {background:url(/graphics/sprites/pol_sprites_v01.png?v3) no-repeat 0px -111px; width:259px; height:19px;}
+.braking-news-sm {background:url(/graphics/sprites/pol_sprites_v01.png?v3) no-repeat 0px -131px; width:201px; height:16px; margin-top:8px; margin-left:10px; margin-right:10px;}
+
+
+#polHeader .logo_last_search {margin:16px 0 24px 0;padding-left:10px; height:29px;padding-right:10px;}
+
+#polHeader .pol-top-search,
+#site_map .pol-top-search { margin-top:4px; float:right;}
+
+#polHeader .pol-top-search div,
+#site_map .pol-top-search div { float:left;}
+
+#polHeader .pol-top-search .pol-in-search,
+#site_map .pol-top-search .pol-in-search {
+background:url("/graphics/sprites/pol_sprites_v01.png?v3") no-repeat -324px -430px; 
+width:153px; 
+color:#81827b;
+font-size:10px;
+padding:6px 0 6px 7px;
+border:none;
+margin:0;
+}
+
+#polHeader .pol-but-search,
+#site_map  .pol-but-search {
+margin:1px 0 0 5px; 
+width:50px; 
+height:24px;
+background:url("/graphics/sprites/pol_sprites_v01.png?v3") no-repeat -332px -344px; width:50px; height:24px; overflow:hidden; display:block;
+border:0;
+cursor:pointer;
+}
+
+/*Main menu */
+#polHeader ul.pol-top-main {background:url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -23px; height:23px; padding:0 0 0 0px; overflow:hidden;clear:both;margin:0;}
+
+#polHeader ul.pol-top-main li {float:left; background:url("/graphics/navigation/poHeader/main_m_lines.gif") no-repeat right top; list-style:none;}
+
+#polHeader ul.pol-top-main li a,
+#polHeader ul.pol-top-main li a:visited {
+color:#fff; 
+font:bold 11px Arial, Helvetica, sans-serif;
+display:block;
+margin:0 0 0 -2px;
+padding:5px 11px 0 12px;
+height:18px;
+float:left;
+font-size:11px;
+text-transform:uppercase;
+}
+#polHeader ul.pol-top-main li a:hover { background:url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -46px;text-decoration:none;}
+
+#polHeader ul.pol-top-main li a.curr,
+#polHeader ul.pol-top-main li a.curr:visited, 
+#polHeader ul.pol-top-main li a.curr:hover{
+background:url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -46px;
+
+color:#fff; 
+font:bold 11px Arial, Helvetica, sans-serif;
+display:block;
+margin:0px 0 0 -2px;
+padding:5px 12px 0 12px;
+height:19px;}
+
+#polHeader ul.top-kultur li a.curr,
+#polHeader ul.top-kultur li a.curr:visited, 
+#polHeader ul.top-kultur li a.curr:hover{
+background:url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -2052px;}
+
+#polHeader ul.top-sport li a.curr,
+#polHeader ul.top-sport li a.curr:visited, 
+#polHeader ul.top-sport li a.curr:hover{
+background:url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -230px;}
+
+#polHeader ul.top-tjek li a.curr,
+#polHeader ul.top-tjek li a.curr:visited, 
+#polHeader ul.top-tjek li a.curr:hover{
+background:url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -2112px;}
+
+#polHeader ul.top-ibyen li a.curr,
+#polHeader ul.top-ibyen li a.curr:visited, 
+#polHeader ul.top-ibyen li a.curr:hover{
+background:url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -169px;}
+
+
+#polHeader ul.pol-top-main li a.wm_menu_item:hover {background:none;}
+
+#polHeader ul.pol-top-main li .wm_menu_item {padding:0;margin:5px 0 0 10px;width:80px;}
+#polHeader ul.pol-top-main li .wm_menu_item:link span,
+#polHeader ul.pol-top-main li .wm_menu_item:visited span,
+#polHeader ul.pol-top-main li .wm_menu_item:hover span,
+#polHeader ul.pol-top-main li .wm_menu_item:active span {
+float:right;
+height:27px;
+margin-left:10px;
+margin-top:-19px;
+padding-left:10px;
+width:43px;
+display:block;
+cursor:pointer;
+}
+
+#polHeader ul.pol-top-main li .wm_menu_item:link span,
+#polHeader ul.pol-top-main li .wm_menu_item:visited span
+{ 
+background:url("/graphics/sprites/pol_sprites_v01.png?v3") no-repeat  -466px -477px;
+}
+
+#polHeader ul.pol-top-main li .wm_menu_item:hover span,
+#polHeader ul.pol-top-main li .wm_menu_item:active span
+{ 
+background:url("/graphics/sprites/pol_sprites_v01.png?v3") no-repeat -461px -506px;
+margin-left:5px;
+padding-left:15px;
+}
+
+/*Sub menus*/
+#polHeader ul.pol-top-submain li a.curr,
+#polHeader ul.pol-top-submain li a.curr:visited, 
+#polHeader ul.pol-top-submain li a.curr:hover{font:normal 14px Georgia, "Times New Roman", Times, serif; color:#000; padding-bottom:4px;}
+
+
+
+#polHeader ul.pol-top-submain { height:38px; overflow:hidden;margin:0;list-style:none;position:relative;}
+
+#polHeader ul.pol-top-submain li { float:left; padding:0px 10px 0 10px; line-height:16px; margin-top:10px; height:17px;  }
+
+#polHeader ul.pol-top-submain li:first-child { border-left:none !important}
+
+#polHeader ul.pol-top-submain li a img { margin:0px 0 0px 0;  }
+#polHeader ul.pol-top-submain li a,
+#polHeader ul.pol-top-submain li a:visited { font:normal 14px Georgia, "Times New Roman", Times, serif; display:block; text-transform:capitalize;}
+#polHeader ul.pol-top-submain li a:hover { font:normal 14px Georgia, "Times New Roman", Times, serif; color:#c00; padding-bottom:4px; border-bottom:7px solid #ccc }
+
+#polHeader ul.pol-sub-def,
+#polHeader ul.pol-sub-forside {background: url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -69px;}
+#polHeader ul.pol-sub-def a,
+#polHeader ul.pol-sub-forside a { color:#6a6b62;}
+#polHeader ul.pol-sub-def li a.curr,
+#polHeader ul.pol-sub-forside li a.curr {border-bottom:7px solid #ccc}
+#polHeader ul.pol-sub-def li,
+#polHeader ul.pol-sub-forside li { border-left:1px solid #b0b0b0;}
+#polHeader ul.pol-sub-def li.first a:hover,
+#polHeader ul.pol-sub-forside li.first a:hover { border:none !important}
+#polHeader ul.pol-sub-def li.first,
+#polHeader ul.pol-sub-forside li.first{padding-top:3px;}
+
+#polHeader ul.pol-sub-kultur { background: url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -2074px; overflow:hidden;}
+#polHeader ul.pol-sub-kultur a { color:#474842}
+#polHeader ul.pol-sub-kultur li a.curr {border-bottom:7px solid #d88100; color:#000 !important;}
+#polHeader ul.pol-sub-kultur li { background: url("/grafik/redesign/bor_kult_menu.gif") no-repeat left 1px;}
+#polHeader ul.pol-sub-kultur li a:hover { font:normal 14px Georgia, "Times New Roman", Times, serif; color:#000; padding-bottom:4px; border-bottom:7px solid #d88100; text-decoration:none; }
+#polHeader ul.pol-sub-kultur li.first a:hover { border:none !important}
+#polHeader ul.pol-sub-kultur li.first { padding-top:2px;}
+
+#polHeader ul.pol-sub-tjek { background:url("/graphics/backgrounds/polHeader/tjek_submenu.gif") repeat-x; overflow:hidden;}
+#polHeader ul.pol-sub-tjek a { color:#003366}
+#polHeader ul.pol-sub-tjek li a.curr {border-bottom:7px solid #1f76b4; color:#000 !important;}
+#polHeader ul.pol-sub-tjek li {background: url("/grafik/redesign/bor_tjek_menu.gif") no-repeat left 1px;}
+#polHeader ul.pol-sub-tjek li a:hover { font:normal 14px Georgia, "Times New Roman", Times, serif; color:#000; padding-bottom:4px; border-bottom:7px solid #1f76b4; text-decoration:none; }
+#polHeader ul.pol-sub-tjek li.first a:hover { border:none !important}
+
+#polHeader ul.pol-sub-ibyen { background:url(/graphics/backgrounds/polHeader/ibyen_submenu.gif) repeat-x;margin:0;}
+#polHeader ul.pol-sub-ibyen a { color:#606}
+#polHeader ul.pol-sub-ibyen li a.curr {border-bottom:7px solid #B61E84; color:#000 !important;background:none;padding:0 0 4px 0;}
+#polHeader ul.pol-sub-ibyen li { background: url(/grafik/redesign/bor_ib_menu.gif) no-repeat left 1px;list-style:none;}
+#polHeader ul.pol-sub-ibyen li a:hover {font:normal 14px Georgia, "Times New Roman", Times, serif; color:#000; padding-bottom:4px; border-bottom:7px solid #b61e84;}
+#polHeader ul.pol-sub-ibyen li.first a {display:block; position:relative}
+#polHeader ul.pol-sub-ibyen li.first a:hover { border:none !important}
+#polHeader ul.pol-sub-sport { background:url("/graphics/backgrounds/polHeader/sport_submenu.gif") repeat-x; overflow:hidden;}
+#polHeader ul.pol-sub-sport a { color:#044e04}
+#polHeader ul.pol-sub-sport li a.curr {border-bottom:7px solid #693; color:#000 !important;}
+#polHeader ul.pol-sub-sport li {background: url("/grafik/redesign/bor_sport_menu.gif") no-repeat left 1px;}
+#polHeader ul.pol-sub-sport li a:hover { font:normal 14px Georgia, "Times New Roman", Times, serif; color:#000; padding-bottom:4px; border-bottom:7px solid #693; text-decoration:none; }
+#polHeader ul.pol-sub-sport li.first {padding-top:2px;}
+
+#polHeader ul.pol-sub-sport li.first a:hover { border:none !important}
+
+#polHeader ul.pol-top-submain li.result-option { float:right}
+#polHeader ul.pol-top-submain li.banner-option { height:30px;position:absolute;right:3px;text-align:right;bottom:5px;width:150px;}
+
+#polHeader #top-monster { 
+margin:0 0 10px 0; 
+padding:8px 0 0 0; 
+width:960px;  
+clear:both;
+text-align:center;
+z-index:100000;
+position:relative;
+min-height:180px;
+}
+
+.s-pol-logo { background:url(/graphics/sprites/pol_sprites_v01.png?v3) no-repeat 0px -52px; display:block; width:395px; height:35px;}
+
+/*newsarchive logo bottom*/
+.news-archive-logo {background:url("/graphics/sprites/pol_sprites_v01.png?v3") no-repeat 0 -575px; display:block; width:200px;height:54px;position:absolute;bottom:0;left:460px;}
+/*newsarchive bottom end*/
+
+.read-newspap { background:url(/graphics/sprites/pol_sprites_v01.png?v3) no-repeat 0px -222px; width:87px; height:37px; float:left; overflow:hidden; }
+
+#polHeader #top-monster.pol-right {text-align: right;}
+
+.breaking-nw-sm {
+	background: url(/graphics/sprites/pol_bg_spriets_v0.png?v2) repeat-x 0 -1163px;
+	height:30px;
+	width:620px;
+	margin-bottom:10px;}
+	
+.breaking-sm-logo_blank
+{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:18px;
+	color:#333;
+	margin-top:6px;
+	margin-right:10px;
+	padding:0px;
+	width:260px;
+	height:22px;
+	overflow:hidden;
+	line-height:20px;}
+
+#polHeader #breakingNews .logo_blank {margin-top:17px;margin-right:10px;width:340px;height:30px;overflow:hidden;}
+#polHeader #breakingNews .logo_blank a {
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:24px;
+	font-weight:normal;
+	}
+	
+#polHeader #breakingNews .logo_blank a,
+#polHeader #breakingNews .logo_blank a:visited{
+	color:#000;}
+	
+#polHeader #breakingNews .logo_blank a:hover{
+	color:#c00;
+	text-decoration:none;} 
+
+
+#polHeader #breakingNews .logo {
+	margin-top:23px;
+	margin-left:11px;
+	margin-right:10px;}
+
+#polHeader #breakingNews .big_arrow {
+	margin-right:3px;
+	padding-top:10px;}
+	
+#polHeader #breakingNews .search {	
+	height:24px;
+	margin-right:11px;
+	padding-top:21px;
+	float:right;	
+}
+#polHeader #breakingNews .befor_search {
+	background:url("/graphics/navigation/breaking_news_sm_arrow.png") no-repeat 0 bottom ;
+	height:9px;
+	font-size:10px;
+	font-family:Arial, Helvetica, sans-serif;
+	margin-top:6px;
+	margin-right:5px;
+	padding-left:7px;
+}
+#polHeader #breakingNews .search_text{
+	font-size:10px; 
+	font-family:Arial; 
+	width:84px;
+	height:17px; 
+	padding-left:5px; 
+	padding-top:4px; 
+	margin-right:6px;
+	border:solid 1px #e0e0e0;}
+#polHeader .sms_approve {
+	width:280px;
+	text-align:center;
+	font-size:12px;
+	font-style:italic;
+	float:left;
+	color:#000;
+	display:none;}
+
+/*end polHeader*/
+
+/*Start pol footer*/
+#plus-zone h1 a,
+#plus-zone h1 a:visited{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:18px;
+	font-weight:normal;
+	line-height:20px;}
+	
+#plus-zone h1 a:hover{
+	color:#c00;
+	text-decoration:none;}	
+
+#plus-zone .w20 { width:20px;} 
+	
+#plus-zone .pl-elem { margin-left:20px; float:left;}
+
+#plus-zone .pl-elem td {vertical-align:top;}
+
+/*End Zona_Plus*/
+
+.zone-box { width:940px; margin:0px; padding:0px;}
+
+.plus-logo {background:url("/graphics/sprites/pol_sprites_v01.png?v3") no-repeat -260px -128px; width:90px; height:22px; display:block;}
+
+#plus-zone .zone-title {
+background: url("/graphics/sprites/pol_bg_spriets_v0.png?v2") 0 -668px;
+color:#FFFFFF;
+font-size:14px;
+height:31px;
+margin-bottom:10px;
+padding:10px 14px 0 10px;
+}
+
+.plus-buy {background:url(/graphics/sprites/pol_sprites_v01.png?v3) no-repeat -350px -227px; width:49px; height:24px; display:block;}
+
+.services-logo {background:url(/graphics/sprites/pol_sprites_v01.png?v3) no-repeat 0px -259px; width:226px; height:41px;}
+
+#plus-zone {border-bottom:10px solid #232323; width:940px; padding-bottom:20px; margin-bottom:20px;}
+
+/*Nadia Zona_Plus*/
+#plus-zone .pol-price,#plus-zone .pol-gastronomy-small {font-family:Arial, Helvetica, sans-serif;font-size:11px;color:#999;}
+
+#plus-zone .pol-gastronomy-small {padding-top:10px;position:relative;bottom:4px;}
+
+#plus-zone .pol-plus_price {
+font-family:Arial, Helvetica, sans-serif;
+font-size:12px;
+font-weight:bold;
+color:#666;
+padding-top:10px;
+}
+
+#plus-zone td {_vertical-align:top;} /*for IE*/
+
+#plus-zone .under_image a,
+#plus-zone .under_image a:visited {font-family:Georgia, "Times New Roman", Times, serif;font-size:14px;font-weight:normal;}
+
+#plus-zone .under_image a:hover {color:#c00;text-decoration:none}
+	
+#plus-zone .pol-gastronomy, #plus-zone .pol-gastronomy-small {
+color:#666;
+}
+#plus-zone .pol-gastronomy{
+	line-height:14px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:14px;
+	margin-bottom:10px;
+}
+
+#plus-zone .plus-item-large {width:300px;  float:left;}
+
+.plus-col4_line_940_ccc { background:url("/graphics/lines/4col-lines.gif") 0 0 repeat-y; width:940px;}
+
+/*Services*/
+#services 
+{ margin-bottom:20px; clear:both;}
+
+#services .pol-top-header {
+	background:url("/graphics/sprites/pol_bg_spriets_v0.png?v2") 0 -1625px;
+	height:41px;
+	overflow:hidden;}
+		
+#services ul {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#000;
+	line-height:14px;
+	margin-top:20px;}
+	
+#services ul li { float:left; width:290px; margin-bottom:30px; margin-right:30px; }
+
+#services ul li.first { clear:left;}
+
+#services ul li.last { margin-right:0px;}
+
+#services ul li.bottom { margin-bottom:0px;}
+
+#services p { margin-bottom:0px;}
+
+#services .services_img {margin-right:10px; float:left}
+
+#site_map { width:940px;}
+
+#site_map .redline{
+	height:9px;
+	background:url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -567px;}
+	
+#site_map .pol-bground{
+	height:60px; 
+	border-bottom: solid 1px #d4d5ca; 
+	background:url("/graphics/sprites/pol_bg_spriets_v0.png?v2") repeat-x 0 -576px;
+	position:relative;}
+	
+#site_map .pol-search{
+	margin-top:15px;
+	margin-right:11px;}
+	
+#site_map .pol-body{
+	background-color:#e1e1e1;
+	margin-top:22px;	
+	padding-bottom:19px;}
+	
+#site_map .pol-column{
+	width:156px;
+	border-right: solid 1px #d1d2ce;
+	padding-left:10px;
+	padding-right:10px;}
+
+#site_map .pol-last{
+	width:160px;
+	border-right:none;
+	padding-left:10px;
+	padding-right:10px;}
+
+#site_map img {
+	margin-left:12px;
+	margin-top:13px;}
+	
+#site_map table {
+	background-image:url("/graphics/backgrounds/sitemap_bground.gif");
+	background-repeat:repeat-x;
+	background-position:top; 
+	color:#474842; 
+	font-family:Arial; 
+	font-size:12px; 
+	line-height:17px;
+	height:378px;}
+	
+#site_map a,	
+#site_map a:visited {
+	color:#474842}
+	
+
+#site_map a:hover {
+	color:#c00;}
+	
+#site_map strong {
+	color:#000}
+	
+#site_map .pol-title{
+	font-weight:bold;
+	text-transform:uppercase;}
+	
+	
+#global_footer
+{
+	background:#000 url("/graphics/backgrounds/kolofon-bground.gif") repeat-x; 
+	color:#fff; 
+	clear:both; 
+	width:940px;}
+	
+#global_footer .global_footer-block
+{
+	margin-bottom:35px;
+	color:#fdfafa; 
+	font-size:12px; 
+	font-family:Arial; 
+	padding-top:9px;}
+
+#global_footer .global_footer-block ul li strong { padding-left:4px;}
+
+#global_footer .global_footer-block ul li.strong { font-weight:bold;}
+
+#global_footer .global_footer-block a,
+#global_footer .global_footer-block a:visited {	color:#fdfafa; }
+	
+#global_footer .global_footer-block a:hover { color:#c00; }
+	
+#global_footer .global_footer-block-footer
+{
+	padding-left:9px; 
+	width:931px; 
+	border-bottom:7px;
+	color:#818278; 
+	font-size:9px; 
+	font-family:Arial;
+	padding-bottom:7px;
+	clear:both;}
+	
+#global_footer .global_footer-block_1 {	width:233px;padding-left:9px;overflow:hidden;float:left;}
+	
+#global_footer .global_footer-block_2 {	width:239px;overflow:hidden;float:left;}
+	
+#global_footer .global_footer-block_3 {	width:241px;overflow:hidden;float:left;}
+	
+#global_footer .global_footer-block_4 {	width:218px;overflow:hidden;float:left;}
+
+.read-more-arrow {font-family:arial;padding-right:3px;}
+#global_footer .read-more-arrow {font-size:14px;}
+
+/* Large header */
+
+#large_header { width:920px; overflow:hidden; padding:15px 10px 13px 10px; margin:0px;}
+#large_header .latest-focus, .latest-focus { float:right; margin-top:6px;border:none;}
+#large_header .latest-focus a,
+#large_header .latest-focus a:visited{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:14px;
+}
+
+#large_header .latest-focus a:hover{
+	color:#c00;
+	text-decoration:none;
+}
+
+#large_header .latest-focus span {
+	font:bold 14px Arial, Helvetica, sans-serif;
+	margin-left:14px;
+	text-transform:uppercase;
+  margin-right:6px;
+}
+
+#large_header h2,
+#large_header h2 a,
+#large_header h2 a:visited { 
+	text-transform:uppercase; 
+	font:bold 26px Arial; 
+	text-decoration:none;
+	float:left;
+	margin-right:3px;
+}
+
+#large_header h3,
+#large_header h3 a,
+#large_header h3 a:visited { 
+	font:normal 26px Georgia, "Times New Roman", Times, serif;
+	text-decoration:none;
+}
+
+.large_header ul.focus-sibmenu {float:left; background:#000; width:930px; padding:2px 5px;}
+.large_header ul.focus-sibmenu li { float:left; font-size:11px; line-height:11px; }
+
+.large_header ul.focus-sibmenu li a,
+.large_header ul.focus-sibmenu li a:visited { 
+	font:bold 10px Arial, Helvetica, sans-serif; 
+	color:#fff;
+	text-decoration:none; 
+	text-transform:uppercase; 
+	padding:0 9px 0 5px; 
+	background:url(fokus_submenu_separator.gif) no-repeat right 2px;
+}
+
+.large_header ul.focus-sibmenu li a:hover { 
+	font:bold 10px Arial, Helvetica, sans-serif; 
+	color:#c00; 
+	text-transform:uppercase; 
+	padding:0 9px 0 5px;
+}
+
+.large_header ul.focus-sibmenu li.last a { background:none;}
+
+#polHeader .weather-head {float:left;margin-top:-1px;font-family:arial;}
+.weather-head li a:link,
+.weather-head li a:visited {color:#cc0000;font-size:10px;font-family:arial;font-weight:normal;}
+.weather-head a:hover {color:#666 !important;text-decoration:none;}
+
+#polHeader .weather-head ul {width:110px;float:left;margin-left:30px;margin-bottom:0;list-style:none;}
+
+#polHeader .weather-head li {line-height:11px;list-style-image:none;}
+
+#polHeader .weather-head li.wt-cphhour a {color:#333 ;font-size:10px;text-transform:uppercase;background:none;padding-left:0;}
+#polHeader a.wt-link-icon {display:block;height:90px;width:70px;background:none;}
+
+#polHeader .weather-head a.degrees {font-weight:bold;font-size:20px;color:#666;float:left;margin-top:5px;margin-left:-2px;background:none;display:block;}
+
+#polHeader .weather-head .weather-icon-big {margin-top:-16px;width:90px;height:70px;margin-left:-1px;}
+#polHeader .weather-icon-big a {display:block;width:90px;height:70px;}
+
+#polHeader .wt-read-more-arrow {font-size:12px;}
+

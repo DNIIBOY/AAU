@@ -1,0 +1,9 @@
+document.write("<scr"+"ipt language=\"javascript\" src=\"http://track.adform.net/adfscript/?bn=357841;click=http://adserver.adtech.de/adlink|887|1736608|0|170|AdId=4045759;BnId=1;itime=135682852;key=ece_frontpage+sektion;nodecode=yes;link=;ord=135682852\">\n");
+document.write("</scr"+"ipt>\n");
+document.write("<noscript>\n");
+document.write("<A HREF=\"http://adserver.adtech.de/adlink|887|1736608|0|170|AdId=4045759;BnId=1;itime=135682852;key=ece_frontpage+sektion;nodecode=yes;link=http://track.adform.net/C/?bn=357841;C=0\" TARGET=\"_blank\">\n");
+document.write("<IMG SRC=\"http://track.adform.net/adfserve/?bn=357841;srctype=4;ord=135682852\" BORDER=\"0\" WIDTH=\"300\" HEIGHT=\"250\" ALT=\"\">\n");
+document.write("</A>\n");
+document.write("</noscript>\n");
+
+

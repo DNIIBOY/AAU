@@ -1,0 +1,8 @@
+document.write("<scr"+"ipt src='http://eas.statcamp.net/EAS_tag.1.0.js'>\n");
+document.write("</scr"+"ipt>\n");
+document.write("\n");
+document.write("<scr"+"ipt type=\"text/javascript\" language=\"JavaScript\" src=\"http://eas.statcamp.net/eas?camp=60852;cre=mu;js=y;target=_blank;ord=135681237;EASClick=\">\n");
+document.write("</scr"+"ipt>\n");
+document.write("<noscript><a target=_blank href=\"http://adserver.adtech.de/adlink|887|1736714|0|170|AdId=5077127;BnId=2;itime=135681237;key=ece_frontpage+sektion;nodecode=yes;link=http://eas.statcamp.net/eas?camp=60852;ty=ct\"><img src=\"http://eas.statcamp.net/eas?camp=60852;cre=img;ord=135681237\" border=\"0\" alt=\"EmediateAd\" width=\"300\" height=\"250\"></a></noscript>\n");
+
+
