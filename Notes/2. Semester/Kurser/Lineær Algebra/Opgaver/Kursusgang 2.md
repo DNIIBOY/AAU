@@ -1,4 +1,3 @@
-![[linear-algebra-and-its-applications.pdf#page=59&rect=38,303,280,372|linear-algebra-and-its-applications, p.58]]
 $$
 \begin{matrix}
 4x_{1}-8x_{2}=9 \\
@@ -6,7 +5,6 @@ $$
 2x_{1}=-5
 \end{matrix}
 $$
-
 ![[linear-algebra-and-its-applications.pdf#page=59&rect=290,433,531,515|linear-algebra-and-its-applications, p.58]]
 
 $$
