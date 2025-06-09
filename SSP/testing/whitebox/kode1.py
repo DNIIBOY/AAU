@@ -1,3 +1,4 @@
+from unittest.mock import patch
 import unittest
 
 
@@ -5,35 +6,39 @@ def checkInputValue(value) -> str:
     if value > 3:  # a
         if value >= 10:  # b
             print("Value is larger than or equal to 10")
-            return "ab"
         else:
             print("Value is larger than 3 and smaller than 10")
-            return "a"
     else:
         if value > 0:  # c
             print("Value is between zero and three")
-            return "ac"
         else:
             print("Value is negative")
-            return ""
 
 
-valToBeChecked = 3
-print("For value " + str(valToBeChecked))
-checkInputValue(valToBeChecked)
+class TestCheckInputValue(unittest.TestCase):
+    @patch("builtins.print")
+    def test_negative_value(self, mock_print) -> None:
+        checkInputValue(-5)
+        mock_print.assert_called_once_with("Value is negative")
 
+    @patch("builtins.print")
+    def test_positive_small_value(self, mock_print) -> None:
+        checkInputValue(2)
+        mock_print.assert_called_once_with("Value is between zero and three")
 
-class TestTheShit(unittest.TestCase):
-    def test_rasmus_numbers(self) -> None:
-        self.assertEqual(checkInputValue(-5), "")
-        self.assertEqual(checkInputValue(-0.4), "")
-        self.assertEqual(checkInputValue(0), "")
-        self.assertEqual(checkInputValue(0.7), "ac")
-        self.assertEqual(checkInputValue(-5), "")
-        self.assertEqual(checkInputValue(-0.4), "")
-        self.assertEqual(checkInputValue(1), "ac")
-        self.assertEqual(checkInputValue(4), "a")
-        self.assertEqual(checkInputValue(3452), "ab")
+    @patch("builtins.print")
+    def test_medium_value(self, mock_print) -> None:
+        checkInputValue(5)
+        mock_print.assert_called_once_with("Value is larger than 3 and smaller than 10")
+
+    @patch("builtins.print")
+    def test_large_value(self, mock_print) -> None:
+        checkInputValue(15)
+        mock_print.assert_called_once_with("Value is larger than or equal to 10")
+
+    def test_string_input(self) -> None:
+        with self.assertRaises(TypeError):
+            checkInputValue("abc")
 
 
 if __name__ == "__main__":
