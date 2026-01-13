@@ -1,9 +1,9 @@
-[] Induktion
-[] Logisk ækvevalens
-[] Komplekse funktioner
-[] Kombinatorik
+[x] Induktion
+[x] Logisk ækvevalens
+[x] Komplekse funktioner
+[x] Kombinatorik
 [x] Serier/Konvergens
 [x] Diff Ligninger
-[]Partiel diff
+[x]Partiel diff
 [] Laplace
 [] Taylor?
