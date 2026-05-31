@@ -109,7 +109,7 @@ $$
 E[X] = np
 $$
 $$
-Var(X) = np(1-p)
+\sigma^2 = Var(X) = np(1-p)
 $$
 PMF:
 $$
@@ -215,3 +215,9 @@ Z-score:
 $$
 Z = \frac{X-\mu}{\sigma}
 $$
+Found in `standardnormaltable.pdf`, or in sagemath with
+```python
+T = RealDistribution('gaussian', 1)
+T.cum_distribution_function()
+T.cum_distribution_function_inv()
+```
