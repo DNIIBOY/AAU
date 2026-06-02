@@ -1,4 +1,4 @@
-# Sampling
+	# Sampling
 ![[Probability_theory_session1_with_notes.pdf#page=41&rect=4,4,781,554|Probability_theory_session1_with_notes, p.41]]
 
 # Conditional Probability
@@ -220,4 +220,9 @@ Found in `standardnormaltable.pdf`, or in sagemath with
 T = RealDistribution('gaussian', 1)
 T.cum_distribution_function()
 T.cum_distribution_function_inv()
+```
+
+To generate values within the distribution:
+```python
+np.random.normal(mean, std, count)
 ```
