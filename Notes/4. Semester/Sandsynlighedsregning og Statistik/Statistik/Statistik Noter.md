@@ -123,7 +123,10 @@ $$
 s^2 = \frac{\sum_{i=1}^n(Y_{i} -\hat{Y_{i}})^2}{n-2}
 $$
 Where $\hat{Y}_{i} = \hat{\beta}_{1}X_{1} + \hat{\beta}_{0}$
-
+# Coefficient of Determination
+$$
+R^2 = 1 - \frac{SS_{\text{resid}}}{SS_{\text{total}}} \quad \text{or} \quad r = \frac{n\sum XY - \sum X\sum Y}{\sqrt{[n\sum X^2 - (\sum X)^2][n\sum Y^2 - (\sum Y)^2]}}
+$$
 
 # Hypothesis testing
 With Gaussian distribution and known variance:
