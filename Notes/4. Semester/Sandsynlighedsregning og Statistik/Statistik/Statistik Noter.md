@@ -118,6 +118,12 @@ $$
 \hat{\sigma^2} = \left( \frac{1}{n-2} \right)\sum_{i=1}^n \hat{\epsilon}_{i}^2
 $$
 $\epsilon_{i}$ is the difference between the true y-value in the dataset, and the output of the model
+## Mean square error (MSE)
+$$
+s^2 = \frac{\sum_{i=1}^n(Y_{i} -\hat{Y_{i}})^2}{n-2}
+$$
+Where $\hat{Y}_{i} = \hat{\beta}_{1}X_{1} + \hat{\beta}_{0}$
+
 
 # Hypothesis testing
 With Gaussian distribution and known variance:
@@ -127,6 +133,12 @@ With Gaussian distribution and known variance:
 | $\mu=\mu_{0}$      | $\mu \neq \mu_{0}$ | $\|\hat{\mu_{n}} - \mu_{0}\|\sqrt{ n }/\sigma$ | $T > Z_{\alpha/2}$ | $2(1-\Phi(T))$ |
 | $\mu \leq \mu_{0}$ | $\mu > \mu_{0}$    | $(\hat{\mu_{n}} - \mu_{0})\sqrt{ n }/\sigma$   | $T > Z_{\alpha}$   | $(1-\Phi(T))$  |
 | $\mu \geq \mu_{0}$ | $\mu < \mu_{0}$    | $(\hat{\mu_{n}} - \mu_{0})\sqrt{ n }/\sigma$   | $T < -Z_{\alpha}$  | $\Phi(T)$      |
+If $\sigma$ is estimated, and we cannot be certain it is a normal distribution, we replace $Z_{\alpha}$ with $t_{\alpha}$:
+```python
+from scipy.stats import t
+t.ppf(1-a/2, df=n-1)
+```
+
 For Bernoulli RV:
 $$
 v = P(X\geq k) = \sum_{i=k}^n \begin{pmatrix}n\\i\end{pmatrix}p_{0}^i(1-p_{0})^{n-i}
@@ -138,3 +150,35 @@ $$
 T = \frac{k-np_{0}}{\sqrt{ np_{0}(1-p_{0}) }}
 $$
 And compare with normal rejection region.
+
+
+## Two-sided 
+If we need to compare two normally distributed populations
+### With know variance:
+$$
+H_{0}: \mu_{X} = \mu_{Y} \implies \mu_{X} - \mu_{Y} = 0
+$$
+$$
+T = \frac{|\hat{\mu}_{X} - \hat{\mu}_{Y}|}{\sqrt{\frac{\sigma_{X}^2}{n_{X}}+\frac{\sigma_{Y}^2}{n_{Y}}}}
+$$
+Rejection region:
+$$
+R = \{T > Z_{\alpha/2}\}
+$$
+### With unknown variance:
+$$
+T = \frac{|\hat{\mu}_{X} - \hat{\mu}_{Y}|}{S_{\bar{X}-\bar{Y}}\sqrt{\frac{1}{n_{X}}+\frac{1}{n_{Y}}}}
+$$
+Where the non-biased estimator for variance is:
+$$
+S_{\bar{X}-\bar{Y}}^2 = \frac{\sum_{i=1}^{n_{X}}(X_{i}-\bar{X})^2 + \sum_{i=1}^{n_{Y}}(Y_{i}-\bar{Y})^2}{n_{X} + n_{Y} - 2}
+$$
+And the rejection region:
+$$
+R = \{T > T_{\alpha/2, n_{X} + n_{Y} - 2}\}
+$$
+Where the second T has fuck all to do with the first one, and i calculated with:
+```python
+from scipy.stats import t
+t.ppf(1-a/2, df=nx+ny-2)
+```
